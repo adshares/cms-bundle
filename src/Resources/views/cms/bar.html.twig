@@ -6,9 +6,9 @@
         </div>
         <div>
         {% if cms.editMode | default(false) %}
-            <button disabled id="save-button" type="button" class="btn btn-success btn-sm"><i class="bi bi-check-lg"></i> Save changes</button>
+            <button disabled id="cms-save-button" type="button" class="btn btn-success btn-sm"><i class="bi bi-check-lg"></i> Save changes</button>
             {% if cms.appUrl %}
-                <a role="button" href="{{ cms.appUrl }}" class="btn btn-secondary btn-sm"><i class="bi bi-x"></i> Close</a>
+                <a id="cms-cancel-button" role="button" href="{{ cms.appUrl }}" class="btn btn-secondary btn-sm"><i class="bi bi-x"></i> Close</a>
             {% endif %}
             {{ encore_entry_script_tags('scripts/cms') }}
         {% else %}

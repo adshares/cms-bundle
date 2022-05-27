@@ -32,7 +32,7 @@ final class CmsExtension extends AbstractExtension implements GlobalsInterface
         }
 
         return $editMode ? sprintf(
-            '<div class="a-content" data-a-name="%s" data-a-locale="%s">%s</div>',
+            '<div class="cms-content" data-cms-name="%s" data-cms-locale="%s">%s</div>',
             $name,
             $this->translator->getLocale(),
             $content

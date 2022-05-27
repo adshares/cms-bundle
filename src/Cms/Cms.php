@@ -26,7 +26,7 @@ class Cms
         return $this;
     }
 
-    public function getRoute(): string
+    public function getRoute(): ?string
     {
         return $this->route;
     }

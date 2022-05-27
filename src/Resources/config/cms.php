@@ -19,6 +19,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
@@ -77,11 +78,18 @@ return static function (ContainerConfigurator $container) {
             ->tag('console.command')
 
         ->set('twig.extension.asset', AssetExtension::class)
-            ->args([service(Packages::class), service(ParameterBagInterface::class)])
+            ->args([
+                service(Packages::class),
+                service(ParameterBagInterface::class),
+            ])
             ->tag('twig.extension')
 
         ->set('twig.extension.cms', CmsExtension::class)
-            ->args([service(Cms::class), service(TranslatorInterface::class)])
+            ->args([
+                service(Cms::class),
+                service(TranslatorInterface::class),
+                service(RouterInterface::class),
+            ])
             ->tag('twig.extension')
 
         ->set('translation.loader.content', TranslationLoader::class)

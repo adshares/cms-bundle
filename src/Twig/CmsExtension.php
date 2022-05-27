@@ -3,14 +3,18 @@
 namespace Adshares\CmsBundle\Twig;
 
 use Adshares\CmsBundle\Cms\Cms;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
+use Twig\Extension\GlobalsInterface;
 
-final class CmsExtension extends AbstractExtension
+final class CmsExtension extends AbstractExtension implements GlobalsInterface
 {
     public function __construct(
         private readonly Cms $cms,
-        private readonly TranslatorInterface $translator
+        private readonly TranslatorInterface $translator,
+        private readonly RouterInterface $router,
     ) {
     }
 
@@ -33,5 +37,28 @@ final class CmsExtension extends AbstractExtension
             $this->translator->getLocale(),
             $content
         ) : $content;
+    }
+
+    public function getGlobals(): array
+    {
+        return [
+            'cms' => [
+                'editMode' => $this->cms->isEditMode(),
+                'appUrl' => $this->generateUrl(
+                    preg_replace('/^cms_/', '', $this->cms->getRoute()),
+                    $this->cms->getRouteParams()
+                ),
+                'cmsUrl' => $this->generateUrl('cms_' . $this->cms->getRoute(), $this->cms->getRouteParams()),
+            ]
+        ];
+    }
+
+    private function generateUrl(string $name, array $parameters = []): ?string
+    {
+        try {
+            return $this->router->generate($name, $parameters);
+        } catch (RouteNotFoundException $exception) {
+        }
+        return null;
     }
 }

@@ -5,13 +5,15 @@
             <a role="button" href="{{ path('cms_security_logout') }}" class="btn btn-secondary btn-sm"><i class="bi bi-box-arrow-right"></i> Log out</a>
         </div>
         <div>
-        {% if editMode | default(false) %}
+        {% if cms.editMode | default(false) %}
             <button disabled id="save-button" type="button" class="btn btn-success btn-sm"><i class="bi bi-check-lg"></i> Save changes</button>
-            <a role="button" href="{{ appLink }}" class="btn btn-secondary btn-sm"><i class="bi bi-x"></i> Close</a>
+            {% if cms.appUrl %}
+                <a role="button" href="{{ cms.appUrl }}" class="btn btn-secondary btn-sm"><i class="bi bi-x"></i> Close</a>
+            {% endif %}
             {{ encore_entry_script_tags('scripts/cms') }}
         {% else %}
-            {% if cmsLink is defined %}
-                <a role="button" href="{{ cmsLink }}" class="btn btn-secondary btn-sm"><i class="bi bi-pencil"></i> Edit</a>
+            {% if cms.cmsUrl %}
+                <a role="button" href="{{ cms.cmsUrl }}" class="btn btn-secondary btn-sm"><i class="bi bi-pencil"></i> Edit</a>
             {% endif %}
         {% endif %}
         </div>

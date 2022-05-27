@@ -21,6 +21,12 @@ class CmsListener implements EventSubscriberInterface
         if (null !== $request->get('_cms')) {
             $this->cms->setEditMode(true);
         }
+
+        if (null !== ($route = $request->get('_route'))) {
+            $parameters = $request->attributes->get('_route_params');
+            unset($parameters['_cms']);
+            $this->cms->setRoute($route, $parameters);
+        }
     }
 
     public static function getSubscribedEvents(): array

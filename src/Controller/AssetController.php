@@ -17,7 +17,6 @@ class AssetController
     {
     }
 
-    #[Route('/test', name: 'test')]
     public function list(): Response
     {
         return new JsonResponse($this->fileUploader->getAssets());

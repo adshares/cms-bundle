@@ -5,11 +5,11 @@
     xsi:schemaLocation="http://symfony.com/schema/routing https://symfony.com/schema/routing/routing-1.0.xsd">
 
     <route id="cms_asset_list" path="/assets" methods="GET">
-        <default key="_controller">cms.controller.content::getAssets</default>
+        <default key="_controller">cms.controller.content::list</default>
     </route>
 
     <route id="cms_asset_upload" path="/assets" methods="POST">
-        <default key="_controller">cms.controller.content::uploadAsset</default>
+        <default key="_controller">cms.controller.content::upload</default>
     </route>
 
 </routes>

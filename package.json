@@ -1,0 +1,8 @@
+{
+    "devDependencies": {
+        "@tinymce/tinymce-jquery": "^2.0.0",
+        "jquery": "^3.6.0",
+        "tinymce": "5.10.2"
+    },
+    "private": true
+}

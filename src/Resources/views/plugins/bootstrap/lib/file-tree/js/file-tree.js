@@ -530,9 +530,6 @@
                                         const xhr = new XMLHttpRequest()
                                         xhr.withCredentials = false
                                         xhr.open('POST', '/cms/assets')
-                                        xhr.onload = e => {
-
-                                        }
                                         xhr.onreadystatechange = async e => {
                                             if(e.currentTarget.status === 201) {
                                                 await this.loadAndRenderContent()

@@ -4,7 +4,10 @@
 
 <template id="explorer-mode">
     <div class="d-flex justify-content-between pt-3 ft-explorer-mode">
-        <button type="button" id="upload-image-btn" class="btn upload-image-btn"><i class="ft-icon-folder-open"></i></button>
+        <div class="d-flex align-items-start">
+            <button type="button" id="upload-image-btn" class="btn upload-image-btn"><i class="ft-icon-folder-open"></i></button>
+            <span class="badge upload-status"></span>
+        </div>
         <div>
             <button type="button" value="grid" class="explorer-mode-btn btn mr-4"><i class="ft-icon-grid"></i></button>
             <button type="button" value="list" class="explorer-mode-btn btn"><i class="ft-icon-list"></i></button>

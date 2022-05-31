@@ -58,7 +58,7 @@ content.each(function (_idx) {
     },
     setup: function (editor) {
       editor.on('change', function (_event) {
-        if (originContent[contentName].value.replaceAll(/\n|\s/g, '') === editor.getContent().replaceAll(/\n|\s/g, '')) {
+        if (originContent[contentName].value.replaceAll(/\n|\s{2,}/g, '').replaceAll(/(<\w+>)\s/g , '$1').replaceAll(/\s(<\/\w+>)/g , '$1') === editor.getContent().replaceAll(/\n|\s{2,}/g, '').replaceAll(/(<\w+>)\s/g , '$1').replaceAll(/\s(<\/\w+>)/g , '$1')) {
           delete changedContent[contentName]
           setButton(saveChangesBtnStatus.default, $.isEmptyObject(changedContent))
         }

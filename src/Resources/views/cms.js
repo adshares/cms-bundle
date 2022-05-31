@@ -5,22 +5,34 @@ import 'tinymce/themes/silver/theme'
 import 'tinymce/icons/default/icons'
 import 'tinymce/plugins/code'
 
+const CMS_NAME = 'cms-name'
+const CMS_LOCALE = 'cms-locale'
+const BOOTSTRAP_PLUGIN_KEY = 'tAj3ykawOTzO195azIrI398bWt0b3XTV81JV/lbJUIjS3J/JTek+KS1dWnTUdJxQcZETNZtBTotT5aIpXyNRnIiqyT0jpZV9nn3mnkEQPs4='
+
 const content = $('.cms-content')
 const saveChangesBtn = $('#cms-save-button')
-const prevContent = {}
-const editableElements = {}
-let elementsToSave = []
+const originContent = {}
+const changedContent = {}
+const saveChangesBtnStatus = {
+  success: { class: 'btn btn-success btn-sm', message: ' Changes saved', icon: 'bi bi-check-lg' },
+  error: { class: 'btn btn-danger btn-sm', message: ' Saving error', icon: 'bi bi-x-lg' },
+  default: { class: 'btn btn-primary btn-sm', message: ' Save changes', icon: 'bi bi-send' },
+  process: { class: 'btn btn-primary btn-sm', message: ' Saving', icon: 'bi bi-arrow-repeat' },
+}
 
 content.each(function (_idx) {
-  const thisEditableBlock = this
-  prevContent[$(thisEditableBlock).attr('data-cms-name')] = {
-    name: $(thisEditableBlock).attr('data-cms-name'),
-    value: $(thisEditableBlock).html(),
-    locale: $(thisEditableBlock).attr('data-cms-locale'),
+  const contentName = $(this).data(CMS_NAME)
+  const contentLocale = $(this).data(CMS_LOCALE)
+  const tinymceSelector = `.cms-content[data-cms-name=${contentName}]`
+
+  originContent[contentName] = {
+    name: contentName,
+    value: $(this).html(),
+    locale: contentLocale,
   }
 
   tinymce.init({
-    selector: `.cms-content[data-cms-name=${$(this).attr('data-cms-name')}]`,
+    selector: tinymceSelector,
     inline: true,
     plugins: 'code bootstrap',
     toolbar: [
@@ -42,41 +54,56 @@ content.each(function (_idx) {
         badge: true,
         alert: true,
       },
-      key: 'tAj3ykawOTzO195azIrI398bWt0b3XTV81JV/lbJUIjS3J/JTek+KS1dWnTUdJxQcZETNZtBTotT5aIpXyNRnIiqyT0jpZV9nn3mnkEQPs4=',
+      key: BOOTSTRAP_PLUGIN_KEY,
     },
     setup: function (editor) {
       editor.on('change', function (_event) {
-        editableElements[$(editor.getBody()).attr('data-cms-name')] = {
-          name: $(editor.getBody()).attr('data-cms-name'),
-          value: editor.getContent(),
-          locale: $(editor.getBody()).attr('data-cms-locale')
+        if (originContent[contentName].value.replaceAll(/\n|\s{2,}/g, '').replaceAll(/(<\w+>)\s/g , '$1').replaceAll(/\s(<\/\w+>)/g , '$1') === editor.getContent().replaceAll(/\n|\s{2,}/g, '').replaceAll(/(<\w+>)\s/g , '$1').replaceAll(/\s(<\/\w+>)/g , '$1')) {
+          delete changedContent[contentName]
+          setButton(saveChangesBtnStatus.default, $.isEmptyObject(changedContent))
         }
-        elementsToSave = checkChangedElements(prevContent, editableElements)
-        saveChangesBtn.attr('disabled', !elementsToSave.length)
+        else {
+          changedContent[contentName] = {
+            name: contentName,
+            value: editor.getContent(),
+            locale: contentLocale,
+          }
+          setButton(saveChangesBtnStatus.default, $.isEmptyObject(changedContent))
+        }
       })
     }
   })
 })
 
 saveChangesBtn.on('click', function () {
-  if (elementsToSave.length) {
-    $.ajax({
-      method: 'PATCH',
-      url: '/cms/content',
-      data: JSON.stringify(elementsToSave),
-      success: function () {
-        elementsToSave.map(element => {
-          prevContent[element.name] = element
-        })
-        elementsToSave.splice(0, elementsToSave.length)
-        saveChangesBtn.attr('disabled', true)
-      }
-    })
+  if ($.isEmptyObject(changedContent)) {
+    return
   }
+
+  setButton(saveChangesBtnStatus.process, true)
+
+  $.ajax({
+    method: 'PATCH',
+    url: '/cms/content',
+    data: JSON.stringify(changedContent),
+    success: function () {
+      Object.entries(changedContent).map(element => {
+        originContent[element[0]] = element[1]
+        delete changedContent[element[0]]
+      })
+      setButton(saveChangesBtnStatus.success, true)
+    },
+    error: function () {
+      setButton(saveChangesBtnStatus.error, false)
+    },
+  })
 })
 
-function checkChangedElements (prevState, newElements) {
-  return Object.values(newElements).filter(element => Object.values(prevState).find(
-    prevElement => element.name === prevElement.name && element.value.replaceAll(/\s/g, '') !== prevElement.value.replaceAll(/\s/g, '')
-  ))
+function setButton (buttonStatus, disabled) {
+  saveChangesBtn
+    .attr('disabled', disabled)
+    .removeClass()
+    .addClass(buttonStatus.class)
+    .text(buttonStatus.message)
+    .prepend(`<i class="${buttonStatus.icon}"></i>`)
 }

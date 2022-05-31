@@ -4,7 +4,10 @@
 
 <template id="explorer-mode">
     <div class="d-flex justify-content-between pt-3 ft-explorer-mode">
-        <button type="button" id="upload-image-btn" class="btn upload-image-btn"><i class="fa fa-upload"></i></button>
+        <div class="d-flex align-items-start">
+            <button type="button" id="upload-image-btn" class="btn upload-image-btn"><i class="ft-icon-folder-open"></i></button>
+            <span class="badge upload-status"></span>
+        </div>
         <div>
             <button type="button" value="grid" class="explorer-mode-btn btn mr-4"><i class="ft-icon-grid"></i></button>
             <button type="button" value="list" class="explorer-mode-btn btn"><i class="ft-icon-list"></i></button>
@@ -16,8 +19,8 @@
 <template id="explorer-action-btns">
     <div class="text-center my-5">
         <div class="tox btn-group" role="group" aria-label="File Tree action buttons">
-            <button type="button" value="cancel" class="tox-button tox-button--secondary explorer-cancel-btn">Cancel<i class="ml-2 ft-icon-blocked"></i></button>
-            <button type="button" value="submit" class="tox-button explorer-ok-btn">OK<i class="ml-2 ft-icon-checkmark"></i></button>
+            <button type="button" value="cancel" class="control-btn control-btn--secondary explorer-cancel-btn">Cancel<i class="ml-2 ft-icon-blocked"></i></button>
+            <button type="button" value="submit" class="control-btn explorer-ok-btn">OK<i class="ml-2 ft-icon-checkmark"></i></button>
         </div>
     </div>
 </template>

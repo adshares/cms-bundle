@@ -40,10 +40,13 @@ class CreateUserCommand extends Command
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new RuntimeException('Invalid email address.');
         }
+        $user = $this->userRepository->findByEmail($email);
 
-        $password = str_replace(['+', '/', '='], ['x', 'y', ''], base64_encode(random_bytes(8)));
+        $password = null === $user ?
+            str_replace(['+', '/', '='], ['x', 'y', ''], base64_encode(random_bytes(8))) :
+            null;
         $password = $input->getArgument('password') ?? $io->ask('Password', $password);
-        if (empty($password)) {
+        if (null === $user && empty($password)) {
             throw new RuntimeException('Password cannot be empty.');
         }
 
@@ -54,7 +57,15 @@ class CreateUserCommand extends Command
             $role = 'EDITOR';
         }
 
-        $user = $this->userRepository->createUser($email, $password, ['ROLE_' . $role]);
+        if (null === ($user = $this->userRepository->findByEmail($email))) {
+            $user = $this->userRepository->createUser($email, $password, ['ROLE_' . $role]);
+        } else {
+            if (!empty($password)) {
+                $user->setPassword($password);
+            }
+            $user->setRoles(['ROLE_' . $role]);
+            $this->userRepository->add($user, true);
+        }
 
         $io->success([
             sprintf('%s %s has been created', $role, $user->getEmail()),

@@ -41,15 +41,7 @@ class CreateUserCommand extends Command
             throw new RuntimeException('Invalid email address.');
         }
         $user = $this->userRepository->findByEmail($email);
-
-        $password = null === $user ?
-            str_replace(['+', '/', '='], ['x', 'y', ''], base64_encode(random_bytes(8))) :
-            null;
-        $password = $input->getArgument('password') ?? $io->ask('Password', $password);
-        if (null === $user && empty($password)) {
-            throw new RuntimeException('Password cannot be empty.');
-        }
-
+        $password = $input->getArgument('password');
         $role = 'USER';
         if ($input->getOption('admin')) {
             $role = 'ADMIN';
@@ -57,19 +49,26 @@ class CreateUserCommand extends Command
             $role = 'EDITOR';
         }
 
-        if (null === ($user = $this->userRepository->findByEmail($email))) {
+        if (null === $user) {
+            $random = str_replace(['+', '/', '='], ['x', 'y', ''], base64_encode(random_bytes(8)));
+            $password = $password ?? $io->ask('Password', $random);
+            if (empty($password)) {
+                throw new RuntimeException('Password cannot be empty.');
+            }
             $user = $this->userRepository->createUser($email, $password, ['ROLE_' . $role]);
+            $action = 'created';
         } else {
             if (!empty($password)) {
                 $user->setPassword($password);
             }
             $user->setRoles(['ROLE_' . $role]);
             $this->userRepository->add($user, true);
+            $action = 'changed';
         }
 
         $io->success([
-            sprintf('%s %s has been created', $role, $user->getEmail()),
-            sprintf('Password: %s', $password),
+            sprintf('%s %s has been %s', $role, $user->getEmail(), $action),
+            sprintf('Password: %s', !empty($password) ? $password : '[Not changed]'),
         ]);
 
         return Command::SUCCESS;

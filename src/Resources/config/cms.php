@@ -74,7 +74,10 @@ return static function (ContainerConfigurator $container) {
             ->tag('kernel.event_subscriber')
 
         ->set(CreateUserCommand::class, CreateUserCommand::class)
-            ->args([service(UserRepository::class)])
+            ->args([
+                service(UserRepository::class),
+                service(UserPasswordHasherInterface::class)
+            ])
             ->tag('console.command')
 
         ->set('twig.extension.asset', AssetExtension::class)

@@ -11,6 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[AsCommand(
     name: 'cms:user:create',
@@ -18,8 +19,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class CreateUserCommand extends Command
 {
-    public function __construct(private readonly UserRepository $userRepository, string $name = null)
-    {
+    public function __construct(
+        private readonly UserRepository $userRepository,
+        private readonly UserPasswordHasherInterface $passwordHasher,
+        string $name = null
+    ) {
         parent::__construct($name);
     }
 
@@ -59,7 +63,7 @@ class CreateUserCommand extends Command
             $action = 'created';
         } else {
             if (!empty($password)) {
-                $user->setPassword($password);
+                $user->setPassword($this->passwordHasher->hashPassword($user, $password));
             }
             $user->setRoles(['ROLE_' . $role]);
             $this->userRepository->add($user, true);

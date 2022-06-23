@@ -96,7 +96,10 @@ return static function (ContainerConfigurator $container) {
             ->tag('twig.extension')
 
         ->set('translation.loader.content', TranslationLoader::class)
-            ->args([service(ContentRepository::class)])
+            ->args([
+                service(ContentRepository::class),
+                service(LoggerInterface::class),
+            ])
             ->tag('translation.loader', ['alias' => 'bin'])
     ;
 };

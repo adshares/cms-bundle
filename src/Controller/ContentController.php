@@ -43,7 +43,7 @@ class ContentController
 
         $entities = [];
         foreach ($list as $entry) {
-            $content = $repository->find(['name' => $entry['name'], 'locale' => $entry['locale']]);
+            $content = $repository->findOne($entry['name'], $entry['locale']);
             if (null === $content) {
                 $content = new Content();
                 $content->setName($entry['name'], $entry['locale']);

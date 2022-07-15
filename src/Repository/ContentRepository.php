@@ -54,6 +54,11 @@ class ContentRepository extends ServiceEntityRepository
         }
     }
 
+    public function findOne(string $name, string $locale): Content|null
+    {
+        return $this->findOneBy(['name' => $name, 'locale' => $locale]);
+    }
+
     /**
      * @return Content[] Returns an array of Content objects
      */

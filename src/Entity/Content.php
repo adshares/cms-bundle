@@ -3,30 +3,37 @@
 namespace Adshares\CmsBundle\Entity;
 
 use Adshares\CmsBundle\Repository\ContentRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
-/**
- * @ORM\Entity(repositoryClass=ContentRepository::class)
- */
+#[ORM\Entity(ContentRepository::class)]
+#[ORM\UniqueConstraint(name: "content_unique", columns: ["name", "locale"])]
+#[Gedmo\Loggable]
 class Content
 {
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer")]
+    private int $id;
 
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="string", length=252)
-     */
+    #[ORM\Column(type: "string", length: 252)]
     private string $name;
 
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="string", length=2, options={"default": "en"})
-     */
+    #[ORM\Column(type: "string", length: 2, options: ["default" => "en"])]
     private string $locale = 'en';
 
-    /**
-     * @ORM\Column(type="text")
-     */
+    #[ORM\Column(type: "text")]
+    #[Gedmo\Versioned]
     private string $value;
+
+    #[ORM\Column(type: "datetime")]
+    #[Gedmo\Timestampable(on: "create")]
+    private DateTimeInterface $createdAt;
+
+    #[ORM\Column(type: "datetime")]
+    #[Gedmo\Timestampable(on: "update")]
+    private DateTimeInterface $updatedAt;
 
     public function getName(): ?string
     {
@@ -56,5 +63,15 @@ class Content
     {
         $this->value = $value;
         return $this;
+    }
+
+    public function getCreatedAt(): DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): DateTimeInterface
+    {
+        return $this->updatedAt;
     }
 }

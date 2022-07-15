@@ -70,7 +70,10 @@ return static function (ContainerConfigurator $container) {
             ->tag('doctrine.repository_service')
 
         ->set(CmsListener::class, CmsListener::class)
-            ->args([service(Cms::class)])
+            ->args([
+                service(Cms::class),
+                service(RouterInterface::class)
+            ])
             ->tag('kernel.event_subscriber')
 
         ->set(CreateUserCommand::class, CreateUserCommand::class)

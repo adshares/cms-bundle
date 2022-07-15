@@ -51,13 +51,19 @@ class FileUploader
         $path = $this->publicDirectory . DIRECTORY_SEPARATOR . $dir;
         if (file_exists($path)) {
             foreach (array_diff(scandir($path), ['.', '..']) as $fileName) {
-                $files[] = [
-                    'ext' => pathinfo($fileName, PATHINFO_EXTENSION),
-                    'name' => $fileName,
-                    'size' => filesize($path . DIRECTORY_SEPARATOR . $fileName),
-                    'location' => $this->packages->getUrl($dir . DIRECTORY_SEPARATOR . $fileName),
-                    'editable' => $editable,
-                ];
+                $filePath = $path . DIRECTORY_SEPARATOR . $fileName;
+                $publicFilePath = $dir . DIRECTORY_SEPARATOR . $fileName;
+                if (is_dir($filePath)) {
+                    $files[$fileName] = $this->listFiles($publicFilePath, $editable);
+                } else {
+                    $files[] = [
+                        'ext' => pathinfo($fileName, PATHINFO_EXTENSION),
+                        'name' => $fileName,
+                        'size' => filesize($filePath),
+                        'location' => $this->packages->getUrl($publicFilePath),
+                        'editable' => $editable,
+                    ];
+                }
             }
         }
         return $files;

@@ -6731,9 +6731,9 @@
       BootstrapPlugin.prototype.getContentCss = function () {
         var content_css = this.editor.settings.content_css || '';
         if (content_css === '') {
-          content_css = this.bootstrapCss + ',' + this.pluginUrl + 'assets/css/editor-content.min.css';
+          content_css = this.pluginUrl + 'assets/css/editor-content.min.css';
         } else {
-          content_css = this.bootstrapCss + ',' + content_css + ',' + this.pluginUrl + 'assets/css/editor-content.min.css';
+          content_css = content_css + ',' + this.pluginUrl + 'assets/css/editor-content.min.css';
         }
         if (this.iconCss !== '') {
           content_css += ',' + this.pluginUrl + 'lib/iconpicker/fonts/' + this.iconCss;

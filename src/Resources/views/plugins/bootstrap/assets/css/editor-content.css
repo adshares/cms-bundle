@@ -80,7 +80,7 @@ input.btn.tbp-active {
 }
 
 .collapse {
-    display: block !important;
+    display: block;
 }
 
 .tab-content .tab-pane {

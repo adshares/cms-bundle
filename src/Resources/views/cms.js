@@ -45,7 +45,7 @@ content.each(function (_idx) {
       iconFont: 'fontawesome5',
       imagesPath: '/uploads',
       enableTemplateEdition: false,
-      bootstrapCss: 'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css',
+      bootstrapCss: '/build/styles/cms.css',
       elements: {
         btn: true,
         icon: true,

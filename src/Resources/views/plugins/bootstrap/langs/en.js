@@ -1,4 +1,4 @@
-tinymce.addI18n("en", {
+var bootstrapUiI18n = {
     "Add col after": "Add column after",
     "Add col before": "Add column before",
     "Add paragraph after": "Add paragraph after",
@@ -51,4 +51,4 @@ tinymce.addI18n("en", {
     "Snippet": "Snippet",
     "Table": "Table",
     "Template": "Template"
-});
+};

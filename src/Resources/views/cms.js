@@ -1,9 +1,23 @@
 import $ from 'jquery'
 
-import 'tinymce'
-import 'tinymce/themes/silver/theme'
-import 'tinymce/icons/default/icons'
+/* Import TinyMCE */
+import tinymce from 'tinymce'
+
+/* Default icons are required. After that, import custom icons if applicable */
+import 'tinymce/icons/default'
+
+/* Required TinyMCE components */
+import 'tinymce/themes/silver'
+import 'tinymce/models/dom'
+
+/* Import plugins */
+import 'tinymce/plugins/advlist';
 import 'tinymce/plugins/code'
+import 'tinymce/plugins/link';
+import 'tinymce/plugins/lists';
+import './plugins/bootstrap/plugin'
+
+import '@tinymce/tinymce-jquery/dist/tinymce-jquery'
 
 const CMS_NAME = 'cms-name'
 const CMS_LOCALE = 'cms-locale'
@@ -34,16 +48,19 @@ content.each(function (_idx) {
   tinymce.init({
     selector: tinymceSelector,
     inline: true,
-    plugins: 'code bootstrap',
+    plugins: 'code bootstrap link lists advlist',
     toolbar: [
-      'undo redo | bootstrap',
-      'cut copy paste | styleselect | alignleft aligncenter alignright alignjustify | bold italic | link image | code | help'
+      'undo redo | cut copy paste | bootstrap link',
+      'styles | alignleft aligncenter alignright alignjustify | bold italic strikethrough | bullist numlist '
     ],
     contextmenu: 'bootstrap',
+    // file_picker_types: 'file image media',
     bootstrapConfig: {
+      bootstrapColumns: 24,
       url: '/build/scripts/plugins/bootstrap/',
-      iconFont: 'fontawesome5',
+      iconFont: 'font-awesome-solid',
       imagesPath: '/uploads',
+      key: BOOTSTRAP_PLUGIN_KEY,
       enableTemplateEdition: false,
       bootstrapCss: '/build/styles/cms.css',
       elements: {
@@ -54,15 +71,62 @@ content.each(function (_idx) {
         badge: true,
         alert: true,
       },
-      key: BOOTSTRAP_PLUGIN_KEY,
+
     },
+    formats: {
+      display1: { selector: '*', classes: 'display-1' },
+      display2: { selector: '*', classes: 'display-2' },
+      display3: { selector: '*', classes: 'display-3' },
+      display4: { selector: '*', classes: 'display-4' },
+      display5: { selector: '*', classes: 'display-5' },
+      display6: { selector: '*', classes: 'display-6' },
+      fwlighter: { selector: '*', classes: 'fw-lighter' },
+      fwlight: { selector: '*', classes: 'fw-light' },
+      fwnormal: { selector: '*', classes: 'fw-normal' },
+      fwbold: { selector: '*', classes: 'fw-bold' },
+      fwbolder: { selector: '*', classes: 'fw-bolder' },
+    },
+    styles: {
+      alignleft: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes: 'text-start' },
+      aligncenter: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes: 'text-center' },
+      alignright: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes: 'text-end' },
+      alignjustify: { selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes: 'text-justify' },
+      bold: { inline: 'strong' },
+      italic: { inline: 'em' },
+      underline: { inline: 'u' },
+      sup: { inline: 'sup' },
+      sub: { inline: 'sub' },
+      strikethrough: { inline: 'del' },
+    },
+    style_formats: [
+      {
+        title: 'Displays', items: [
+          { title: 'Display 1', format: 'display1' },
+          { title: 'Display 2', format: 'display2' },
+          { title: 'Display 3', format: 'display3' },
+          { title: 'Display 4', format: 'display4' },
+          { title: 'Display 5', format: 'display5' },
+          { title: 'Display 6', format: 'display6' }
+        ]
+      },
+      {
+        title: 'Font weight', items: [
+          { title: 'Lighter', format: 'fwlighter' },
+          { title: 'Light', format: 'fwlight' },
+          { title: 'Normal', format: 'fwnormal' },
+          { title: 'Bold', format: 'fwbold' },
+          { title: 'Bolder', format: 'fwbolder' },
+        ]
+      },
+    ],
+    style_formats_merge: true,
+    style_formats_autohide: true,
     setup: function (editor) {
       editor.on('change', function (_event) {
-        if (originContent[contentName].value.replaceAll(/\n|\s{2,}/g, '').replaceAll(/(<\w+>)\s/g , '$1').replaceAll(/\s(<\/\w+>)/g , '$1') === editor.getContent().replaceAll(/\n|\s{2,}/g, '').replaceAll(/(<\w+>)\s/g , '$1').replaceAll(/\s(<\/\w+>)/g , '$1')) {
+        if (originContent[contentName].value.replaceAll(/\n|\s{2,}/g, '').replaceAll(/(<\w+>)\s/g, '$1').replaceAll(/\s(<\/\w+>)/g, '$1') === editor.getContent().replaceAll(/\n|\s{2,}/g, '').replaceAll(/(<\w+>)\s/g, '$1').replaceAll(/\s(<\/\w+>)/g, '$1')) {
           delete changedContent[contentName]
           setButton(saveChangesBtnStatus.default, $.isEmptyObject(changedContent))
-        }
-        else {
+        } else {
           changedContent[contentName] = {
             name: contentName,
             value: editor.getContent(),

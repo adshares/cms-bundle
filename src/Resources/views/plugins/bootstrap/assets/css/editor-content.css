@@ -1,3 +1,7 @@
+body.mce-content-body {
+    margin: 0;
+}
+
 .tbp-active {
     position: relative;
 }
@@ -25,11 +29,14 @@
 -------------------------------------------------- */
 
 .row,
-.col {
+.col,
+[class*="col-"] {
     position: relative;
 }
 
 .tbp-context-active {
+    margin-left: 0;
+    margin-right: 0;
     margin-top: 2.62em;
 }
 

@@ -106,7 +106,6 @@ var lang = {
     structure: "Structure",
     style: "Style",
     submit: "Submit",
-    tableDark: "Table dark",
     tableEditDisabledInfo: "The editing of the table structure is disabled. Rows and columns can be edited directly in tinyMce.",
     tableHover: "Table hover",
     tableSmall: "Table small",

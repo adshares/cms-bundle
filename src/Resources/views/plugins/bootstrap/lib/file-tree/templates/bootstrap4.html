@@ -16,11 +16,12 @@
     <hr>
 </template>
 
+
 <template id="explorer-action-btns">
     <div class="text-center my-5">
-        <div class="tox btn-group" role="group" aria-label="File Tree action buttons">
-            <button type="button" value="cancel" class="control-btn control-btn--secondary explorer-cancel-btn">Cancel<i class="ml-2 ft-icon-blocked"></i></button>
-            <button type="button" value="submit" class="control-btn explorer-ok-btn">OK<i class="ml-2 ft-icon-checkmark"></i></button>
+        <div class="btn-group" role="group" aria-label="File Tree action buttons">
+            <button type="button" value="cancel" class="btn btn-secondary explorer-cancel-btn">Cancel<i class="ms-2 ft-icon-blocked"></i></button>
+            <button type="button" value="submit" class="btn btn-primary explorer-ok-btn">OK<i class="ms-2 ft-icon-checkmark"></i></button>
         </div>
     </div>
 </template>
@@ -37,7 +38,7 @@
 
 <template id="explorer-list-folder">
     <li class="media align-items-center py-1 border-bottom ft-folder-container">
-        <a href="#" data-href="..." class="ft-folder"><i class="mr-2"></i></a>
+        <a href="#" data-href="..." class="ft-folder"><i class="me-2"></i></a>
         <div class="media-body">
             <h6 class="mb-1 ft-foldername">...</h6>
         </div>
@@ -46,7 +47,7 @@
 
 <template id="explorer-list-file">
     <li class="media align-items-center py-1 border-bottom ft-file-container">
-        <a href="#" data-href="..." data-filename="..." class="ft-file"><i class="mr-2"></i></a>
+        <a href="#" data-href="..." data-filename="..." class="ft-file"><i class="me-2"></i></a>
         <div class="media-body">
             <div class="d-flex justify-content-between">
                 <h6 class="mb-1 ft-filename">...</h6>
@@ -58,7 +59,7 @@
 
 <template id="explorer-list-image">
     <li class="media align-items-center py-1 border-bottom ft-file-container">
-        <a href="#" data-href="..." data-filename="..." class="ft-image"><img src="..." class="mr-3" alt="" style="height: 40px;"></a>
+        <a href="#" data-href="..." data-filename="..." class="ft-image"><img src="..." class="me-3" alt="" style="height: 40px;"></a>
         <div class="media-body">
             <div class="d-flex justify-content-between">
                 <h6 class="mb-1 ft-imagename">...</h6>
@@ -81,7 +82,7 @@
 <template id="explorer-grid-folder">
     <li class="list-group-item d-flex flex-column justify-content-around ft-folder-container">
         <a href="#" data-href="..." class="ft-folder">
-            <i class="mr-2"></i>
+            <i class="me-2"></i>
             <h6 class="mb-1 ft-foldername">...</h6>
         </a>
     </li>
@@ -90,7 +91,7 @@
 <template id="explorer-grid-file">
     <li class="list-group-item d-flex flex-column justify-content-around ft-file-container">
         <a href="#" data-href="..." data-filename="..." class="ft-file">
-            <i class="mr-2"></i>
+            <i class="me-2"></i>
             <h6 class="mb-1 ft-filename">...</h6>
         </a>
         <p class="mb-0 ft-filedesc"><span class="ft-filesize text-muted"></span></p>

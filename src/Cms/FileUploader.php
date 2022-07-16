@@ -53,6 +53,9 @@ class FileUploader
             foreach (array_diff(scandir($path), ['.', '..']) as $fileName) {
                 $filePath = $path . DIRECTORY_SEPARATOR . $fileName;
                 $publicFilePath = $dir . DIRECTORY_SEPARATOR . $fileName;
+                if (preg_match('/\.[0-9a-f]+\./', $fileName)) {
+                    continue;
+                }
                 if (is_dir($filePath)) {
                     $files[$fileName] = $this->listFiles($publicFilePath, $editable);
                 } else {

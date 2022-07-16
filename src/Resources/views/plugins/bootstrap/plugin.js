@@ -69,78 +69,148 @@
     };
 
     var iconFonts = {
-      elusiveicon: {
-        css: 'elusiveicon/css/elusive-icons.min.css',
-        defaultIcon: 'el-icon-home',
-        homeIcon: 'el-icon-home',
-        selector: 'el-icon-',
-        baseClasses: []
+      'bootstrap-icons': {
+        css: 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css',
+        defaultIcon: 'bi bi-house-fill',
+        homeIcon: 'bi bi-house-fill',
+        selector: 'bi-',
+        baseClasses: ['bi']
       },
-      flagicon: {
-        css: 'flagicon/css/flag-icon.min.css',
-        defaultIcon: 'flag-icon flag-icon-eu',
+      'elegant-icons': {
+        css: 'elegant-icons.min.css',
+        defaultIcon: 'elegant-icon elegant-icon_globe_alt',
+        homeIcon: 'elegant-icon elegant-icon_house',
+        selector: 'elegant-',
+        baseClasses: ['elegant-icon']
+      },
+      'feather-icons': {
+        css: 'feather-icons.min.css',
+        defaultIcon: 'feather-icon feather-power',
+        homeIcon: 'feather-icon feather-home',
+        selector: 'feather-',
+        baseClasses: ['feather-icon']
+      },
+      'font-awesome-brands': {
+        css: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css',
+        defaultIcon: 'fa-brands fa-font-awesome',
         homeIcon: '',
-        selector: 'flag-icon-',
-        baseClasses: ['flag-icon']
+        selector: 'fa-',
+        baseClasses: ['fa-brands']
       },
-      fontawesome5: {
-        css: 'fontawesome5/css/all.min.css',
-        defaultIcon: 'fas fa-home',
-        homeIcon: 'fas fa-home',
+      'font-awesome-regular': {
+        css: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css',
+        defaultIcon: 'fa-regular fa-font-awesome',
+        homeIcon: 'fa-regular fa-house',
+        selector: 'fa-',
+        baseClasses: ['fa-regular']
+      },
+      'font-awesome-solid': {
+        css: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css',
+        defaultIcon: 'fa-solid fa-font-awesome',
+        homeIcon: 'fa-solid fa-house',
+        selector: 'fa-',
+        baseClasses: ['fa-solid']
+      },
+      'font-awesome': {
+        css: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css',
+        defaultIcon: 'fa-solid fa-font-awesome',
+        homeIcon: 'fa-solid fa-house',
         selector: 'fa-[a-z]+',
         baseClasses: [
-          'far',
-          'fas',
-          'fab'
+          'fa-brands',
+          'fa-regular',
+          'fa-solid'
         ]
       },
-      ionicon: {
-        css: 'ionicon/css/ionicons.min.css',
-        defaultIcon: 'ion-home',
-        homeIcon: 'ion-home',
-        selector: 'ion-',
+      'foundation-icons': {
+        css: 'foundation-icons.min.css',
+        defaultIcon: 'fi fi-trophy',
+        homeIcon: 'fi fi-home',
+        selector: 'fi-',
+        baseClasses: ['fi']
+      },
+      'happy-icons': {
+        css: 'happy-icons.min.css',
+        defaultIcon: 'hm hm-badge1',
+        homeIcon: 'hm hm-home',
+        selector: 'hm-',
+        baseClasses: ['hm']
+      },
+      'icomoon': {
+        css: 'icomoon.min.css',
+        defaultIcon: 'icon-magic-wand',
+        homeIcon: 'icon-home',
+        selector: 'icon-',
         baseClasses: []
       },
-      mapicon: {
-        css: 'mapicon/css/map-icons.min.css',
-        defaultIcon: 'map-icon-art-gallery',
-        homeIcon: '',
-        selector: 'map-icon-',
+      'material-icons-filled': {
+        css: 'https://fonts.googleapis.com/css2?family=Material+Icons',
+        defaultIcon: 'mi-filled chair',
+        homeIcon: 'mi-home',
+        selector: 'mi-filled',
         baseClasses: []
       },
-      materialdesign: {
-        css: 'materialdesign/css/material-design-iconic-font.min.css',
-        defaultIcon: 'zmdi zmdi-home',
-        homeIcon: 'zmdi zmdi-home',
-        selector: 'zmdi-',
-        baseClasses: ['zmdi']
+      'material-icons-outlined': {
+        css: 'https://fonts.googleapis.com/css2?family=Material+Icons+Outlined',
+        defaultIcon: 'mi-outlined chair',
+        homeIcon: 'mi-outlined home',
+        selector: 'mi-outlined',
+        baseClasses: []
       },
-      octicon: {
-        css: 'octicon/octicons.min.css',
-        defaultIcon: 'octicon octicon-home',
-        homeIcon: 'octicon octicon-home',
-        selector: 'octicon-',
-        baseClasses: ['octicon']
+      'material-icons-round': {
+        css: 'https://fonts.googleapis.com/css2?family=Material+Icons+Round',
+        defaultIcon: 'mi-round chair',
+        homeIcon: 'mi-round home',
+        selector: 'mi-round',
+        baseClasses: []
       },
-      typicon: {
-        css: 'typicon/css/typicons.min.css',
-        defaultIcon: 'typcn typcn-home',
-        homeIcon: 'typcn typcn-home',
-        selector: 'typcn-',
-        baseClasses: ['typcn']
+      'material-icons-sharp': {
+        css: 'https://fonts.googleapis.com/css2?family=Material+Icons+Sharp',
+        defaultIcon: 'mi-sharp chair',
+        homeIcon: 'mi-round home',
+        selector: 'mi-sharp',
+        baseClasses: []
       },
-      weathericon: {
-        css: 'weathericon/css/weather-icons.min.css',
-        defaultIcon: 'wi wi-horizon-alt',
+      'material-icons-two-tone': {
+        css: 'https://fonts.googleapis.com/css2?family=Material+Icons+Two+Tone',
+        defaultIcon: 'mi-two-tone chair',
+        homeIcon: 'mi-round home',
+        selector: 'mi-two-tone',
+        baseClasses: []
+      },
+      'open-iconic': {
+        css: 'open-iconic.min.css',
+        defaultIcon: 'oi oi-globe',
+        homeIcon: 'oi oi-home',
+        selector: 'oi-',
+        baseClasses: ['oi']
+      },
+      'tabler-icons': {
+        css: 'tabler-icons.min.css',
+        defaultIcon: 'ti ti-moon',
+        homeIcon: 'ti ti-home',
+        selector: 'ti-',
+        baseClasses: ['ti']
+      },
+      'weather-icons': {
+        css: 'weather-icons.min.css',
+        defaultIcon: 'wi wi-thunderstorm',
         homeIcon: '',
         selector: 'wi-',
         baseClasses: ['wi']
+      },
+      'zondicons': {
+        css: 'zondicons.min.css',
+        defaultIcon: 'zi zi-trophy',
+        homeIcon: 'zi zi-home',
+        selector: 'zi-',
+        baseClasses: ['zi']
       }
     };
 
     var defaultConfig = {
       bootstrapColumns: 12,
-      bootstrapCss: 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css',
+      bootstrapCss: 'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css',
       editorStyleFormats: {
         textStyles: true,
         blockStyles: true,
@@ -175,11 +245,12 @@
       enableTemplateEdition: true,
       hasMenu: true,
       hasToolbar: true,
-      iconFont: 'fontawesome5',
+      iconFont: 'font-awesome',
       imagesPath: '/assets/images/',
       key: 'key',
       label: 'Elements',
       language: 'en',
+      tinymceBackgroundColor: '',
       toolbarStyle: 'buttons',
       visualAids: true
     };
@@ -359,34 +430,34 @@
                         title: 'right',
                         items: [
                           {
-                            title: 'text mr-0',
+                            title: 'text me-0',
                             selector: this.textSelector,
-                            classes: 'mr-0'
+                            classes: 'me-0'
                           },
                           {
-                            title: 'text mr-1',
+                            title: 'text me-1',
                             selector: this.textSelector,
-                            classes: 'mr-1'
+                            classes: 'me-1'
                           },
                           {
-                            title: 'text mr-2',
+                            title: 'text me-2',
                             selector: this.textSelector,
-                            classes: 'mr-2'
+                            classes: 'me-2'
                           },
                           {
-                            title: 'text mr-3',
+                            title: 'text me-3',
                             selector: this.textSelector,
-                            classes: 'mr-3'
+                            classes: 'me-3'
                           },
                           {
-                            title: 'text mr-4',
+                            title: 'text me-4',
                             selector: this.textSelector,
-                            classes: 'mr-4'
+                            classes: 'me-4'
                           },
                           {
-                            title: 'text mr-5',
+                            title: 'text me-5',
                             selector: this.textSelector,
-                            classes: 'mr-5'
+                            classes: 'me-5'
                           }
                         ]
                       },
@@ -429,34 +500,34 @@
                         title: 'left',
                         items: [
                           {
-                            title: 'text ml-0',
+                            title: 'text ms-0',
                             selector: this.textSelector,
-                            classes: 'ml-0'
+                            classes: 'ms-0'
                           },
                           {
-                            title: 'text ml-1',
+                            title: 'text ms-1',
                             selector: this.textSelector,
-                            classes: 'ml-1'
+                            classes: 'ms-1'
                           },
                           {
-                            title: 'text ml-2',
+                            title: 'text ms-2',
                             selector: this.textSelector,
-                            classes: 'ml-2'
+                            classes: 'ms-2'
                           },
                           {
-                            title: 'text ml-3',
+                            title: 'text ms-3',
                             selector: this.textSelector,
-                            classes: 'ml-3'
+                            classes: 'ms-3'
                           },
                           {
-                            title: 'text ml-4',
+                            title: 'text ms-4',
                             selector: this.textSelector,
-                            classes: 'ml-4'
+                            classes: 'ms-4'
                           },
                           {
-                            title: 'text ml-5',
+                            title: 'text ms-5',
                             selector: this.textSelector,
-                            classes: 'ml-5'
+                            classes: 'ms-5'
                           }
                         ]
                       }
@@ -624,34 +695,34 @@
                         title: 'right',
                         items: [
                           {
-                            title: 'text mr-sm-0',
+                            title: 'text me-sm-0',
                             selector: this.textSelector,
-                            classes: 'mr-sm-0'
+                            classes: 'me-sm-0'
                           },
                           {
-                            title: 'text mr-sm-1',
+                            title: 'text me-sm-1',
                             selector: this.textSelector,
-                            classes: 'mr-sm-1'
+                            classes: 'me-sm-1'
                           },
                           {
-                            title: 'text mr-sm-2',
+                            title: 'text me-sm-2',
                             selector: this.textSelector,
-                            classes: 'mr-sm-2'
+                            classes: 'me-sm-2'
                           },
                           {
-                            title: 'text mr-sm-3',
+                            title: 'text me-sm-3',
                             selector: this.textSelector,
-                            classes: 'mr-sm-3'
+                            classes: 'me-sm-3'
                           },
                           {
-                            title: 'text mr-sm-4',
+                            title: 'text me-sm-4',
                             selector: this.textSelector,
-                            classes: 'mr-sm-4'
+                            classes: 'me-sm-4'
                           },
                           {
-                            title: 'text mr-sm-5',
+                            title: 'text me-sm-5',
                             selector: this.textSelector,
-                            classes: 'mr-sm-5'
+                            classes: 'me-sm-5'
                           }
                         ]
                       },
@@ -694,34 +765,34 @@
                         title: 'left',
                         items: [
                           {
-                            title: 'text ml-sm-0',
+                            title: 'text ms-sm-0',
                             selector: this.textSelector,
-                            classes: 'ml-sm-0'
+                            classes: 'ms-sm-0'
                           },
                           {
-                            title: 'text ml-sm-1',
+                            title: 'text ms-sm-1',
                             selector: this.textSelector,
-                            classes: 'ml-sm-1'
+                            classes: 'ms-sm-1'
                           },
                           {
-                            title: 'text ml-sm-2',
+                            title: 'text ms-sm-2',
                             selector: this.textSelector,
-                            classes: 'ml-sm-2'
+                            classes: 'ms-sm-2'
                           },
                           {
-                            title: 'text ml-sm-3',
+                            title: 'text ms-sm-3',
                             selector: this.textSelector,
-                            classes: 'ml-sm-3'
+                            classes: 'ms-sm-3'
                           },
                           {
-                            title: 'text ml-sm-4',
+                            title: 'text ms-sm-4',
                             selector: this.textSelector,
-                            classes: 'ml-sm-4'
+                            classes: 'ms-sm-4'
                           },
                           {
-                            title: 'text ml-sm-5',
+                            title: 'text ms-sm-5',
                             selector: this.textSelector,
-                            classes: 'ml-sm-5'
+                            classes: 'ms-sm-5'
                           }
                         ]
                       }
@@ -889,34 +960,34 @@
                         title: 'right',
                         items: [
                           {
-                            title: 'text mr-md-0',
+                            title: 'text me-md-0',
                             selector: this.textSelector,
-                            classes: 'mr-md-0'
+                            classes: 'me-md-0'
                           },
                           {
-                            title: 'text mr-md-1',
+                            title: 'text me-md-1',
                             selector: this.textSelector,
-                            classes: 'mr-md-1'
+                            classes: 'me-md-1'
                           },
                           {
-                            title: 'text mr-md-2',
+                            title: 'text me-md-2',
                             selector: this.textSelector,
-                            classes: 'mr-md-2'
+                            classes: 'me-md-2'
                           },
                           {
-                            title: 'text mr-md-3',
+                            title: 'text me-md-3',
                             selector: this.textSelector,
-                            classes: 'mr-md-3'
+                            classes: 'me-md-3'
                           },
                           {
-                            title: 'text mr-md-4',
+                            title: 'text me-md-4',
                             selector: this.textSelector,
-                            classes: 'mr-md-4'
+                            classes: 'me-md-4'
                           },
                           {
-                            title: 'text mr-md-5',
+                            title: 'text me-md-5',
                             selector: this.textSelector,
-                            classes: 'mr-md-5'
+                            classes: 'me-md-5'
                           }
                         ]
                       },
@@ -959,34 +1030,34 @@
                         title: 'left',
                         items: [
                           {
-                            title: 'text ml-md-0',
+                            title: 'text ms-md-0',
                             selector: this.textSelector,
-                            classes: 'ml-md-0'
+                            classes: 'ms-md-0'
                           },
                           {
-                            title: 'text ml-md-1',
+                            title: 'text ms-md-1',
                             selector: this.textSelector,
-                            classes: 'ml-md-1'
+                            classes: 'ms-md-1'
                           },
                           {
-                            title: 'text ml-md-2',
+                            title: 'text ms-md-2',
                             selector: this.textSelector,
-                            classes: 'ml-md-2'
+                            classes: 'ms-md-2'
                           },
                           {
-                            title: 'text ml-md-3',
+                            title: 'text ms-md-3',
                             selector: this.textSelector,
-                            classes: 'ml-md-3'
+                            classes: 'ms-md-3'
                           },
                           {
-                            title: 'text ml-md-4',
+                            title: 'text ms-md-4',
                             selector: this.textSelector,
-                            classes: 'ml-md-4'
+                            classes: 'ms-md-4'
                           },
                           {
-                            title: 'text ml-md-5',
+                            title: 'text ms-md-5',
                             selector: this.textSelector,
-                            classes: 'ml-md-5'
+                            classes: 'ms-md-5'
                           }
                         ]
                       }
@@ -1154,34 +1225,34 @@
                         title: 'right',
                         items: [
                           {
-                            title: 'text mr-lg-0',
+                            title: 'text me-lg-0',
                             selector: this.textSelector,
-                            classes: 'mr-lg-0'
+                            classes: 'me-lg-0'
                           },
                           {
-                            title: 'text mr-lg-1',
+                            title: 'text me-lg-1',
                             selector: this.textSelector,
-                            classes: 'mr-lg-1'
+                            classes: 'me-lg-1'
                           },
                           {
-                            title: 'text mr-lg-2',
+                            title: 'text me-lg-2',
                             selector: this.textSelector,
-                            classes: 'mr-lg-2'
+                            classes: 'me-lg-2'
                           },
                           {
-                            title: 'text mr-lg-3',
+                            title: 'text me-lg-3',
                             selector: this.textSelector,
-                            classes: 'mr-lg-3'
+                            classes: 'me-lg-3'
                           },
                           {
-                            title: 'text mr-lg-4',
+                            title: 'text me-lg-4',
                             selector: this.textSelector,
-                            classes: 'mr-lg-4'
+                            classes: 'me-lg-4'
                           },
                           {
-                            title: 'text mr-lg-5',
+                            title: 'text me-lg-5',
                             selector: this.textSelector,
-                            classes: 'mr-lg-5'
+                            classes: 'me-lg-5'
                           }
                         ]
                       },
@@ -1224,34 +1295,34 @@
                         title: 'left',
                         items: [
                           {
-                            title: 'text ml-lg-0',
+                            title: 'text ms-lg-0',
                             selector: this.textSelector,
-                            classes: 'ml-lg-0'
+                            classes: 'ms-lg-0'
                           },
                           {
-                            title: 'text ml-lg-1',
+                            title: 'text ms-lg-1',
                             selector: this.textSelector,
-                            classes: 'ml-lg-1'
+                            classes: 'ms-lg-1'
                           },
                           {
-                            title: 'text ml-lg-2',
+                            title: 'text ms-lg-2',
                             selector: this.textSelector,
-                            classes: 'ml-lg-2'
+                            classes: 'ms-lg-2'
                           },
                           {
-                            title: 'text ml-lg-3',
+                            title: 'text ms-lg-3',
                             selector: this.textSelector,
-                            classes: 'ml-lg-3'
+                            classes: 'ms-lg-3'
                           },
                           {
-                            title: 'text ml-lg-4',
+                            title: 'text ms-lg-4',
                             selector: this.textSelector,
-                            classes: 'ml-lg-4'
+                            classes: 'ms-lg-4'
                           },
                           {
-                            title: 'text ml-lg-5',
+                            title: 'text ms-lg-5',
                             selector: this.textSelector,
-                            classes: 'ml-lg-5'
+                            classes: 'ms-lg-5'
                           }
                         ]
                       }
@@ -2859,34 +2930,34 @@
                         title: 'right',
                         items: [
                           {
-                            title: 'block mr-0',
+                            title: 'block me-0',
                             selector: this.blockSelector,
-                            classes: 'mr-0'
+                            classes: 'me-0'
                           },
                           {
-                            title: 'block mr-1',
+                            title: 'block me-1',
                             selector: this.blockSelector,
-                            classes: 'mr-1'
+                            classes: 'me-1'
                           },
                           {
-                            title: 'block mr-2',
+                            title: 'block me-2',
                             selector: this.blockSelector,
-                            classes: 'mr-2'
+                            classes: 'me-2'
                           },
                           {
-                            title: 'block mr-3',
+                            title: 'block me-3',
                             selector: this.blockSelector,
-                            classes: 'mr-3'
+                            classes: 'me-3'
                           },
                           {
-                            title: 'block mr-4',
+                            title: 'block me-4',
                             selector: this.blockSelector,
-                            classes: 'mr-4'
+                            classes: 'me-4'
                           },
                           {
-                            title: 'block mr-5',
+                            title: 'block me-5',
                             selector: this.blockSelector,
-                            classes: 'mr-5'
+                            classes: 'me-5'
                           }
                         ]
                       },
@@ -2929,34 +3000,34 @@
                         title: 'left',
                         items: [
                           {
-                            title: 'block ml-0',
+                            title: 'block ms-0',
                             selector: this.blockSelector,
-                            classes: 'ml-0'
+                            classes: 'ms-0'
                           },
                           {
-                            title: 'block ml-1',
+                            title: 'block ms-1',
                             selector: this.blockSelector,
-                            classes: 'ml-1'
+                            classes: 'ms-1'
                           },
                           {
-                            title: 'block ml-2',
+                            title: 'block ms-2',
                             selector: this.blockSelector,
-                            classes: 'ml-2'
+                            classes: 'ms-2'
                           },
                           {
-                            title: 'block ml-3',
+                            title: 'block ms-3',
                             selector: this.blockSelector,
-                            classes: 'ml-3'
+                            classes: 'ms-3'
                           },
                           {
-                            title: 'block ml-4',
+                            title: 'block ms-4',
                             selector: this.blockSelector,
-                            classes: 'ml-4'
+                            classes: 'ms-4'
                           },
                           {
-                            title: 'block ml-5',
+                            title: 'block ms-5',
                             selector: this.blockSelector,
-                            classes: 'ml-5'
+                            classes: 'ms-5'
                           }
                         ]
                       }
@@ -3124,34 +3195,34 @@
                         title: 'right',
                         items: [
                           {
-                            title: 'block mr-sm-0',
+                            title: 'block me-sm-0',
                             selector: this.blockSelector,
-                            classes: 'mr-sm-0'
+                            classes: 'me-sm-0'
                           },
                           {
-                            title: 'block mr-sm-1',
+                            title: 'block me-sm-1',
                             selector: this.blockSelector,
-                            classes: 'mr-sm-1'
+                            classes: 'me-sm-1'
                           },
                           {
-                            title: 'block mr-sm-2',
+                            title: 'block me-sm-2',
                             selector: this.blockSelector,
-                            classes: 'mr-sm-2'
+                            classes: 'me-sm-2'
                           },
                           {
-                            title: 'block mr-sm-3',
+                            title: 'block me-sm-3',
                             selector: this.blockSelector,
-                            classes: 'mr-sm-3'
+                            classes: 'me-sm-3'
                           },
                           {
-                            title: 'block mr-sm-4',
+                            title: 'block me-sm-4',
                             selector: this.blockSelector,
-                            classes: 'mr-sm-4'
+                            classes: 'me-sm-4'
                           },
                           {
-                            title: 'block mr-sm-5',
+                            title: 'block me-sm-5',
                             selector: this.blockSelector,
-                            classes: 'mr-sm-5'
+                            classes: 'me-sm-5'
                           }
                         ]
                       },
@@ -3194,34 +3265,34 @@
                         title: 'left',
                         items: [
                           {
-                            title: 'block ml-sm-0',
+                            title: 'block ms-sm-0',
                             selector: this.blockSelector,
-                            classes: 'ml-sm-0'
+                            classes: 'ms-sm-0'
                           },
                           {
-                            title: 'block ml-sm-1',
+                            title: 'block ms-sm-1',
                             selector: this.blockSelector,
-                            classes: 'ml-sm-1'
+                            classes: 'ms-sm-1'
                           },
                           {
-                            title: 'block ml-sm-2',
+                            title: 'block ms-sm-2',
                             selector: this.blockSelector,
-                            classes: 'ml-sm-2'
+                            classes: 'ms-sm-2'
                           },
                           {
-                            title: 'block ml-sm-3',
+                            title: 'block ms-sm-3',
                             selector: this.blockSelector,
-                            classes: 'ml-sm-3'
+                            classes: 'ms-sm-3'
                           },
                           {
-                            title: 'block ml-sm-4',
+                            title: 'block ms-sm-4',
                             selector: this.blockSelector,
-                            classes: 'ml-sm-4'
+                            classes: 'ms-sm-4'
                           },
                           {
-                            title: 'block ml-sm-5',
+                            title: 'block ms-sm-5',
                             selector: this.blockSelector,
-                            classes: 'ml-sm-5'
+                            classes: 'ms-sm-5'
                           }
                         ]
                       }
@@ -3389,34 +3460,34 @@
                         title: 'right',
                         items: [
                           {
-                            title: 'block mr-md-0',
+                            title: 'block me-md-0',
                             selector: this.blockSelector,
-                            classes: 'mr-md-0'
+                            classes: 'me-md-0'
                           },
                           {
-                            title: 'block mr-md-1',
+                            title: 'block me-md-1',
                             selector: this.blockSelector,
-                            classes: 'mr-md-1'
+                            classes: 'me-md-1'
                           },
                           {
-                            title: 'block mr-md-2',
+                            title: 'block me-md-2',
                             selector: this.blockSelector,
-                            classes: 'mr-md-2'
+                            classes: 'me-md-2'
                           },
                           {
-                            title: 'block mr-md-3',
+                            title: 'block me-md-3',
                             selector: this.blockSelector,
-                            classes: 'mr-md-3'
+                            classes: 'me-md-3'
                           },
                           {
-                            title: 'block mr-md-4',
+                            title: 'block me-md-4',
                             selector: this.blockSelector,
-                            classes: 'mr-md-4'
+                            classes: 'me-md-4'
                           },
                           {
-                            title: 'block mr-md-5',
+                            title: 'block me-md-5',
                             selector: this.blockSelector,
-                            classes: 'mr-md-5'
+                            classes: 'me-md-5'
                           }
                         ]
                       },
@@ -3459,34 +3530,34 @@
                         title: 'left',
                         items: [
                           {
-                            title: 'block ml-md-0',
+                            title: 'block ms-md-0',
                             selector: this.blockSelector,
-                            classes: 'ml-md-0'
+                            classes: 'ms-md-0'
                           },
                           {
-                            title: 'block ml-md-1',
+                            title: 'block ms-md-1',
                             selector: this.blockSelector,
-                            classes: 'ml-md-1'
+                            classes: 'ms-md-1'
                           },
                           {
-                            title: 'block ml-md-2',
+                            title: 'block ms-md-2',
                             selector: this.blockSelector,
-                            classes: 'ml-md-2'
+                            classes: 'ms-md-2'
                           },
                           {
-                            title: 'block ml-md-3',
+                            title: 'block ms-md-3',
                             selector: this.blockSelector,
-                            classes: 'ml-md-3'
+                            classes: 'ms-md-3'
                           },
                           {
-                            title: 'block ml-md-4',
+                            title: 'block ms-md-4',
                             selector: this.blockSelector,
-                            classes: 'ml-md-4'
+                            classes: 'ms-md-4'
                           },
                           {
-                            title: 'block ml-md-5',
+                            title: 'block ms-md-5',
                             selector: this.blockSelector,
-                            classes: 'ml-md-5'
+                            classes: 'ms-md-5'
                           }
                         ]
                       }
@@ -3654,34 +3725,34 @@
                         title: 'right',
                         items: [
                           {
-                            title: 'block mr-lg-0',
+                            title: 'block me-lg-0',
                             selector: this.blockSelector,
-                            classes: 'mr-lg-0'
+                            classes: 'me-lg-0'
                           },
                           {
-                            title: 'block mr-lg-1',
+                            title: 'block me-lg-1',
                             selector: this.blockSelector,
-                            classes: 'mr-lg-1'
+                            classes: 'me-lg-1'
                           },
                           {
-                            title: 'block mr-lg-2',
+                            title: 'block me-lg-2',
                             selector: this.blockSelector,
-                            classes: 'mr-lg-2'
+                            classes: 'me-lg-2'
                           },
                           {
-                            title: 'block mr-lg-3',
+                            title: 'block me-lg-3',
                             selector: this.blockSelector,
-                            classes: 'mr-lg-3'
+                            classes: 'me-lg-3'
                           },
                           {
-                            title: 'block mr-lg-4',
+                            title: 'block me-lg-4',
                             selector: this.blockSelector,
-                            classes: 'mr-lg-4'
+                            classes: 'me-lg-4'
                           },
                           {
-                            title: 'block mr-lg-5',
+                            title: 'block me-lg-5',
                             selector: this.blockSelector,
-                            classes: 'mr-lg-5'
+                            classes: 'me-lg-5'
                           }
                         ]
                       },
@@ -3724,34 +3795,34 @@
                         title: 'left',
                         items: [
                           {
-                            title: 'block ml-lg-0',
+                            title: 'block ms-lg-0',
                             selector: this.blockSelector,
-                            classes: 'ml-lg-0'
+                            classes: 'ms-lg-0'
                           },
                           {
-                            title: 'block ml-lg-1',
+                            title: 'block ms-lg-1',
                             selector: this.blockSelector,
-                            classes: 'ml-lg-1'
+                            classes: 'ms-lg-1'
                           },
                           {
-                            title: 'block ml-lg-2',
+                            title: 'block ms-lg-2',
                             selector: this.blockSelector,
-                            classes: 'ml-lg-2'
+                            classes: 'ms-lg-2'
                           },
                           {
-                            title: 'block ml-lg-3',
+                            title: 'block ms-lg-3',
                             selector: this.blockSelector,
-                            classes: 'ml-lg-3'
+                            classes: 'ms-lg-3'
                           },
                           {
-                            title: 'block ml-lg-4',
+                            title: 'block ms-lg-4',
                             selector: this.blockSelector,
-                            classes: 'ml-lg-4'
+                            classes: 'ms-lg-4'
                           },
                           {
-                            title: 'block ml-lg-5',
+                            title: 'block ms-lg-5',
                             selector: this.blockSelector,
-                            classes: 'ml-lg-5'
+                            classes: 'ms-lg-5'
                           }
                         ]
                       }
@@ -5188,6 +5259,116 @@
                     ]
                   }
                 ]
+              },
+              {
+                title: 'Flexbox',
+                items: [
+                  {
+                    title: 'direction',
+                    items: [
+                      {
+                        title: 'block flex-row',
+                        selector: this.blockSelector,
+                        classes: 'd-flex flex-row'
+                      },
+                      {
+                        title: 'block flex-row-reverse',
+                        selector: this.blockSelector,
+                        classes: 'd-flex flex-row-reverse'
+                      },
+                      {
+                        title: 'block flex-column',
+                        selector: this.blockSelector,
+                        classes: 'd-flex flex-column'
+                      },
+                      {
+                        title: 'block flex-column-reverse',
+                        selector: this.blockSelector,
+                        classes: 'd-flex flex-column-reverse'
+                      }
+                    ]
+                  },
+                  {
+                    title: 'justify-content',
+                    items: [
+                      {
+                        title: 'block start',
+                        selector: this.blockSelector,
+                        classes: 'd-flex justify-content-start'
+                      },
+                      {
+                        title: 'block end',
+                        selector: this.blockSelector,
+                        classes: 'd-flex justify-content-end'
+                      },
+                      {
+                        title: 'block center',
+                        selector: this.blockSelector,
+                        classes: 'd-flex justify-content-center'
+                      },
+                      {
+                        title: 'block between',
+                        selector: this.blockSelector,
+                        classes: 'd-flex justify-content-between'
+                      },
+                      {
+                        title: 'block around',
+                        selector: this.blockSelector,
+                        classes: 'd-flex justify-content-around'
+                      },
+                      {
+                        title: 'block evenly',
+                        selector: this.blockSelector,
+                        classes: 'd-flex justify-content-evenly'
+                      }
+                    ]
+                  },
+                  {
+                    title: 'align-items',
+                    items: [
+                      {
+                        title: 'block start',
+                        selector: this.blockSelector,
+                        classes: 'd-flex align-items-start'
+                      },
+                      {
+                        title: 'block end',
+                        selector: this.blockSelector,
+                        classes: 'd-flex align-items-end'
+                      },
+                      {
+                        title: 'block center',
+                        selector: this.blockSelector,
+                        classes: 'd-flex align-items-center'
+                      },
+                      {
+                        title: 'block baseline',
+                        selector: this.blockSelector,
+                        classes: 'd-flex align-items-baseline'
+                      },
+                      {
+                        title: 'block stretch',
+                        selector: this.blockSelector,
+                        classes: 'd-flex align-items-stretch'
+                      }
+                    ]
+                  },
+                  {
+                    title: 'wrap',
+                    items: [
+                      {
+                        title: 'block wrap',
+                        selector: this.blockSelector,
+                        classes: 'd-flex flex-wrap'
+                      },
+                      {
+                        title: 'block nowrap',
+                        selector: this.blockSelector,
+                        classes: 'd-flex flex-nowrap'
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -5689,27 +5870,38 @@
         ];
         this.editor = editor;
         this.uiButtons = {};
-        this.$ = tinymce.dom.DomQuery;
-        if (typeof this.editor.settings.bootstrapConfig === 'undefined') {
-          alert('Error: bootstrapConfig is not defined - you must init tinyMce with at least bootstrapConfig.url\nThe url must lead to the "bootstrap" folder');
-        }
-        this.pluginUrl = editor.settings.bootstrapConfig.url.replace(/\/?$/, '/');
+        editor.options.register('bootstrapConfig', { processor: 'object' });
+        this.pluginUrl = editor.options.get('bootstrapConfig').url.replace(/\/?$/, '/');
         Object.assign(this, defaultConfig);
-        Object.assign(this, editor.settings.bootstrapConfig);
-        this.jsonSnippetsUrl = editor.settings.bootstrapConfig.jsonSnippetsUrl || this.pluginUrl + 'snippets/snippets.json';
-        this.jsonTemplatesUrl = editor.settings.bootstrapConfig.jsonTemplatesUrl || this.pluginUrl + 'templates/templates.json';
-        this.imagesPath = editor.settings.bootstrapConfig.imagesPath || this.pluginUrl + defaultConfig.imagesPath;
+        Object.assign(this, editor.options.get('bootstrapConfig'));
+        tinymce.PluginManager.requireLangPack('bootstrap', this.language);
+        if (!BootstrapPlugin.initilizedLang) {
+          var headLang = document.getElementsByTagName('head')[0];
+          var scriptLang = document.createElement('script');
+          scriptLang.src = this.pluginUrl + 'langs/' + this.language + '.js';
+          scriptLang.onload = function () {
+            tinymce.util.I18n.add(tinymce.util.I18n.getCode(), bootstrapUiI18n);
+          };
+          headLang.appendChild(scriptLang);
+          BootstrapPlugin.initilizedLang = true;
+        }
+        this.jsonSnippetsUrl = this.jsonSnippetsUrl || this.pluginUrl + 'snippets/snippets.json';
+        this.jsonTemplatesUrl = this.jsonTemplatesUrl || this.pluginUrl + 'templates/templates.json';
+        this.imagesPath = this.imagesPath || this.pluginUrl + defaultConfig.imagesPath;
         this.imagesPath = this.imagesPath.replace(/\/?$/, '/');
         var icf = iconFonts[this.iconFont];
         this.iconBaseClasses = icf.baseClasses;
         this.iconSearchClass = icf.selector;
         this.iconCss = icf.css;
-        this.editor.settings.content_css = this.getContentCss();
+        this.iconCssUrl = this.iconCss;
+        if (this.iconCss.indexOf('http') === -1) {
+          this.iconCssUrl = this.pluginUrl + '/lib/universal-icon-picker/stylesheets/' + this.iconCss;
+        }
+        this.editor.options.set('content_css', this.getContentCss());
         this.editorIcons = getAll();
         for (var _i = 0, _a = Object.entries(this.editorIcons); _i < _a.length; _i++) {
           var _b = _a[_i], key = _b[0], value = _b[1];
-          value = value.replace('<svg', '<svg class="bs-icon" id="bs-icon-' + key + '"');
-          this.editor.ui.registry.addIcon(key, value);
+          this.editor.ui.registry.addIcon(key, value.replace('<svg', '<svg class="bs-icon" id="bs-icon-' + key + '"'));
         }
         this.editor.ui.registry.addMenuItem('addParagraphBefore', {
           icon: 'chevron-left',
@@ -5757,7 +5949,7 @@
           icon: 'edit-block',
           text: tinymce.util.I18n.translate('Enable Template Edition'),
           onAction: function () {
-            tinymce.dom.DomQuery(_this.editor.dom.select('body')).addClass('templatesEnabled');
+            _this.editor.dom.addClass(_this.editor.dom.getRoot(), 'templatesEnabled');
             _this.enableTemplateEdition = true;
           }
         });
@@ -5765,8 +5957,9 @@
           icon: 'edit-block',
           text: tinymce.util.I18n.translate('Disable Template Edition'),
           onAction: function () {
-            tinymce.dom.DomQuery(_this.editor.dom.select('body')).removeClass('templatesEnabled');
-            tinymce.dom.DomQuery(_this.editor.dom.select('.tbp-context-active')).removeClass('tbp-context-active').children('.context-trigger-wrapper').remove();
+            _this.editor.dom.removeClass(_this.editor.dom.getRoot(), 'templatesEnabled');
+            _this.editor.dom.removeClass(_this.editor.dom.select('.tbp-context-active'), 'tbp-context-active');
+            _this.editor.dom.remove(_this.editor.dom.select('.context-trigger-wrapper'));
             _this.enableTemplateEdition = false;
           }
         });
@@ -5775,9 +5968,9 @@
             this.editor.ui.registry.addButton('bootstrap', {
               icon: 'bootstrap',
               tooltip: tinymce.util.I18n.translate('Bootstrap Elements'),
-              onSetup: function (buttonApi) {
-                _this.$('#bs-icon-bootstrap').closest('[role="toolbar"]').attr('id', 'bs-toolbar');
-                _this.$('#bs-icon-bootstrap').closest('button').attr('id', 'bs-btn-bootstrap');
+              onSetup: function (_buttonApi) {
+                document.getElementById('bs-icon-bootstrap').closest('[role="toolbar"]').setAttribute('id', 'bs-toolbar');
+                document.getElementById('bs-icon-bootstrap').closest('button').setAttribute('id', 'bs-btn-bootstrap');
               },
               onAction: function () {
               }
@@ -5791,12 +5984,12 @@
                   text: '',
                   icon: value.icon,
                   tooltip: tinymce.util.I18n.translate(value.tooltip),
-                  onSetup: function (buttonApi) {
-                    _this.$('#' + _this.editor.id).next('.tox-tinymce').find(' #bs-icon-' + key).closest('button').attr('id', _this.editor.id + '-bs-btn-' + key);
-                    _this.uiButtons[key] = _this.$('#' + _this.editor.id + '-bs-btn-' + key);
+                  onSetup: function (_buttonApi) {
+                    _this.editor.container.querySelector('#bs-icon-' + key).closest('button').setAttribute('id', _this.editor.id + '-bs-btn-' + key);
+                    _this.uiButtons[key] = document.getElementById(_this.editor.id + '-bs-btn-' + key);
                   },
                   onAction: function () {
-                    var instanceApi = _this.editor.windowManager.openUrl({
+                    _this.editor.windowManager.openUrl({
                       icon: _this.editorIcons.bootstrap,
                       title: value.tooltip,
                       url: _this.pluginUrl + 'dialogs/' + value.text.toLowerCase() + '.html',
@@ -5815,7 +6008,7 @@
                         }
                       ],
                       initialData: { outputCode: '' },
-                      onAction: function (instance, trigger) {
+                      onAction: function (instance, _trigger) {
                         instance.sendMessage({ mceAction: 'customInsertAndClose' });
                       },
                       size: 'large'
@@ -5831,15 +6024,17 @@
             }
           }
         }
-        if ((this.editor.settings.verify_html !== false || this.editor.settings.valid_elements !== '*[*]') && this.editor.settings.bootstrapConfig.overwriteValidElements !== false) {
-          this.editor.settings.valid_elements = this.getValidElements();
+        if ((this.editor.options.get('verify_html') !== false || this.editor.options.get('valid_elements') !== '*[*]') && this.editor.options.get('bootstrapConfig').overwriteValidElements !== false) {
+          this.editor.options.set('valid_elements', this.getValidElements());
         }
         var outputStyleFormats = [];
         var activeKeys = [];
-        if (this.editor.settings.style_formats !== undefined) {
-          outputStyleFormats.push(this.editor.settings.style_formats);
+        if (this.editor.options.get('style_formats') !== undefined) {
+          this.editor.options.get('style_formats').forEach(function (format) {
+            outputStyleFormats.push(format);
+          });
         }
-        if (this.editor.settings.style_formats_merge === true) {
+        if (this.editor.options.get('style_formats_merge') === true) {
           activeKeys.push('Headers', 'Blocks', 'Containers', 'Images');
         }
         if (this.editorStyleFormats.textStyles === true || this.editorStyleFormats.blockStyles === true || this.editorStyleFormats.containerStyles === true) {
@@ -5932,7 +6127,7 @@
             }
           }
         });
-        this.editor.settings.style_formats = outputStyleFormats;
+        this.editor.options.set('style_formats', outputStyleFormats);
         var toolbarElements = [];
         for (var _f = 0, _g = Object.entries(this.elements); _f < _g.length; _f++) {
           var _h = _g[_f], key = _h[0], value = _h[1];
@@ -5940,25 +6135,30 @@
             toolbarElements.push('bs-' + key);
           }
         }
-        if (typeof this.editor.settings.toolbar === 'string') {
-          this.editor.settings.toolbar = this.editor.settings.toolbar.replace('bootstrap', 'bootstrap ' + toolbarElements.join(' '));
+        var tbr = this.editor.options.get('toolbar');
+        if (typeof tbr === 'string') {
+          this.editor.options.set('toolbar', tbr.replace('bootstrap', 'bootstrap ' + toolbarElements.join(' ')));
         } else {
-          for (var i = 0; i < this.editor.settings.toolbar.length; i++) {
-            if (!this.editor.settings.toolbar[i].match('bs-')) {
-              this.editor.settings.toolbar[i] = this.editor.settings.toolbar[i].replace('bootstrap', 'bootstrap ' + toolbarElements.join(' '));
+          for (var i = 0; i < tbr.length; i++) {
+            if (!tbr[i].match('bs-')) {
+              tbr[i] = tbr[i].replace('bootstrap', 'bootstrap ' + toolbarElements.join(' '));
             }
           }
+          this.editor.options.set('toolbar', tbr);
         }
-        var head = document.getElementsByTagName('head')[0];
-        var script = document.createElement('script');
-        script.src = this.pluginUrl + 'lib/crypto-js/crypto-js.js';
-        script.onload = function () {
-          _this.cjs = CryptoJS;
-        };
-        head.appendChild(script);
-        var script2 = document.createElement('script');
-        script2.src = this.pluginUrl + 'lib/public-suffix-list/psl.min.js';
-        head.appendChild(script2);
+        if (!BootstrapPlugin.initilizedJs) {
+          var head = document.getElementsByTagName('head')[0];
+          var script = document.createElement('script');
+          script.src = this.pluginUrl + 'lib/crypto-js/crypto-js.js';
+          script.onload = function () {
+            BootstrapPlugin.cjs = CryptoJS;
+          };
+          head.appendChild(script);
+          var script2 = document.createElement('script');
+          script2.src = this.pluginUrl + 'lib/public-suffix-list/psl.min.js';
+          head.appendChild(script2);
+          BootstrapPlugin.initilizedJs = true;
+        }
         this.editor.addCommand('iframeCommand', function (ui, value) {
           if (value.pluginMode === 'replace') {
             _this.editor.dom.remove(_this.editor.dom.select('.tbp-active'));
@@ -5972,19 +6172,19 @@
         this.editor.on('keydown', function (e) {
           if ((e.keyCode === 13 || e.keyCode === 10) && e.altKey === false && e.ctrlKey === false && e.shiftKey === false) {
             var node = _this.editor.selection.getNode();
-            if (_this.$(node).closest('.tbp-active').length > 0) {
+            if (node.closest('.tbp-active') !== null) {
               e.preventDefault();
               e.stopPropagation();
               e.stopImmediatePropagation();
-              if (_this.$.inArray(_this.$(node)[0].tagName.toLowerCase(), _this.validParagraphParents) !== -1) {
+              if (_this.validParagraphParents.indexOf(node.tagName.toLowerCase()) !== -1) {
                 _this.addParagraph(node, 'append');
               } else {
                 var parentAcceptsParagraphs = false;
                 var parentNode = void 0;
                 var i = 0;
                 while (parentAcceptsParagraphs !== true) {
-                  parentNode = _this.$(node).parent()[0];
-                  if (_this.$.inArray(_this.$(parentNode)[0].tagName.toLowerCase(), _this.validParagraphParents) !== -1) {
+                  parentNode = _this.editor.dom.getParent(node);
+                  if (_this.validParagraphParents.indexOf(parentNode.tagName.toLowerCase()) !== -1) {
                     parentAcceptsParagraphs = true;
                   } else {
                     node = parentNode;
@@ -6027,9 +6227,9 @@
               }
               var $node_1 = tinymce.activeEditor.selection.getNode();
               if (nodeType === 'block') {
-                $node_1 = _this.$($node_1).closest(_this.styleFormatConfig.blockSelector);
+                $node_1 = $node_1.closest(_this.styleFormatConfig.blockSelector);
               } else if (nodeType === 'container') {
-                $node_1 = _this.$($node_1).closest(_this.styleFormatConfig.containerSelector);
+                $node_1 = $node_1.closest(_this.styleFormatConfig.containerSelector);
               }
               var commonStyleValues = _this.styleFormatsActive[nodeType][prop_1].slice();
               var indexToRemove = commonStyleValues.indexOf(value);
@@ -6059,16 +6259,18 @@
                 }
               }
               commonStyleValues.forEach(function (val) {
-                _this.$($node_1).removeClass(prop_1 + val);
+                $node_1.classList.remove(prop_1 + val);
               });
             }
           }
         });
         this.editor.on('BeforeGetContent', function (e) {
-          tinymce.dom.DomQuery(_this.editor.dom.select('body')).find('.tbp-context-active').removeClass('tbp-context-active').children('.context-trigger-wrapper').remove();
+          _this.editor.dom.removeClass(_this.editor.dom.getRoot(), 'templatesEnabled');
+          _this.editor.dom.removeClass(_this.editor.dom.select('.tbp-context-active'), 'tbp-context-active');
+          _this.editor.dom.remove(_this.editor.dom.select('.context-trigger-wrapper'));
         });
         if (this.enableTemplateEdition === true) {
-          tinymce.dom.DomQuery(this.editor.dom.select('body')).addClass('templatesEnabled');
+          tinymce.activeEditor.dom.addClass(tinymce.activeEditor.dom.getRoot(), 'templatesEnabled');
         }
         if (this.key.match(/key-here$/g) !== null) {
           this.throwRegistrationAlert();
@@ -6076,10 +6278,10 @@
         this.editor.ui.registry.addContextMenu('bootstrap', {
           update: function (element) {
             var ctxElements = 'addParagraphBefore addParagraphAfter | addParagraphAtBeginning addParagraphAtEnd';
-            if (tinymce.dom.DomQuery(element).closest('.container, .container-fluid').length > 0) {
+            if (tinymce.activeEditor.dom.get(element).closest('.container, .container-fluid')) {
               ctxElements += ' | addParagraphAtBeginningContainer  addParagraphAtEndContainer';
             }
-            if (tinymce.dom.DomQuery(tinymce.activeEditor.dom.select('body')).hasClass('templatesEnabled')) {
+            if (tinymce.activeEditor.dom.hasClass(tinymce.activeEditor.dom.getRoot(), 'templatesEnabled')) {
               ctxElements += ' | disableTemplateEdition';
             } else {
               ctxElements += ' | enableTemplateEdition';
@@ -6089,20 +6291,22 @@
         });
         this.editor.on('KeyDown', function (e) {
           var node = _this.editor.selection.getNode();
-          if (_this.$(node).is('p') && _this.$(node)[0].innerText.length === 2) {
-            _this.$(node).html(_this.$(node).html().replace('&nbsp;', ''));
-            _this.editor.selection.setCursorLocation(_this.$(node)[0], 1);
+          if (node.nodeName === 'P' && node.innerText.length === 2) {
+            node.innerHTML = node.innerHTML.replace('&nbsp;', '');
+            _this.editor.selection.setCursorLocation(node, 1);
           }
         });
-        var cssURL = this.pluginUrl + 'assets/css/editor-ui.min.css';
-        var cssLink = this.editor.dom.create('link', {
-          rel: 'stylesheet',
-          href: cssURL
-        });
-        document.getElementsByTagName('head')[0].appendChild(cssLink);
-        var tinymceBackgroundColor = this.editor.settings.bootstrapConfig.tinymceBackgroundColor;
-        if (tinymceBackgroundColor !== '') {
-          this.editor.dom.addStyle('.mce-content-body {background-color: ' + tinymceBackgroundColor + ' !important}');
+        if (!BootstrapPlugin.initilizedCss) {
+          var cssURL = this.pluginUrl + 'assets/css/editor-ui.min.css';
+          var cssLink = this.editor.dom.create('link', {
+            rel: 'stylesheet',
+            href: cssURL
+          });
+          document.getElementsByTagName('head')[0].appendChild(cssLink);
+          BootstrapPlugin.initilizedCss = true;
+        }
+        if (this.tinymceBackgroundColor !== '') {
+          this.editor.dom.addStyle('.mce-content-body {background-color: ' + this.tinymceBackgroundColor + ' !important}');
         }
         this.enableUiButtonsToggle();
         this.loadHtmlTemplates();
@@ -6115,85 +6319,83 @@
       BootstrapPlugin.prototype.activate = function (element, elementSelector) {
         var $target;
         if (elementSelector === 'icon') {
-          this.editor.selection.setCursorLocation(element);
+          this.editor.selection.setCursorLocation(element, 0);
         } else if (elementSelector === '.btn') {
-          if (this.$(element)[0].tagName.toLowerCase() !== 'input') {
+          if (this.editor.dom.get(element).tagName.toLowerCase() !== 'input') {
             this.editor.selection.setCursorLocation(element, true);
           }
-          $target = this.$(element);
+          $target = this.editor.dom.get(element);
         }
         if (elementSelector === '.table') {
-          var $table = this.$(element).closest('.table');
+          var $table = this.editor.dom.get(element).closest('.table');
           $target = $table;
-          var $tableParent = $table.parent('[class*="table-responsive"]');
+          var $tableParent = this.editor.dom.getParent($table, '[class*="table-responsive"]');
           if ($tableParent.length > 0) {
             $target = $tableParent;
           }
         } else if (elementSelector === '.breadcrumb') {
-          var $breadcrumb = this.$(element).closest('.breadcrumb');
+          var $breadcrumb = this.editor.dom.get(element).closest('.breadcrumb');
           $target = $breadcrumb;
-          var $breadcrumbParent = $breadcrumb.parent('nav[aria-label="breadcrumb"]');
+          var $breadcrumbParent = this.editor.dom.getParent($breadcrumb, 'nav[aria-label="breadcrumb"]');
           if ($breadcrumbParent.length > 0) {
             $target = $breadcrumbParent;
           }
         } else if (elementSelector === '.badge') {
-          $target = this.$(element).closest('.badge');
+          $target = this.editor.dom.get(element).closest('.badge');
         } else if (elementSelector === '.pagination') {
-          $target = this.$(element).closest('.pagination').parent('nav');
+          $target = this.editor.dom.getParent(this.editor.dom.get(element).closest('.pagination'), 'nav');
         } else if (elementSelector === '.alert') {
-          $target = this.$(element).closest('.alert');
+          $target = this.editor.dom.get(element).closest('.alert');
         } else if (elementSelector === '.card') {
-          $target = this.$(element).closest('.card');
+          $target = this.editor.dom.get(element).closest('.card');
         } else {
-          $target = this.$(element);
+          $target = this.editor.dom.get(element);
         }
-        $target.addClass('tbp-active');
+        this.editor.dom.addClass($target, 'tbp-active');
         this.activateUiButton(elementSelector);
       };
       BootstrapPlugin.prototype.activateUiButton = function (elementSelector) {
         var key = elementSelector.replace('.', '').replace('img', 'image');
         if (this.hasToolbar && this.toolbarStyle === 'buttons') {
-          this.uiButtons[key].addClass('tox-tbtn--enabled');
-          this.uiButtons[key].attr('aria-pressed', true);
+          this.editor.dom.addClass(this.uiButtons[key], 'tox-tbtn--enabled');
+          this.editor.dom.setAttrib(this.uiButtons[key], 'aria-pressed', true);
         }
       };
       BootstrapPlugin.prototype.deactivateAll = function () {
         if (this.hasToolbar && this.toolbarStyle === 'buttons') {
           for (var _i = 0, _a = Object.entries(this.uiButtons); _i < _a.length; _i++) {
             var _b = _a[_i], key = _b[0], value = _b[1];
-            this.uiButtons[key].removeClass('tox-tbtn--enabled');
-            this.uiButtons[key].removeAttr('aria-pressed');
+            this.uiButtons[key].classList.remove('tox-tbtn--enabled');
+            this.uiButtons[key].removeAttribute('aria-pressed');
           }
         }
-        // -?- add MZ 05.25.2022 ---------------------------|
         this.editor.dom.removeClass(tinymce.activeEditor.dom?.select('.tbp-active'), 'tbp-active');
       };
       BootstrapPlugin.prototype.enableUiButtonsToggle = function () {
         var _this = this;
         this.editor.on('Click Keyup Contextmenu', function (e) {
           var elementSelector = '';
-          if (_this.$(e.target).hasClass('no-events')) {
+          if (_this.editor.dom.hasClass(e.target, 'no-events')) {
             e.preventDefault();
             e.stopPropagation();
             e.stopImmediatePropagation();
             return false;
-          } else if (_this.$(e.target).hasClass('tbp-ui')) {
+          } else if (_this.editor.dom.hasClass(e.target, 'tbp-ui')) {
             _this.editor.selection.setCursorLocation(e.target, true);
             return;
           } else if (e.target.tagName.toLowerCase() === 'img') {
             elementSelector = 'img';
           } else if (e.target.classList.length > 0) {
-            if (_this.$(e.target).hasClass('btn')) {
+            if (_this.editor.dom.hasClass(e.target, 'btn')) {
               elementSelector = '.btn';
             } else if (_this.isIcon(e.target)) {
               elementSelector = 'icon';
-            } else if (_this.$(e.target).hasClass('badge')) {
+            } else if (_this.editor.dom.hasClass(e.target, 'badge')) {
               elementSelector = '.badge';
             }
           } else if (e.target.closest('.table') !== null) {
             elementSelector = '.table';
-          }
-          if (e.target.closest('.breadcrumb') !== null) {
+          } else if (e.target.closest('.breadcrumb') !== null) {
             elementSelector = '.breadcrumb';
           } else if (e.target.closest('.pagination') !== null) {
             elementSelector = '.pagination';
@@ -6257,7 +6459,7 @@
           }
           _this.editor.ui.registry.addContextToolbar('bsRow' + pos + 'ContextToolbar', {
             predicate: function (node) {
-              return tinymce.dom.DomQuery(node).hasClass('add-row-' + pos.toLowerCase() + '-btn');
+              return tinymce.activeEditor.dom.hasClass(node, 'add-row-' + pos.toLowerCase() + '-btn');
             },
             items: 'addRow' + pos + '1 addRow' + pos + '2 addRow' + pos + '3 addRow' + pos + '4',
             position: 'node',
@@ -6337,7 +6539,7 @@
                     var submenuItems = [];
                     cssprop.suffix.forEach(function (suffix) {
                       var subMenuIcon = null;
-                      if (_this.$(_this.currentRow).hasClass(cssprop.prefix + screen.prefix + suffix.value)) {
+                      if (_this.editor.dom.hasClass(_this.currentRow, cssprop.prefix + screen.prefix + suffix.value)) {
                         subMenuIcon = 'check';
                       }
                       submenuItems.push({
@@ -6345,12 +6547,12 @@
                         text: suffix.name,
                         icon: subMenuIcon,
                         onAction: function () {
-                          if (!_this.$(_this.currentRow).hasClass(cssprop.prefix + screen.prefix + suffix.value)) {
+                          if (!_this.editor.dom.hasClass(_this.currentRow, cssprop.prefix + screen.prefix + suffix.value)) {
                             cssprop.suffix.forEach(function (sf) {
-                              _this.$(_this.currentRow).removeClass(cssprop.prefix + screen.prefix + sf.value);
+                              _this.editor.dom.removeClass(_this.currentRow, cssprop.prefix + screen.prefix + sf.value);
                             });
                           }
-                          _this.$(_this.currentRow).toggleClass(cssprop.prefix + screen.prefix + suffix.value);
+                          _this.editor.dom.toggleClass(_this.currentRow, cssprop.prefix + screen.prefix + suffix.value);
                           return false;
                         }
                       });
@@ -6364,7 +6566,7 @@
           });
           _this.editor.ui.registry.addContextToolbar('bsRowEditContextToolbar', {
             predicate: function (node) {
-              return tinymce.dom.DomQuery(node).hasClass('edit-row-btn');
+              return tinymce.activeEditor.dom.hasClass(node, 'edit-row-btn');
             },
             items: 'justifyContent alignItems',
             position: 'node',
@@ -6404,7 +6606,7 @@
                     var submenuItems = [];
                     cssprop.suffix.forEach(function (suffix) {
                       var subMenuIcon = null;
-                      if (_this.$(_this.currentCol).hasClass(cssprop.prefix + screen.prefix + suffix.value)) {
+                      if (_this.editor.dom.hasClass(_this.currentCol, cssprop.prefix + screen.prefix + suffix.value)) {
                         subMenuIcon = 'check';
                       }
                       submenuItems.push({
@@ -6413,9 +6615,9 @@
                         icon: subMenuIcon,
                         onAction: function () {
                           var csspropPrefix = cssprop.prefix;
-                          if (!_this.$(_this.currentCol).hasClass(csspropPrefix + screen.prefix + suffix.value)) {
+                          if (!_this.editor.dom.hasClass(_this.currentCol, csspropPrefix + screen.prefix + suffix.value)) {
                             cssprop.suffix.forEach(function (sf) {
-                              _this.$(_this.currentCol).removeClass(csspropPrefix + screen.prefix + sf.value);
+                              _this.editor.dom.removeClass(_this.currentCol, csspropPrefix + screen.prefix + sf.value);
                             });
                           }
                           if (suffix.value === '') {
@@ -6424,7 +6626,7 @@
                             }
                             screen.prefix = screen.prefix.slice(0, -1);
                           }
-                          _this.$(_this.currentCol).toggleClass(csspropPrefix + screen.prefix + suffix.value);
+                          _this.editor.dom.toggleClass(_this.currentCol, csspropPrefix + screen.prefix + suffix.value);
                           return false;
                         }
                       });
@@ -6438,7 +6640,7 @@
           });
           _this.editor.ui.registry.addContextToolbar('bsColEditContextToolbar', {
             predicate: function (node) {
-              return tinymce.dom.DomQuery(node).hasClass('edit-col-btn');
+              return tinymce.activeEditor.dom.hasClass(node, 'edit-col-btn');
             },
             items: 'width',
             position: 'node',
@@ -6467,7 +6669,7 @@
           }
           _this.editor.ui.registry.addContextToolbar('bsCol' + pos + 'ContextToolbar', {
             predicate: function (node) {
-              return tinymce.dom.DomQuery(node).hasClass('add-col-' + pos.toLowerCase() + '-btn');
+              return tinymce.activeEditor.dom.hasClass(node, 'add-col-' + pos.toLowerCase() + '-btn');
             },
             items: 'addCol' + pos + '1 addCol' + pos + '2 addCol' + pos + '3 addCol' + pos + '4',
             position: 'node',
@@ -6477,24 +6679,25 @@
         this.editor.ui.registry.addButton('showModal', {
           text: '' + tinymce.util.I18n.translate('Show Modal'),
           onAction: function () {
-            var $ = tinymce.dom.DomQuery;
-            var modalId = $(_this.editor.dom.select('.tbp-active')).attr('data-target');
-            $(_this.editor.dom.select(modalId)).addClass('show').css('display', 'block');
-            $('<div class="modal-backdrop fade show"></div>').appendTo($(_this.editor.dom.select('body')));
+            var btnTriggerModal = _this.editor.dom.select('.tbp-active')[0];
+            var modalId = _this.editor.dom.getAttrib(btnTriggerModal, 'data-bs-target').replace('#', '');
+            _this.editor.dom.addClass(_this.editor.dom.get(modalId), 'show');
+            _this.editor.dom.setStyle(_this.editor.dom.get(modalId), 'display', 'block');
+            var el = _this.editor.dom.create('div', { class: 'modal-backdrop fade show' }, '');
+            _this.editor.dom.add(_this.editor.dom.getRoot(), el);
           }
         });
         this.editor.ui.registry.addButton('hideModal', {
           text: '' + tinymce.util.I18n.translate('Hide Modal'),
           onAction: function () {
-            var $ = tinymce.dom.DomQuery;
-            var modalId = $(_this.editor.dom.select('.modal.show')).attr('id');
-            $(_this.editor.dom.select('#' + modalId)).removeClass('show').css('display', 'none');
-            $(_this.editor.dom.select('body')).find('.modal-backdrop').remove();
+            _this.editor.dom.setStyle(_this.editor.dom.select('.modal.show'), 'display', 'none');
+            _this.editor.dom.removeClass(_this.editor.dom.select('.modal.show'), 'show');
+            _this.editor.dom.remove(_this.editor.dom.select('.modal-backdrop'));
           }
         });
         this.editor.ui.registry.addContextToolbar('modalShowContextToolbar', {
           predicate: function (node) {
-            return tinymce.dom.DomQuery(node).attr('data-toggle') === 'modal';
+            return tinymce.activeEditor.dom.getAttrib(node, 'data-bs-toggle') === 'modal';
           },
           items: 'showModal',
           position: 'node',
@@ -6502,10 +6705,7 @@
         });
         this.editor.ui.registry.addContextToolbar('modalHideContextToolbar', {
           predicate: function (node) {
-            if (tinymce.dom.DomQuery(node).hasClass('modal-dialog') && tinymce.dom.DomQuery(node).closest('.modal.show').length > 0) {
-              return true;
-            }
-            return false;
+            return tinymce.activeEditor.dom.getParent(node, '.modal.show');
           },
           items: 'hideModal',
           position: 'node',
@@ -6516,7 +6716,7 @@
         var _this = this;
         this.editor.on('Click', function (e) {
           if (_this.enableTemplateEdition === true) {
-            if (_this.$(e.target).hasClass('remove-row-btn')) {
+            if (_this.editor.dom.hasClass(e.target, 'remove-row-btn')) {
               _this.editor.windowManager.confirm(tinymce.util.I18n.translate('Remove row') + '?', function (s) {
                 if (s) {
                   _this.removeEditorContent('row');
@@ -6524,7 +6724,7 @@
                   return;
                 }
               });
-            } else if (_this.$(e.target).hasClass('remove-col-btn')) {
+            } else if (_this.editor.dom.hasClass(e.target, 'remove-col-btn')) {
               _this.editor.windowManager.confirm(tinymce.util.I18n.translate('Remove col') + '?', function (s) {
                 if (s) {
                   _this.removeEditorContent('col');
@@ -6534,47 +6734,63 @@
               });
             } else {
               var clickedCol = _this.findClosestCol(e.target);
-              if (_this.currentCol !== null && _this.$(clickedCol).hasClass('tbp-context-active')) {
+              if (_this.currentCol !== undefined && _this.currentCol !== null && clickedCol !== null && _this.editor.dom.hasClass(clickedCol, 'tbp-context-active')) {
                 return;
               }
-              if (clickedCol !== null) {
-                _this.$(clickedCol).prepend(_this.htmlTemplates.toolbars.col).addClass('tbp-context-active');
+              if (clickedCol) {
+                var fragment = _this.editor.dom.createFragment(_this.htmlTemplates.toolbars.col);
+                clickedCol.insertBefore(fragment, clickedCol.firstChild);
+                _this.editor.dom.addClass(clickedCol, 'tbp-context-active');
                 if (_this.headStyles.indexOf('col') === -1) {
-                  var contextHeight = _this.$(e.target).closest('[class*="col"].tbp-context-active').find('.context-trigger-wrapper')[0].offsetHeight;
+                  var contextHeight = e.target.closest('[class*="col"].tbp-context-active').querySelectorAll('.context-trigger-wrapper')[0].offsetHeight;
                   if (contextHeight !== undefined) {
                     _this.headStyles.push('col');
                     _this.editor.dom.addStyle('[class*="col"].tbp-context-active{margin-top:' + (contextHeight + 1) + 'px !important;}');
                   }
                 }
-                if (parseInt(_this.$(clickedCol)[0].offsetWidth, 10) < 260) {
-                  _this.$(clickedCol).find('.context-trigger-wrapper .badge').remove();
+                if (parseInt(clickedCol.offsetWidth, 10) < 260) {
+                  _this.editor.dom.remove(clickedCol.querySelectorAll('.context-trigger-wrapper .badge'));
                 }
-                if (clickedCol !== _this.currentCol) {
-                  _this.$(_this.currentCol).removeClass('tbp-context-active').children('.context-trigger-wrapper').remove();
+                if (clickedCol !== _this.currentCol && _this.currentCol) {
+                  _this.editor.dom.removeClass(_this.currentCol, 'tbp-context-active');
+                  _this.currentCol.querySelectorAll('.context-trigger-wrapper').forEach(function (element) {
+                    _this.editor.dom.remove(element);
+                  });
                 }
                 _this.currentCol = clickedCol;
-              } else if (_this.currentCol !== null) {
-                _this.$(_this.currentCol).removeClass('tbp-context-active').children('.context-trigger-wrapper').remove();
+              } else if (_this.currentCol) {
+                _this.editor.dom.removeClass(_this.currentCol, 'tbp-context-active');
+                _this.currentCol.querySelectorAll('.context-trigger-wrapper').forEach(function (element) {
+                  _this.editor.dom.remove(element);
+                });
               }
               var clickedRow = e.target.closest('.row');
-              if (_this.currentRow !== null && _this.$(clickedRow).hasClass('tbp-context-active')) {
+              if (_this.currentRow !== undefined && _this.currentRow !== null && clickedRow !== null && _this.editor.dom.hasClass(clickedRow, 'tbp-context-active')) {
                 return;
               }
-              if (clickedRow !== null) {
-                _this.$(clickedRow).prepend(_this.htmlTemplates.toolbars.row).addClass('tbp-context-active');
+              if (clickedRow) {
+                var fragment = _this.editor.dom.createFragment(_this.htmlTemplates.toolbars.row);
+                clickedRow.insertBefore(fragment, clickedRow.firstChild);
+                _this.editor.dom.addClass(clickedRow, 'tbp-context-active');
                 if (_this.headStyles.indexOf('row') === -1) {
-                  var contextHeight = _this.$(e.target).closest('.row.tbp-context-active').find('.context-trigger-wrapper')[0].offsetHeight;
+                  var contextHeight = e.target.closest('.row.tbp-context-active').querySelectorAll('.context-trigger-wrapper')[0].offsetHeight;
                   if (contextHeight !== undefined) {
                     _this.headStyles.push('row');
                     _this.editor.dom.addStyle('.row.tbp-context-active{margin-top:' + (contextHeight + 1) + 'px !important;}');
                   }
                 }
-                if (clickedRow !== _this.currentRow) {
-                  _this.$(_this.currentRow).removeClass('tbp-context-active').children('.context-trigger-wrapper').remove();
+                if (clickedRow !== _this.currentRow && _this.currentRow) {
+                  _this.editor.dom.removeClass(_this.currentRow, 'tbp-context-active');
+                  _this.currentRow.querySelectorAll('.context-trigger-wrapper').forEach(function (element) {
+                    _this.editor.dom.remove(element);
+                  });
                 }
                 _this.currentRow = clickedRow;
-              } else if (_this.currentRow !== null) {
-                _this.$(_this.currentRow).removeClass('tbp-context-active').children('.context-trigger-wrapper').remove();
+              } else if (_this.currentRow) {
+                _this.editor.dom.removeClass(_this.currentRow, 'tbp-context-active');
+                _this.currentRow.querySelectorAll('.context-trigger-wrapper').forEach(function (element) {
+                  _this.editor.dom.remove(element);
+                });
               }
             }
           }
@@ -6582,16 +6798,17 @@
       };
       BootstrapPlugin.prototype.insertEditorContent = function (type, nb, pos) {
         var $htmlContent;
+        var $rowContent;
         var htmlFragment;
         switch (type) {
         case 'col':
           var col = this.findClosestCol(this.editor.selection.getNode());
           this.editor.selection.setCursorLocation(col, 0);
-          $htmlContent = this.$('<div></div>');
+          $htmlContent = this.editor.dom.create('div');
           for (var index = 0; index < nb; index++) {
-            $htmlContent.append(this.htmlTemplates.col);
+            $htmlContent.appendChild(this.editor.dom.createFragment(this.htmlTemplates.col));
           }
-          htmlFragment = this.editor.dom.createFragment($htmlContent[0].innerHTML);
+          htmlFragment = this.editor.dom.createFragment($htmlContent.innerHTML);
           switch (pos) {
           case 'before':
             this.editor.selection.getNode().before(htmlFragment);
@@ -6604,11 +6821,13 @@
         case 'row':
           var row = this.editor.selection.getNode().closest('.row');
           this.editor.selection.setCursorLocation(row, 0);
-          $htmlContent = this.$(this.htmlTemplates.row);
+          $htmlContent = this.editor.dom.create('div');
+          $rowContent = this.editor.dom.createFragment(this.htmlTemplates.row);
           for (var index = 0; index < nb; index++) {
-            $htmlContent.append(this.htmlTemplates.col);
+            $rowContent.appendChild(this.editor.dom.createFragment(this.htmlTemplates.col));
           }
-          htmlFragment = this.editor.dom.createFragment($htmlContent[0].outerHTML);
+          $htmlContent.appendChild($rowContent);
+          htmlFragment = this.editor.dom.createFragment($htmlContent.innerHTML);
           switch (pos) {
           case 'before':
             this.editor.selection.getNode().before(htmlFragment);
@@ -6626,8 +6845,8 @@
         case 'col':
           var col = this.findClosestCol(this.editor.selection.getNode());
           this.editor.selection.setCursorLocation(col);
-          var numberOfCols = this.$(row).children('.col').length;
-          numberOfCols += this.$(row).children('[class^="col-"]').length;
+          var numberOfCols = row.querySelectorAll('.col').length;
+          numberOfCols += row.querySelectorAll('[class^="col-"]').length;
           if (numberOfCols < 2) {
             this.removeEditorContent('row');
           } else {
@@ -6641,36 +6860,36 @@
         }
       };
       BootstrapPlugin.prototype.addParagraph = function (selectedNode, pos) {
-        var newP = '<p id="new-p">&nbsp;</p>';
+        var newP = this.editor.dom.create('p', { id: 'new-p' }, '&nbsp;');
         switch (pos) {
         case 'before':
-          this.$(selectedNode).before(this.$(newP));
+          selectedNode.insertAdjacentElement('beforebegin', newP);
           break;
         case 'after':
-          this.$(selectedNode).after(this.$(newP));
+          selectedNode.insertAdjacentElement('afterend', newP);
           break;
         case 'prepend':
-          this.$(selectedNode).prepend(this.$(newP));
+          selectedNode.insertBefore(newP, selectedNode.firstChild);
           break;
         case 'append':
-          this.$(selectedNode).append(this.$(newP));
+          selectedNode.appendChild(newP);
           break;
         case 'beginning':
-          this.editor.getBody().insertBefore(this.$(newP)[0], this.editor.getBody().firstChild);
+          this.editor.getBody().insertBefore(newP, this.editor.getBody().firstChild);
           break;
         case 'end':
-          this.editor.getBody().lastChild.after(this.$(newP)[0]);
+          this.editor.getBody().lastChild.after(newP);
           break;
         case 'beginningContainer':
-          this.$(selectedNode).closest('.container, .container-fluid').prepend(this.$(newP));
+          selectedNode.closest('.container, .container-fluid').prepend(newP);
           break;
         case 'endContainer':
-          this.$(selectedNode).closest('.container, .container-fluid').append(this.$(newP));
+          selectedNode.closest('.container, .container-fluid').append(newP);
           break;
         }
         this.editor.selection.setCursorLocation(this.editor.dom.select('#new-p')[0]);
         this.editor.focus();
-        this.$(this.editor.dom.select('#new-p')).removeAttr('id');
+        this.editor.dom.get('new-p').removeAttribute('id');
       };
       BootstrapPlugin.prototype.addStyleFormat = function (item) {
         var titleParts = item.title.split(' ');
@@ -6729,14 +6948,14 @@
         return outputItems;
       };
       BootstrapPlugin.prototype.getContentCss = function () {
-        var content_css = this.editor.settings.content_css || '';
+        var content_css = this.editor.options.get('content_css') || '';
         if (content_css === '') {
           content_css = this.pluginUrl + 'assets/css/editor-content.min.css';
         } else {
           content_css = content_css + ',' + this.pluginUrl + 'assets/css/editor-content.min.css';
         }
         if (this.iconCss !== '') {
-          content_css += ',' + this.pluginUrl + 'lib/iconpicker/fonts/' + this.iconCss;
+          content_css += ',' + this.iconCssUrl;
         }
         return content_css;
       };
@@ -6790,7 +7009,7 @@
           'row'
         ];
         types.forEach(function (type) {
-          _this.htmlTemplates.toolbars[type] = '<div class="context-trigger-wrapper bg-light p-1">\n                <div class="flex-grow-1 text-left no-events"><span class="badge badge-secondary font-weight-normal mb-2 px-2 py-1 rounded-0 no-events">' + tinymce.util.I18n.translate('Edit ' + type) + '</span></div>\n                <div class="btn-group rounded-0" role="group">\n                    <button type="button" class="btn btn-sm btn-warning rounded-0 context-btn tbp-ui add-' + type + '-before-btn" title="' + tinymce.util.I18n.translate('Add ' + type + ' before') + '"><span class="d-inline-block svg-icon">' + _this.editorIcons.plus + '</span></button>\n                    <button type="button" class="btn btn-sm btn-primary rounded-0 context-btn tbp-ui edit-' + type + '-btn" title="' + tinymce.util.I18n.translate('Edit ' + type) + '"><span class="d-inline-block svg-icon">' + _this.editorIcons.edit + '</span></button>\n                    <button type="button" class="btn btn-sm btn-warning rounded-0 mr-5 context-btn tbp-ui add-' + type + '-after-btn" title="' + tinymce.util.I18n.translate('Add ' + type + ' after') + '"><span class="d-inline-block svg-icon">' + _this.editorIcons.plus + '</span></button>\n                    <button type="button" class="btn btn-sm btn-danger rounded-0 context-btn tbp-ui remove-' + type + '-btn" title="' + tinymce.util.I18n.translate('Remove ' + type) + '"><span class="d-inline-block svg-icon">' + _this.editorIcons.minus + '</span></button>\n                </div>\n            </div>';
+          _this.htmlTemplates.toolbars[type] = '<div class="context-trigger-wrapper bg-light p-1">\n                <div class="flex-grow-1 text-start no-events"><span class="badge bg-secondary font-weight-normal mb-2 px-2 py-1 rounded-0 no-events">' + tinymce.util.I18n.translate('Edit ' + type) + '</span></div>\n                <div class="btn-group rounded-0" role="group">\n                    <button type="button" class="btn btn-sm btn-warning rounded-0 context-btn tbp-ui add-' + type + '-before-btn" title="' + tinymce.util.I18n.translate('Add ' + type + ' before') + '"><span class="d-inline-block svg-icon">' + _this.editorIcons.plus + '</span></button>\n                    <button type="button" class="btn btn-sm btn-primary rounded-0 context-btn tbp-ui edit-' + type + '-btn" title="' + tinymce.util.I18n.translate('Edit ' + type) + '"><span class="d-inline-block svg-icon">' + _this.editorIcons.edit + '</span></button>\n                    <button type="button" class="btn btn-sm btn-warning rounded-0 me-5 context-btn tbp-ui add-' + type + '-after-btn" title="' + tinymce.util.I18n.translate('Add ' + type + ' after') + '"><span class="d-inline-block svg-icon">' + _this.editorIcons.plus + '</span></button>\n                    <button type="button" class="btn btn-sm btn-danger rounded-0 context-btn tbp-ui remove-' + type + '-btn" title="' + tinymce.util.I18n.translate('Remove ' + type) + '"><span class="d-inline-block svg-icon">' + _this.editorIcons.minus + '</span></button>\n                </div>\n            </div>';
         });
         this.htmlTemplates.col = '<div class="col"><p>' + tinymce.util.I18n.translate('New column') + '</p></div>';
         this.htmlTemplates.row = '<div class="row"></div>';
@@ -6802,7 +7021,6 @@
     }();
 
     var setup = function (editor, url) {
-      tinymce.PluginManager.requireLangPack('bootstrap', editor.settings.bootstrapConfig.language);
       var bs = new BootstrapPlugin(editor, url);
       bs.editor.on('init', function () {
         bs.init();
@@ -6815,6 +7033,7 @@
           };
         },
         getInstance: function () {
+          bs.cjs = BootstrapPlugin.cjs;
           return bs;
         }
       };

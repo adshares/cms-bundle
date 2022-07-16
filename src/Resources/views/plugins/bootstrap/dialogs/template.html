@@ -40,9 +40,9 @@
             <div class="row mx-0">
                 <div class="{{=it.sectionSplitColClass}}">
                     <!-- container -->
-                    <div class="form-group form-inline">
-                        <label for="container" class="mr-3">{{=it.container}}</label>
-                        <select class="form-control" data-prop="container" id="container">
+                    <div class="form-group d-flex align-items-center">
+                        <label for="container" class="me-3">{{=it.container}}</label>
+                        <select class="form-select" data-prop="container" id="container">
                             <option value="">{{=it.noContainer}}</option>
                             <option value="container">{{=it.normalContainer}}</option>
                             <option value="container-fluid">{{=it.fluidContainer}}</option>
@@ -51,9 +51,9 @@
                 </div>
                 <div class="{{=it.sectionSplitColClass}}">
                     <!-- insertPosition  -->
-                    <div class="form-group form-inline">
-                        <label for="insertPosition" class="mr-3">{{=it.position}}</label>
-                        <select class="form-control" data-prop="insertPosition" id="insertPosition">
+                    <div class="form-group d-flex align-items-center">
+                        <label for="insertPosition" class="me-3">{{=it.position}}</label>
+                        <select class="form-select" data-prop="insertPosition" id="insertPosition">
                             <option value="">{{=it.insertCursorPosition}}</option>
                             <option value="insertBeforeRow">{{=it.insertBeforeRow}}</option>
                             <option value="insertAfterRow">{{=it.insertAfterRow}}</option>
@@ -90,7 +90,7 @@
             <span>{{=it.code}}</span>
         </div>
         <div class="{{=it.codeClass}}" id="code-content">
-            <pre class="language-html text-left"></pre>
+            <pre class="language-html text-start"></pre>
         </div>
     </section>
 

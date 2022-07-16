@@ -30,6 +30,10 @@
     height: 95vh;
 }
 
+.tox-collection__item-label div {
+    text-decoration: none !important;
+}
+
 /* context submenu items
 -------------------------------------------------- */
 
@@ -40,4 +44,12 @@
 .tox-collection__item-icon:empty ~ .tox:not([dir=rtl]) .tox-collection--list .tox-collection__item>:not(:first-child) {
     margin-left: 0;
     text-align: center;
+}
+
+.tox-tinymce-inline {
+    z-index: 1000
+}
+
+.tox .tox-collection__item-label {
+    line-height: normal;
 }

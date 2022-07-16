@@ -1,6 +1,6 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
         class fileTree {
-            constructor(targetId, options = {}) {
+            constructor (targetId, options = {}) {
                 this.listeningFolders = [];
                 this.template = null;
                 this.treeMarkup = '';
@@ -68,37 +68,37 @@
             }
             loadAndRenderContent(){
                 return this.getFiles()
-                  .then((data) => {
-                      this.jsonTree = JSON.parse(data);
-                      if (this.jsonTree.error) {
-                          throw this.jsonTree.error;
-                      }
-                      this.buildTree();
-                      if (this.options.dragAndDrop === true) {
-                          if (typeof (CryptoJS) === "undefined") {
-                              this.loadScript(this.scriptSrc + 'lib/crypto-js/crypto-js.min.js');
-                          }
-                          if (typeof (sortable) === "undefined") {
-                              this.loadScript(this.scriptSrc + 'lib/html5sortable/html5sortable.min.js').then(() => {
-                                  this.render();
-                              })
-                                .catch(() => {
-                                    console.error('Script loading failed :( ');
-                                });
-                          }
-                          else {
-                              this.render();
-                          }
-                      }
-                      else {
-                          this.render();
-                      }
-                  })
-                  .catch((err) => {
-                      console.error('Augh, there was an error!', err);
-                  });
+                    .then((data) => {
+                        this.jsonTree = JSON.parse(data);
+                        if (this.jsonTree.error) {
+                            throw this.jsonTree.error;
+                        }
+                        this.buildTree();
+                        if (this.options.dragAndDrop === true) {
+                            if (typeof (CryptoJS) === "undefined") {
+                                this.loadScript(this.scriptSrc + 'lib/crypto-js/crypto-js.min.js');
+                            }
+                            if (typeof (sortable) === "undefined") {
+                                this.loadScript(this.scriptSrc + 'lib/html5sortable/html5sortable.min.js').then(() => {
+                                    this.render();
+                                })
+                                    .catch(() => {
+                                        console.error('Script loading failed :( ');
+                                    });
+                            }
+                            else {
+                                this.render();
+                            }
+                        }
+                        else {
+                            this.render();
+                        }
+                    })
+                    .catch((err) => {
+                        console.error('Augh, there was an error!', err);
+                    });
             }
-            render() {
+            render () {
                 const $targetId = document.getElementById(this.targetId);
                 this.loadCss();
                 $targetId.querySelectorAll('.ft-tree')[0].innerHTML = this.treeMarkup;
@@ -133,9 +133,9 @@
                 this.loadFolder(this.currentFolderId);
             }
             /**
-             * Load js-tree + icon lib CSS
-             */
-            loadCss() {
+            * Load js-tree + icon lib CSS
+            */
+            loadCss () {
                 const ftIcons = document.getElementById('ft-icons');
                 if (ftIcons == undefined) {
                     const linkElement = document.createElement('link');
@@ -155,7 +155,7 @@
                     document.getElementsByTagName('head')[0].appendChild(linkElement);
                 }
             }
-            loadScript(src) {
+            loadScript (src) {
                 var script = document.createElement('script');
                 script.setAttribute('src', src);
                 document.body.appendChild(script);
@@ -168,7 +168,7 @@
                     };
                 });
             }
-            buildFolderContent(jst, url, deph) {
+            buildFolderContent (jst, url, deph) {
                 const folderContent = {
                     folders: [],
                     files: []
@@ -214,7 +214,7 @@
                 }
                 return folderContent;
             }
-            buildTree(jst = this.jsonTree, url = this.options.mainDir + '/', deph = 0) {
+            buildTree (jst = this.jsonTree, url = this.options.mainDir + '/', deph = 0) {
                 if (deph === 0) {
                     const rootId = 'ft-' + this.targetId + '-root';
                     this.treeMarkup = `<ul class="ft-tree"><li id="${rootId}" class="ft-folder-container ft-folder-open"><div><i class="${this.icons.folderOpen}"></i><a href="#" data-url="${url}">root</a></div>`;
@@ -239,7 +239,7 @@
                     this.treeMarkup += `</li></ul>`;
                 }
             }
-            enableDrag() {
+            enableDrag () {
                 let explorerContainerSelector = '.ft-explorer-list-container';
                 if (this.options.explorerMode === 'grid') {
                     explorerContainerSelector = '.ft-explorer-grid-container';
@@ -251,33 +251,33 @@
                 });
                 folders.forEach((folder) => {
                     const folderId = folder.getAttribute('id');
-                    console.warn(folderId + ' => ' + this.currentFolderId);
+                    // console.warn(folderId + ' => ' + this.currentFolderId);
                     if (this.listeningFolders.indexOf(folderId) === -1 || folderId.match(/^explorer-/)) {
                         if (folderId !== this.currentFolderId) {
                             sortable('#' + folderId, {
                                 acceptFrom: '.ft-explorer-list-container, .ft-explorer-grid-container'
                             });
                             this.listeningFolders.push(folderId);
-                            console.log('listening #' + folderId);
+                            // console.log('listening #' + folderId);
                             sortable('#' + folderId)[0].addEventListener('sortupdate', this.moveFile.bind(this));
                         }
                         else {
-                            console.log('skip #' + folderId);
+                            // console.log('skip #' + folderId);
                         }
                     }
                     else {
                         if (folderId === this.currentFolderId) {
                             sortable('#' + folderId, 'disable');
-                            console.log('disable #' + folderId);
+                            // console.log('disable #' + folderId);
                         }
                         else {
                             sortable('#' + folderId, 'enable');
-                            console.log('enable #' + folderId);
+                            // console.log('enable #' + folderId);
                         }
                     }
                 });
             }
-            moveFile(e) {
+            moveFile (e) {
                 for (let index = 0; index < e.detail.item.children.length; index++) {
                     const element = e.detail.item.children[index];
                     if (element.dataset.filename !== undefined && element.dataset.href !== undefined) {
@@ -310,16 +310,16 @@
                                         container.children[itemIndex].parentNode.removeChild(container.children[itemIndex]);
                                         // rebuild tree
                                         this.getFiles()
-                                          .then((data) => {
-                                              this.jsonTree = JSON.parse(data);
-                                              if (this.jsonTree.error) {
-                                                  throw this.jsonTree.error;
-                                              }
-                                              this.buildTree();
-                                          })
-                                          .catch((err) => {
-                                              console.error('Augh, there was an error!', err);
-                                          });
+                                            .then((data) => {
+                                                this.jsonTree = JSON.parse(data);
+                                                if (this.jsonTree.error) {
+                                                    throw this.jsonTree.error;
+                                                }
+                                                this.buildTree();
+                                            })
+                                            .catch((err) => {
+                                                console.error('Augh, there was an error!', err);
+                                            });
                                     }
                                     else {
                                         console.error(resp);
@@ -337,7 +337,7 @@
                     }
                 }
             }
-            getFileType(ext) {
+            getFileType (ext) {
                 const x = this.extTypes;
                 for (let key in x) {
                     let value = x[key];
@@ -347,7 +347,7 @@
                 }
                 return 'default';
             }
-            getFiles() {
+            getFiles () {
                 return new Promise((resolve, reject) => {
                     let xhr = new XMLHttpRequest();
                     xhr.open('GET', '/cms/assets', true);
@@ -373,7 +373,7 @@
                     xhr.send();
                 });
             }
-            getScriptScr() {
+            getScriptScr () {
                 const sc = document.getElementsByTagName("script");
                 for (let idx = 0; idx < sc.length; idx++) {
                     const s = sc.item(idx);
@@ -382,14 +382,14 @@
                     }
                 }
             }
-            humanFileSize(bytes, si) {
+            humanFileSize (bytes, si) {
                 var thresh = si ? 1000 : 1024;
                 if (Math.abs(bytes) < thresh) {
                     return bytes + ' B';
                 }
                 var units = si
-                  ? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
-                  : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+                    ? ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+                    : ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
                 var u = -1;
                 do {
                     bytes /= thresh;
@@ -397,7 +397,7 @@
                 } while (Math.abs(bytes) >= thresh && u < units.length - 1);
                 return bytes.toFixed(1) + ' ' + units[u];
             }
-            loadFolder(folderId) {
+            loadFolder (folderId) {
                 const $targetId = document.getElementById(this.targetId);
                 const folderContent = this.foldersContent[folderId];
                 let clone;
@@ -596,14 +596,14 @@
                     });
                     // enable files / folders drag & drop
                     // if (this.options.dragAndDrop === true) {
-                    this.enableDrag();
+                        this.enableDrag();
                     // }
                 })
-                  .catch((err) => {
-                      console.error('Augh, there was an error!', err);
-                  });
+                    .catch((err) => {
+                        console.error('Augh, there was an error!', err);
+                    });
             }
-            loadTemplates() {
+            loadTemplates () {
                 return new Promise((resolve, reject) => {
                     if (this.template !== null) {
                         resolve(this.template);
@@ -613,6 +613,7 @@
                         let xhr = new XMLHttpRequest();
                         xhr.open('GET', this.scriptSrc + 'templates/' + this.options.template + '.html', true);
                         xhr.onload = function () {
+                            // console.log(xhr.response);
                             if (this.status >= 200 && this.status < 300) {
                                 if (document.querySelectorAll('#explorer-' + ftMode).length < 1) {
                                     const div = document.createElement('div');
@@ -640,7 +641,7 @@
                     }
                 });
             }
-            parentsUntil(el, searchClass, stopElementId) {
+            parentsUntil (el, searchClass, stopElementId) {
                 const Parents = new Array();
                 while (el.parentNode) {
                     if (el.classList.contains(searchClass)) {
@@ -655,14 +656,14 @@
                 return Parents;
             }
             /**
-             * @description Sanitizes a folder or file name to work with #name of legacy system
-             *              Legacy system unknown
-             * @author BM67
-             * @param {String} name The string to sanitize
-             * @param {String} type  Optional "file" or default is assumed "folder"
-             * @return {String} The sanitized name
-             */
-            sanitizeFolderOrFile(name, type) {
+         * @description Sanitizes a folder or file name to work with #name of legacy system
+         *              Legacy system unknown
+         * @author BM67
+         * @param {String} name The string to sanitize
+         * @param {String} type  Optional "file" or default is assumed "folder"
+         * @return {String} The sanitized name
+         */
+            sanitizeFolderOrFile (name, type) {
                 var parts, ext = "";
                 if (type === "file") {
                     parts = name.split(".");
@@ -681,7 +682,7 @@
                 items.forEach(item => name = name.replace(item[0], item[1]));
                 return name + ext;
             }
-            switchMode() {
+            switchMode () {
                 if (this.options.explorerMode === 'list') {
                     this.options.explorerMode = 'grid';
                 }

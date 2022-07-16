@@ -21,28 +21,28 @@
             <span>{{=it.buttonStyle}}</span>
         </div>
         <div class="selector">
-            <span class="badge bg-primary" data-prop="style" data-value="bg-primary">Primary</span>
+            <span class="badge bg-primary" data-prop="style" data-value="badge bg-primary">Primary</span>
         </div>
         <div class="selector">
-            <span class="badge bg-secondary" data-prop="style" data-value="bg-secondary">Secondary</span>
+            <span class="badge bg-secondary" data-prop="style" data-value="badge bg-secondary">Secondary</span>
         </div>
         <div class="selector">
-            <span class="badge bg-success" data-prop="style" data-value="bg-success">Success</span>
+            <span class="badge bg-success" data-prop="style" data-value="badge bg-success">Success</span>
         </div>
         <div class="selector">
-            <span class="badge bg-danger" data-prop="style" data-value="bg-danger">Danger</span>
+            <span class="badge bg-danger" data-prop="style" data-value="badge bg-danger">Danger</span>
         </div>
         <div class="selector">
-            <span class="badge bg-warning" data-prop="style" data-value="bg-warning">Warning</span>
+            <span class="badge bg-warning" data-prop="style" data-value="badge bg-warning">Warning</span>
         </div>
         <div class="selector">
-            <span class="badge bg-info" data-prop="style" data-value="bg-info">Info</span>
+            <span class="badge bg-info" data-prop="style" data-value="badge bg-info">Info</span>
         </div>
         <div class="selector">
-            <span class="badge bg-light" data-prop="style" data-value="bg-light">Light</span>
+            <span class="badge bg-light text-dark" data-prop="style" data-value="badge bg-light">Light</span>
         </div>
         <div class="selector">
-            <span class="badge bg-dark" data-prop="style" data-value="bg-dark">Dark</span>
+            <span class="badge bg-dark" data-prop="style" data-value="badge bg-dark">Dark</span>
         </div>
     </section>
 
@@ -65,8 +65,8 @@
                     </div>
                 </div>
                 <div class="{{=it.sectionSplitColClass}} togglable-wrapper">
-                    <div class="form-inline toggle tag-toggle" data-activate="a">
-                        <label for="badge-link-url" class="mr-3">{{=it.link}}</label>
+                    <div class="d-flex align-items-center toggle tag-toggle" data-activate="a">
+                        <label for="badge-link-url" class="me-3">{{=it.link}}</label>
                         <input type="text" data-prop="href" value="" class="form-control form-control-sm" id="badge-link-url" placeholder="https://">
                     </div>
                     </div>
@@ -82,15 +82,15 @@
         <div class="{{=it.choiceTitleClass}}">
             <span>{{=it.others}}</span>
         </div>
-        <div class="choice form-inline">
-            <label class="mr-3">{{=it.badgepill}}</label>
+        <div class="choice d-flex align-items-center">
+            <label class="me-3">{{=it.badgepill}}</label>
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-sm" data-prop="badgePill" data-value="false">{{=it.no}}</button>
                 <button type="button" class="btn btn-sm" data-prop="badgePill" data-value="true">{{=it.yes}}</button>
             </div>
         </div>
-        <div class="choice form-inline">
-            <label for="text" class="mr-3" id="text-label">{{=it.text}}</label>
+        <div class="choice d-flex align-items-center">
+            <label for="text" class="me-3" id="text-label">{{=it.text}}</label>
             <input type="text" value="" class="form-control form-control-sm" data-prop="text" name="text" id="text">
         </div>
     </section>

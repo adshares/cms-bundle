@@ -1,8 +1,17 @@
 {
-    "devDependencies": {
-        "@tinymce/tinymce-jquery": "^2.0.0",
+    "name": "@adshares/cms-bundle",
+    "version": "0.2.0",
+    "display-name": "Adshares CMS bundle",
+    "description": "Adshares CMS bundle.",
+    "author": "Adshares <dev@adshares.net>",
+    "license": "GPL-3.0",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/adshares/cms-bundle.git"
+    },
+    "dependencies": {
         "jquery": "^3.6.0",
-        "tinymce": "5.10.2"
+        "tinymce": "6.1.0"
     },
     "private": true
 }

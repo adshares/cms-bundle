@@ -106,7 +106,6 @@ var lang = {
     structure: "Structure",
     style: "Style",
     submit: "Valider",
-    tableDark: "Tableau sombre",
     tableEditDisabledInfo: "L'édition de la structure des tableaux est désactivée. Les rangées et les colonnes peuvent être éditées directement dans tinyMce.",
     tableHover: "Tableau survolable",
     tableSmall: "Tableau condensé",

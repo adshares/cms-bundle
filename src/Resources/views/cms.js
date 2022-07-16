@@ -21,7 +21,7 @@ import '@tinymce/tinymce-jquery/dist/tinymce-jquery'
 
 const CMS_NAME = 'cms-name'
 const CMS_LOCALE = 'cms-locale'
-const BOOTSTRAP_PLUGIN_KEY = 'tAj3ykawOTzO195azIrI398bWt0b3XTV81JV/lbJUIjS3J/JTek+KS1dWnTUdJxQcZETNZtBTotT5aIpXyNRnIiqyT0jpZV9nn3mnkEQPs4='
+const BOOTSTRAP_PLUGIN_KEY = ''
 
 const content = $('.cms-content')
 const saveChangesBtn = $('#cms-save-button')

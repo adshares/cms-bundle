@@ -6960,11 +6960,12 @@
         return content_css;
       };
       BootstrapPlugin.prototype.getHostname = function () {
-        var parsed = psl.parse(location.hostname);
-        if (parsed.domain === null) {
-          return location.hostname;
-        }
-        return parsed.domain;
+        return 'localhost';
+        // var parsed = psl.parse(location.hostname);
+        // if (parsed.domain === null) {
+        //   return location.hostname;
+        // }
+        // return parsed.domain;
       };
       BootstrapPlugin.prototype.getKey = function (passphrase) {
         var key = this.cjs.PBKDF2(passphrase, this.cjs.SHA256(this.getHostname()).toString(this.cjs.enc.Hex), {

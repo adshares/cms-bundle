@@ -58,7 +58,7 @@ content.each(function (_idx) {
     bootstrapConfig: {
       bootstrapColumns: 24,
       url: '/build/scripts/plugins/bootstrap/',
-      iconFont: 'font-awesome-solid',
+      iconFont: 'bootstrap-icons',
       imagesPath: '/uploads',
       key: BOOTSTRAP_PLUGIN_KEY,
       enableTemplateEdition: false,

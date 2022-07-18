@@ -28,7 +28,11 @@ class CmsListener implements EventSubscriberInterface
             if (!str_starts_with($route, 'i18n_')) {
                 $name = 'i18n_' . $route;
                 if (null !== $this->router->getRouteCollection()->get($name)) {
-                    $event->setResponse(new RedirectResponse($this->router->generate($name, $parameters)));
+                    $event->setResponse(
+                        new RedirectResponse(
+                            $this->router->generate($name, array_merge($request->query->all(), $parameters))
+                        )
+                    );
                     return;
                 }
             }

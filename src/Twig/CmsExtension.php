@@ -45,11 +45,14 @@ final class CmsExtension extends AbstractExtension implements GlobalsInterface
             'cms' => [
                 'editMode' => $this->cms->isEditMode(),
                 'appUrl' => $this->generateUrl(
-                    preg_replace('/^cms_/', 'i18n_', $this->cms->getRoute()),
-                    $this->cms->getRouteParams()
-                ),
+                        preg_replace('/^cms_/', 'i18n_', $this->cms->getRoute()),
+                        $this->cms->getRouteParams()
+                    ) ?? $this->generateUrl(
+                        preg_replace('/^cms_/', '', $this->cms->getRoute()),
+                        $this->cms->getRouteParams()
+                    ),
                 'cmsUrl' => $this->generateUrl(
-                    preg_replace('/^i18n_/', 'cms_', $this->cms->getRoute()),
+                    preg_replace('/^(i18n_|)/', 'cms_', $this->cms->getRoute()),
                     $this->cms->getRouteParams()
                 ),
             ]

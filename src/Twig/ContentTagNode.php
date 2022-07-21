@@ -35,15 +35,16 @@ class ContentTagNode extends Node
             $defaults = $this->getNode('vars');
             $vars = null;
         }
-        [$msg, $defaults] = $this->compileString($this->getNode('body'), $defaults, (bool)$vars);
+        $msg = $this->getNode('body');
 
         $compiler
+            ->write('ob_start();')
+            ->subcompile($msg)
+            ->write("\$tmp = ob_get_clean();\n")
             ->write('echo $this->env->getExtension(\'Adshares\CmsBundle\Twig\CmsExtension\')->getContent(')
             ->repr($this->getAttribute('name'))
-            ->raw(', ')
-            ->subcompile($msg);
+            ->raw(', $tmp, ');
 
-        $compiler->raw(', ');
         if (null !== $vars) {
             $compiler
                 ->raw('array_merge(')
@@ -55,31 +56,6 @@ class ContentTagNode extends Node
             $compiler->subcompile($defaults);
         }
 
-        $compiler
-            ->raw(");\n");
-    }
-
-    private function compileString(Node $body, ArrayExpression $vars, bool $ignoreStrictCheck = false): array
-    {
-        if ($body instanceof ConstantExpression) {
-            $msg = $body->getAttribute('value');
-        } elseif ($body instanceof TextNode) {
-            $msg = $body->getAttribute('data');
-        } else {
-            return [$body, $vars];
-        }
-
-        preg_match_all('/(?<!%)%([^%]+)%/', $msg, $matches);
-
-        foreach ($matches[1] as $var) {
-            $key = new ConstantExpression('%' . $var . '%', $body->getTemplateLine());
-            if (!$vars->hasElement($key)) {
-                $varExpr = new NameExpression($var, $body->getTemplateLine());
-                $varExpr->setAttribute('ignore_strict_check', $ignoreStrictCheck);
-                $vars->addElement($varExpr, $key);
-            }
-        }
-
-        return [new ConstantExpression(str_replace('%%', '%', trim($msg)), $body->getTemplateLine()), $vars];
+        $compiler->raw(");\n");
     }
 }

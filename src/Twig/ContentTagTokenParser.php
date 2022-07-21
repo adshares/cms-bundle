@@ -3,10 +3,8 @@
 namespace Adshares\CmsBundle\Twig;
 
 use Twig\Error\SyntaxError;
-use Twig\Node\Expression\AbstractExpression;
 use Twig\Node\Expression\ArrayExpression;
 use Twig\Node\Node;
-use Twig\Node\TextNode;
 use Twig\Token;
 use Twig\TokenParser\AbstractTokenParser;
 
@@ -36,15 +34,6 @@ class ContentTagTokenParser extends AbstractTokenParser
         // {% content name %}default content{% endcontent %}
         $stream->expect(Token::BLOCK_END_TYPE);
         $body = $this->parser->subparse([$this, 'decideContentEnd'], true);
-
-        if (!$body instanceof TextNode && !$body instanceof AbstractExpression) {
-            throw new SyntaxError(
-                'A message inside a content tag must be a simple text.',
-                $body->getTemplateLine(),
-                $stream->getSourceContext()
-            );
-        }
-
         $stream->expect(Token::BLOCK_END_TYPE);
 
         return new ContentTagNode($name, $body, $vars, $lineno, $this->getTag());

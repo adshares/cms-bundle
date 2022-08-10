@@ -1,0 +1,30 @@
+{% if is_granted('ROLE_USER') %}
+    <div class="cms-toolbar fixed-bottom d-flex justify-content-evenly {{ styles.toolbar | default('p-1 bg-light bg-gradient bg-opacity-75') }}">
+        <div>
+            <span class="badge {{ styles.badge | default('bg-secondary') }}"> <i class="bi bi-person"></i> {{ app.user.email }}</span>
+            <a role="button" href="{{ path('cms_security_logout') }}" class="btn btn-secondary btn-sm"><i class="bi bi-box-arrow-right"></i> Log out</a>
+        </div>
+        {% if is_granted('ROLE_EDITOR') %}
+            {% if (cms.editMode | default(false)) and cms.historyUrl %}
+                <div>
+                    <a role="button" href="{{ cms.historyUrl }}" class="cms-history-button btn btn-secondary btn-sm mx-2 disabled"><i class="bi bi-hourglass"></i> View history</a>
+                </div>
+            {% endif %}
+            <div>
+                {% if cms.editMode | default(false) %}
+                    {% if cms.saveUrl %}
+                        <button disabled type="button" class="cms-save-button btn btn-primary btn-sm" data-action="{{ cms.saveUrl }}"><i class="bi bi-send"></i> Save changes</button>
+                    {% endif %}
+                    {% if cms.appUrl %}
+                        <a role="button" href="{{ cms.appUrl }}" class="cms-cancel-button btn btn-secondary btn-sm mx-2"><i class="bi bi-x"></i> Close</a>
+                    {% endif %}
+                    {{ encore_entry_script_tags('scripts/cms') }}
+                {% else %}
+                    {% if cms.cmsUrl %}
+                        <a role="button" href="{{ cms.cmsUrl }}" class="cms-edit-button btn btn-secondary btn-sm"><i class="bi bi-pencil"></i> Edit</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+{% endif %}

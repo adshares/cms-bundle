@@ -36,6 +36,7 @@ return static function (ContainerConfigurator $container) {
             ->args([
                 service(TranslatorInterface::class),
                 param('kernel.cache_dir'),
+                service(Environment::class),
             ])
             ->tag('controller.service_arguments')
 

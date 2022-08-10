@@ -41,22 +41,54 @@ final class CmsExtension extends AbstractExtension implements GlobalsInterface
 
     public function getGlobals(): array
     {
+        if ($this->isHistoryPage()) {
+            $params = $this->cms->getRouteParams();
+            $route = $params['_ref'] ?? '';
+            unset($params['_ref'], $params['names']);
+            return [
+                'cms' => [
+                    'editMode' => true,
+                    'appUrl' => $this->generateUrl($route, $params),
+                    'cmsUrl' => null,
+                    'saveUrl' => null,
+                    'historyUrl' => null,
+                ]
+            ];
+        }
+
         return [
             'cms' => [
                 'editMode' => $this->cms->isEditMode(),
-                'appUrl' => $this->generateUrl(
-                        preg_replace('/^cms_/', 'i18n_', $this->cms->getRoute()),
-                        $this->cms->getRouteParams()
-                    ) ?? $this->generateUrl(
-                        preg_replace('/^cms_/', '', $this->cms->getRoute()),
-                        $this->cms->getRouteParams()
-                    ),
-                'cmsUrl' => $this->generateUrl(
-                    preg_replace('/^(i18n_|)/', 'cms_', $this->cms->getRoute()),
-                    $this->cms->getRouteParams()
-                ),
+                'appUrl' => $this->getAppUrl($this->cms->getRoute(), $this->cms->getRouteParams()),
+                'cmsUrl' => $this->getCmsUrl($this->cms->getRoute(), $this->cms->getRouteParams()),
+                'saveUrl' => $this->generateUrl('cms_content_patch'),
+                'historyUrl' => $this->getHistoryUrl($this->cms->getRoute(), $this->cms->getRouteParams()),
             ]
         ];
+    }
+
+    public function getAppUrl(string $route, array $routeParams): ?string
+    {
+        return $this->generateUrl(
+                preg_replace('/^cms_/', 'i18n_', $route),
+                $routeParams
+            ) ?? $this->generateUrl(
+                preg_replace('/^cms_/', '', $route),
+                $routeParams
+            );
+    }
+
+    public function getCmsUrl(string $route, array $routeParams): ?string
+    {
+        return $this->generateUrl(
+            preg_replace('/^(i18n_|)/', 'cms_', $route),
+            $routeParams
+        );
+    }
+
+    public function getHistoryUrl(string $route, array $routeParams): ?string
+    {
+        return $this->generateUrl('cms_content_history', array_merge(['_ref' => $route], $routeParams));
     }
 
     private function generateUrl(string $name, array $parameters = []): ?string
@@ -65,5 +97,10 @@ final class CmsExtension extends AbstractExtension implements GlobalsInterface
             return $this->router->generate($name, $parameters);
         }
         return null;
+    }
+
+    private function isHistoryPage(): bool
+    {
+        return 'cms_content_history' === $this->cms->getRoute();
     }
 }

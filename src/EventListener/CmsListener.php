@@ -24,7 +24,7 @@ class CmsListener implements EventSubscriberInterface
         }
 
         if (null !== ($route = $request->get('_route'))) {
-            $parameters = $request->attributes->get('_route_params');
+            $parameters = array_merge($request->query->all(), $request->attributes->get('_route_params'));
             if (!str_starts_with($route, 'i18n_')) {
                 $name = 'i18n_' . $route;
                 if (null !== $this->router->getRouteCollection()->get($name)) {

@@ -2,13 +2,9 @@
 
 namespace Adshares\CmsBundle\Controller;
 
-use Adshares\CmsBundle\Cms\FileUploader;
 use Adshares\CmsBundle\Entity\Content;
 use Adshares\CmsBundle\Repository\ContentRepository;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
@@ -19,13 +15,21 @@ use Symfony\Component\Validator\Constraints\Type;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Throwable;
+use Twig\Environment;
 
-class ContentController
+class ContentController extends ViewController
 {
     public function __construct(
         private readonly TranslatorInterface $translator,
         private readonly string $cacheDir,
+        Environment $twig,
     ) {
+        parent::__construct($twig);
+    }
+
+    public function history(): Response
+    {
+        return $this->render('cms/history.html.twig', []);
     }
 
     public function patch(

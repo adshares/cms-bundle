@@ -6,17 +6,23 @@
         <table class="table">
             {% for name, changes in history %}
                 <tr>
-                    <th colspan="4">{{ name }}</th>
+                    <th colspan="5">{{ name }}</th>
                 </tr>
                 {% for log in changes %}
                     <tr>
                         <td>{{ log.version }}</td>
                         <td>{% if log.date is defined %}{{ log.date | date('Y-m-d H:i:s') }}{% endif %}</td>
-                        <td>{% if log.version %}{{ log.username }}{% else %}<i>origin</i>{% endif %}</td>
+                        <td>{{ log.action }}</td>
+                        <td>{% if log.username is defined %}{{ log.username }}{% endif %}</td>
                         <td>
                             {% if not loop.first %}
                                 <a href="{{ log.previewLink }}" class="btn btn-link btn-sm">Preview</a>
-                                <button class="btn btn-link btn-sm" data-locale="{{ locale }}" data-name="{{ name }}" data-version="{{ log.version }}">Rollback</button>
+                                {% set state = { (name): 'remove' == log.action ? 0 : log.version } %}
+                                <button class="cms-rollback-button btn btn-link btn-sm"
+                                        data-action="{{ path('cms_content_rollback') }}"
+                                        data-locale="{{ locale }}"
+                                        data-state="{{ state | json_encode }}"
+                                        data-ref="{{ log.refUrl }}">Rollback</button>
                             {% endif %}
                         </td>
                     </tr>

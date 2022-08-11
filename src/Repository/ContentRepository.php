@@ -66,9 +66,17 @@ class ContentRepository extends ServiceEntityRepository
         return $this->findOneBy(['name' => $name, 'locale' => $locale]);
     }
 
+    public function findOneWithTrashed(string $name, string $locale): Content|null
+    {
+        $this->_em->getFilters()->disable('softdeleteable');
+        $content = $this->findOne($name, $locale);
+        $this->_em->getFilters()->enable('softdeleteable');
+        return $content;
+    }
+
     public function findOneWithVersion(string $name, string $locale, int $version): Content|null
     {
-        if (null !== ($content = $this->findOne($name, $locale))) {
+        if (null !== ($content = $this->findOneWithTrashed($name, $locale))) {
             foreach ($this->logEntryRepository->getLogEntries($content) as $log) {
                 if ($version === $log->getVersion()) {
                     $content->setValue($log->getData()['value'] ?? 'Error');
@@ -77,6 +85,7 @@ class ContentRepository extends ServiceEntityRepository
         }
         return $content;
     }
+
     /**
      * @return Content[]
      */
@@ -100,6 +109,7 @@ class ContentRepository extends ServiceEntityRepository
     {
         $history = [];
         if (!empty($names)) {
+            $this->_em->getFilters()->disable('softdeleteable');
             foreach ($this->findByNames($names, $locale) as $content) {
                 $changes = [];
                 foreach ($this->logEntryRepository->getLogEntries($content) as $log) {
@@ -107,6 +117,7 @@ class ContentRepository extends ServiceEntityRepository
                 }
                 $history[$content->getName()] = $changes;
             }
+            $this->_em->getFilters()->enable('softdeleteable');
         }
         return $history;
     }

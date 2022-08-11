@@ -9,6 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(ContentRepository::class)]
 #[ORM\UniqueConstraint(name: "content_unique", columns: ["name", "locale"])]
+#[Gedmo\SoftDeleteable(fieldName: "deletedAt", timeAware: false, hardDelete: true)]
 #[Gedmo\Loggable]
 class Content
 {
@@ -34,6 +35,9 @@ class Content
     #[ORM\Column(type: "datetime")]
     #[Gedmo\Timestampable(on: "update")]
     private DateTimeInterface $updatedAt;
+
+    #[ORM\Column(type: "datetime", nullable: true)]
+    private ?DateTimeInterface $deletedAt;
 
     public function getName(): ?string
     {
@@ -73,5 +77,16 @@ class Content
     public function getUpdatedAt(): DateTimeInterface
     {
         return $this->updatedAt;
+    }
+
+    public function getDeletedAt(): ?DateTimeInterface
+    {
+        return $this->deletedAt;
+    }
+
+    public function restore(): self
+    {
+        $this->deletedAt = null;
+        return $this;
     }
 }

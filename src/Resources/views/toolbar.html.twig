@@ -18,14 +18,17 @@
                     {% if cms.appUrl %}
                         <a href="{{ cms.appUrl }}" class="cms-cancel-button btn btn-secondary btn-sm mx-2"><i class="bi bi-x"></i> Close</a>
                     {% endif %}
-                    {{ encore_entry_script_tags('scripts/cms') }}
                 {% elseif cms.historyMode | default(false) %}
                     {% if cms.appUrl %}
                         <a href="{{ cms.appUrl }}" class="cms-cancel-button btn btn-secondary btn-sm mx-2"><i class="bi bi-x"></i> Close</a>
                     {% endif %}
                 {% elseif cms.previewMode | default(false) %}
                     {% if cms.saveUrl %}
-                        <button type="button" class="cms-rollback-button btn btn-primary btn-sm" data-action="{{ cms.saveUrl }}" data-history="{{ cms.history | json_encode }}"><i class="bi bi-skip-backward"></i> Rollback</button>
+                        <button type="button" class="cms-rollback-button btn btn-primary btn-sm"
+                                data-action="{{ cms.saveUrl }}"
+                                data-locale="{{ app.request.locale }}"
+                                data-state="{{ cms.state | json_encode }}"
+                                data-ref="{{ cms.refUrl }}"><i class="bi bi-skip-backward"></i> Rollback</button>
                     {% endif %}
                     {% if cms.appUrl %}
                         <a href="{{ cms.appUrl }}" class="cms-back-button btn btn-secondary btn-sm mx-2"><i class="bi bi-x"></i> Close</a>
@@ -34,6 +37,10 @@
                     {% if cms.cmsUrl | default(null) %}
                         <a href="{{ cms.cmsUrl }}" class="cms-edit-button btn btn-secondary btn-sm"><i class="bi bi-pencil"></i> Edit</a>
                     {% endif %}
+                {% endif %}
+
+                {% if cms.editMode | default(false) or cms.historyMode | default(false) or cms.previewMode | default(false) %}
+                    {{ encore_entry_script_tags('scripts/cms') }}
                 {% endif %}
             </div>
         {% endif %}

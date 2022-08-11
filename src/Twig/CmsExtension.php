@@ -85,7 +85,8 @@ final class CmsExtension extends AbstractExtension implements GlobalsInterface
                     'previewMode' => true,
                     'appUrl' => $ref,
                     'saveUrl' => $this->generateUrl('cms_content_rollback'),
-                    'history' => $this->cms->getPreviewParams(),
+                    'refUrl' => $this->getCmsUrl($this->cms->getRoute(), $params),
+                    'state' => $this->cms->getPreviewParams(),
                 ]
             ];
         }
@@ -101,7 +102,7 @@ final class CmsExtension extends AbstractExtension implements GlobalsInterface
         ];
     }
 
-    public function getAppUrl(string $route, array $routeParams): ?string
+    public function getAppUrl(string $route, array $routeParams = []): ?string
     {
         return $this->generateUrl(
                 preg_replace('/^cms_/', 'i18n_', $route),
@@ -112,15 +113,15 @@ final class CmsExtension extends AbstractExtension implements GlobalsInterface
             );
     }
 
-    public function getCmsUrl(string $route, array $routeParams): ?string
+    public function getCmsUrl(string $route, array $routeParams = []): ?string
     {
         return $this->generateUrl(
-            preg_replace('/^(i18n_|)/', 'cms_', $route),
+            preg_replace('/^(i18n_|cms_|)/', 'cms_', $route),
             $routeParams
         );
     }
 
-    public function getHistoryUrl(string $route, array $routeParams): ?string
+    public function getHistoryUrl(string $route, array $routeParams = []): ?string
     {
         return $this->generateUrl('cms_content_history', array_merge(['_ref' => $route], $routeParams));
     }

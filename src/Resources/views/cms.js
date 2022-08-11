@@ -24,6 +24,40 @@ const CMS_LOCALE = 'cms-locale'
 const BOOTSTRAP_PLUGIN_KEY = 'tAj3ykawOTzO195azIrI398bWt0b3XTV81JV/lbJUIjS3J/JTek+KS1dWnTUdJxQcZETNZtBTotT5aIpXyNRnIiqyT0jpZV9nn3mnkEQPs4='
 
 $(document).ready(function () {
+  if ($('body').hasClass('cms-editor')) {
+    initEditor()
+  }
+
+  $('.cms-rollback-button').click(function () {
+    const locale = $(this).data('locale')
+    const state = $(this).data('state')
+    const ref = $(this).data('ref') + (window.location.hash ? window.location.hash : '')
+    const action = $(this).data('action')
+
+    const changes = []
+    Object.entries(state).forEach(([name, version]) => {
+      changes.push({
+        name,
+        version: parseInt(version),
+        locale,
+      })
+    })
+
+    $.ajax({
+      method: 'PATCH',
+      url: action,
+      data: JSON.stringify(changes),
+      success: function () {
+        window.location.href = ref
+      },
+      error: function (data) {
+        console.error(data)
+      },
+    })
+  })
+})
+
+function initEditor () {
   const content = $('.cms-content')
   const saveChangesBtn = $('.cms-save-button')
   const historyBtn = $('.cms-history-button')
@@ -36,7 +70,7 @@ $(document).ready(function () {
     process: { class: 'btn btn-primary btn-sm', message: ' Saving', icon: 'bi bi-arrow-repeat' },
   }
 
-  $('body > *:not(.cms-toolbar):not(.cms-history-list):not(.sf-toolbar)').find('a,button,input[type="submit"]').click(function (event) {
+  $('body > *:not(.cms-toolbar):not(.sf-toolbar)').find('a,button,input[type="submit"]').click(function (event) {
     event.preventDefault()
     event.stopImmediatePropagation()
   })
@@ -195,4 +229,4 @@ $(document).ready(function () {
       .text(buttonStatus.message)
       .prepend(`<i class="${buttonStatus.icon}"></i>`)
   }
-})
+}

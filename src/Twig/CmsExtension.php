@@ -3,7 +3,7 @@
 namespace Adshares\CmsBundle\Twig;
 
 use Adshares\CmsBundle\Cms\Cms;
-use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use Adshares\CmsBundle\Repository\ContentRepository;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
@@ -15,6 +15,7 @@ final class CmsExtension extends AbstractExtension implements GlobalsInterface
         private readonly Cms $cms,
         private readonly TranslatorInterface $translator,
         private readonly RouterInterface $router,
+        private readonly ContentRepository $contentRepository,
     ) {
     }
 
@@ -26,9 +27,31 @@ final class CmsExtension extends AbstractExtension implements GlobalsInterface
     public function getContent(string $name, string $default, array $parameters = []): string
     {
         $editMode = $this->cms->isEditMode();
-        $content = $this->translator->trans($name, $editMode ? [] : $parameters);
-        if ($content === $name) {
-            $content = $this->translator->trans($default, $editMode ? [] : $parameters);
+        $preview = $this->cms->getPreviewParams();
+
+        $default = sprintf('<div id="cms_%s">%s</div>', $name, $default);
+
+        $content = null;
+        if (!$editMode && array_key_exists($name, $preview)) {
+            if (0 === (int)$preview[$name]) {
+                $content = $this->translator->trans($default, $parameters);
+            } else {
+                $historicalContent = $this->contentRepository->findOneWithVersion(
+                    $name,
+                    $this->translator->getLocale(),
+                    (int)$preview[$name]
+                );
+                if (null !== $historicalContent) {
+                    $content = $this->translator->trans($historicalContent->getValue(), $parameters);
+                }
+            }
+        }
+
+        if (null === $content) {
+            $content = $this->translator->trans($name, $editMode ? [] : $parameters);
+            if ($content === $name) {
+                $content = $this->translator->trans($default, $editMode ? [] : $parameters);
+            }
         }
 
         return $editMode ? sprintf(
@@ -47,11 +70,22 @@ final class CmsExtension extends AbstractExtension implements GlobalsInterface
             unset($params['_ref'], $params['names']);
             return [
                 'cms' => [
-                    'editMode' => true,
+                    'historyMode' => true,
                     'appUrl' => $this->generateUrl($route, $params),
-                    'cmsUrl' => null,
-                    'saveUrl' => null,
-                    'historyUrl' => null,
+                ]
+            ];
+        }
+
+        if ($this->isPreviewPage()) {
+            $params = $this->cms->getRouteParams();
+            $ref = $params['_ref'] ?? null;
+            unset($params['_ref'], $params['_preview']);
+            return [
+                'cms' => [
+                    'previewMode' => true,
+                    'appUrl' => $ref,
+                    'saveUrl' => $this->generateUrl('cms_content_rollback'),
+                    'history' => $this->cms->getPreviewParams(),
                 ]
             ];
         }
@@ -102,5 +136,10 @@ final class CmsExtension extends AbstractExtension implements GlobalsInterface
     private function isHistoryPage(): bool
     {
         return 'cms_content_history' === $this->cms->getRoute();
+    }
+
+    private function isPreviewPage(): bool
+    {
+        return !empty($this->cms->getPreviewParams());
     }
 }

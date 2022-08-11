@@ -4,6 +4,7 @@ namespace Adshares\CmsBundle\Controller;
 
 use Adshares\CmsBundle\Entity\Content;
 use Adshares\CmsBundle\Repository\ContentRepository;
+use Adshares\CmsBundle\Twig\CmsExtension;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,9 +28,50 @@ class ContentController extends ViewController
         parent::__construct($twig);
     }
 
-    public function history(): Response
-    {
-        return $this->render('cms/history.html.twig', []);
+    public function history(
+        Request $request,
+        ContentRepository $contentRepository,
+        CmsExtension $cmsExtension
+    ): Response {
+        $locale = $request->get('_locale') ?? $request->getLocale();
+        $referral = $request->get('_ref') ?? '';
+        $currentUrl = $this->getRequestUri($request);
+        $names = $request->get('names');
+
+        $history = [];
+        foreach ($contentRepository->getHistory($names, $locale) as $name => $logs) {
+            $changes = [];
+            foreach ($logs as $log) {
+                $changes[] = [
+                    'version' => $log->getVersion(),
+                    'date' => $log->getLoggedAt(),
+                    'username' => $log->getUsername(),
+                    'previewLink' => $this->getPreviewUrl(
+                        $cmsExtension,
+                        $referral,
+                        $name,
+                        $log->getVersion(),
+                        $currentUrl
+                    ),
+                ];
+            }
+            $changes[] = [
+                'version' => 0,
+                'previewLink' => $this->getPreviewUrl(
+                    $cmsExtension,
+                    $referral,
+                    $name,
+                    0,
+                    $currentUrl
+                ),
+            ];
+            $history[$name] = $changes;
+        }
+
+        return $this->render('cms/history.html.twig', [
+            'locale' => $locale,
+            'history' => $history
+        ]);
     }
 
     public function patch(
@@ -98,5 +140,27 @@ class ContentController extends ViewController
         if ($this->translator instanceof WarmableInterface) {
             $this->translator->warmUp($this->cacheDir);
         }
+    }
+
+    private function getRequestUri(Request $request): string
+    {
+        if (null !== $qs = $request->getQueryString()) {
+            $qs = '?' . $qs;
+        }
+        return $request->getPathInfo() . $qs;
+    }
+
+    private function getPreviewUrl(
+        CmsExtension $cmsExtension,
+        string $route,
+        string $name,
+        int $version,
+        string $ref
+    ): ?string {
+        $url = $cmsExtension->getAppUrl($route, [
+            '_preview' => [$name => $version],
+            '_ref' => $ref
+        ]);
+        return null !== $url ? sprintf('%s#cms_%s', $url, $name) : null;
     }
 }

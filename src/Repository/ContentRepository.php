@@ -3,9 +3,9 @@
 namespace Adshares\CmsBundle\Repository;
 
 use Adshares\CmsBundle\Entity\Content;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use LogicException;
+use Gedmo\Loggable\Entity\LogEntry;
+use Gedmo\Loggable\Entity\Repository\LogEntryRepository;
 use Throwable;
 
 /**
@@ -18,9 +18,16 @@ use Throwable;
  */
 class ContentRepository extends ServiceEntityRepository
 {
+    private LogEntryRepository $logEntryRepository;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Content::class);
+        $manager = $registry->getManagerForClass(LogEntry::class);
+        $this->logEntryRepository = new LogEntryRepository(
+            $manager,
+            $manager->getClassMetadata(LogEntry::class)
+        );
     }
 
     public function add(Content $entity, bool $flush = false): void
@@ -59,11 +66,48 @@ class ContentRepository extends ServiceEntityRepository
         return $this->findOneBy(['name' => $name, 'locale' => $locale]);
     }
 
+    public function findOneWithVersion(string $name, string $locale, int $version): Content|null
+    {
+        if (null !== ($content = $this->findOne($name, $locale))) {
+            foreach ($this->logEntryRepository->getLogEntries($content) as $log) {
+                if ($version === $log->getVersion()) {
+                    $content->setValue($log->getData()['value'] ?? 'Error');
+                }
+            }
+        }
+        return $content;
+    }
     /**
-     * @return Content[] Returns an array of Content objects
+     * @return Content[]
      */
     public function findByLocale(string $locale): array
     {
         return $this->findBy(['locale' => $locale]);
+    }
+
+    /**
+     * @return Content[]
+     */
+    public function findByNames(array $names, string $locale): array
+    {
+        return $this->findBy(['name' => $names, 'locale' => $locale]);
+    }
+
+    /**
+     * @return LogEntry[][]
+     */
+    public function getHistory(array $names, string $locale): array
+    {
+        $history = [];
+        if (!empty($names)) {
+            foreach ($this->findByNames($names, $locale) as $content) {
+                $changes = [];
+                foreach ($this->logEntryRepository->getLogEntries($content) as $log) {
+                    $changes[] = $log;
+                }
+                $history[$content->getName()] = $changes;
+            }
+        }
+        return $history;
     }
 }

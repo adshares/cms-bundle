@@ -35,4 +35,9 @@ class Cms
     {
         return $this->routeParams;
     }
+
+    public function getPreviewParams(): array
+    {
+        return $this->routeParams['_preview'] ?? [];
+    }
 }

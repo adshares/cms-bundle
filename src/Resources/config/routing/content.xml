@@ -12,4 +12,8 @@
         <default key="_controller">cms.controller.content::patch</default>
     </route>
 
+    <route id="cms_content_rollback" path="/content" methods="PATCH">
+        <default key="_controller">cms.controller.content::rollback</default>
+    </route>
+
 </routes>

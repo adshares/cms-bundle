@@ -10,6 +10,7 @@ use Adshares\CmsBundle\Controller\ContentController;
 use Adshares\CmsBundle\Controller\SecurityController;
 use Adshares\CmsBundle\EventListener\CmsListener;
 use Adshares\CmsBundle\Repository\ContentRepository;
+use Adshares\CmsBundle\Repository\LogEntryRepository;
 use Adshares\CmsBundle\Repository\UserRepository;
 use Adshares\CmsBundle\Translation\TranslationLoader;
 use Adshares\CmsBundle\Twig\AssetExtension;
@@ -90,14 +91,17 @@ return static function (ContainerConfigurator $container) {
                 service(ParameterBagInterface::class),
             ])
             ->tag('twig.extension')
+            ->alias(AssetExtension::class, 'twig.extension.asset')
 
         ->set('twig.extension.cms', CmsExtension::class)
             ->args([
                 service(Cms::class),
                 service(TranslatorInterface::class),
                 service(RouterInterface::class),
+                service(ContentRepository::class),
             ])
             ->tag('twig.extension')
+            ->alias(CmsExtension::class, 'twig.extension.cms')
 
         ->set('translation.loader.content', TranslationLoader::class)
             ->args([

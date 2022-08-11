@@ -1,66 +1,27 @@
 <div class="cms-history-list">
-    <h1>
-        No changes was made | Changes history
-    </h1>
-    <table class="table">
-        <tr>
-            <th colspan="3">testId1</th>
-        </tr>
-        <tr>
-            <td>2022-15-15 12:45:14</td>
-            <td>jan.kowalski@test.pl</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>2022-15-15 12:45:14</td>
-            <td>jan.kowalski@test.pl</td>
-            <td>
-                <a href="#" class="btn btn-link btn-sm">Preview</a>
-                <button class="btn btn-link btn-sm">Rollback</button>
-            </td>
-        </tr>
-        <tr>
-            <td>2022-15-15 12:45:14</td>
-            <td>jan.kowalski@test.pl</td>
-            <td>
-                <a href="#" class="btn btn-link btn-sm">Preview</a>
-                <button class="btn btn-link btn-sm">Rollback</button>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><i>origin</i></td>
-            <td>
-                <a href="#" class="btn btn-link btn-sm">Preview</a>
-                <button class="btn btn-link btn-sm">Rollback</button>
-            </td>
-        </tr>
-        <tr>
-            <th colspan="3">testId1</th>
-        </tr>
-        <tr>
-            <td>2022-15-15 12:45:14</td>
-            <td>jan.kowalski@test.pl</td>
-            <td>
-                <a href="#" class="btn btn-link btn-sm">Preview</a>
-                <button class="btn btn-link btn-sm">Rollback</button>
-            </td>
-        </tr>
-        <tr>
-            <td>2022-15-15 12:45:14</td>
-            <td>jan.kowalski@test.pl</td>
-            <td>
-                <a href="#" class="btn btn-link btn-sm">Preview</a>
-                <button class="btn btn-link btn-sm">Rollback</button>
-            </td>
-        </tr>
-        <tr>
-            <td>2022-15-15 12:45:14</td>
-            <td>jan.kowalski@test.pl</td>
-            <td>
-                <a href="#" class="btn btn-link btn-sm">Preview</a>
-                <button class="btn btn-link btn-sm">Rollback</button>
-            </td>
-        </tr>
-    </table>
+    {% if history is empty %}
+        <h1>No changes was made [{{ locale }}]</h1>
+    {% else %}
+        <h1>Changes history [{{ locale }}]</h1>
+        <table class="table">
+            {% for name, changes in history %}
+                <tr>
+                    <th colspan="4">{{ name }}</th>
+                </tr>
+                {% for log in changes %}
+                    <tr>
+                        <td>{{ log.version }}</td>
+                        <td>{% if log.date is defined %}{{ log.date | date('Y-m-d H:i:s') }}{% endif %}</td>
+                        <td>{% if log.version %}{{ log.username }}{% else %}<i>origin</i>{% endif %}</td>
+                        <td>
+                            {% if not loop.first %}
+                                <a href="{{ log.previewLink }}" class="btn btn-link btn-sm">Preview</a>
+                                <button class="btn btn-link btn-sm" data-locale="{{ locale }}" data-name="{{ name }}" data-version="{{ log.version }}">Rollback</button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+        </table>
+    {% endif %}
 </div>

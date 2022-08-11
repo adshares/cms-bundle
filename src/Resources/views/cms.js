@@ -36,7 +36,7 @@ $(document).ready(function () {
     process: { class: 'btn btn-primary btn-sm', message: ' Saving', icon: 'bi bi-arrow-repeat' },
   }
 
-  $('body > *:not(.cms-toolbar):not(.sf-toolbar)').find('a,button,input[type="submit"]').click(function (event) {
+  $('body > *:not(.cms-toolbar):not(.cms-history-list):not(.sf-toolbar)').find('a,button,input[type="submit"]').click(function (event) {
     event.preventDefault()
     event.stopImmediatePropagation()
   })

@@ -15,6 +15,7 @@ use Adshares\CmsBundle\Repository\UserRepository;
 use Adshares\CmsBundle\Translation\TranslationLoader;
 use Adshares\CmsBundle\Twig\AssetExtension;
 use Adshares\CmsBundle\Twig\CmsExtension;
+use Adshares\CmsBundle\Twig\NumberExtension;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Asset\Packages;
@@ -102,6 +103,10 @@ return static function (ContainerConfigurator $container) {
             ])
             ->tag('twig.extension')
             ->alias(CmsExtension::class, 'twig.extension.cms')
+
+        ->set('twig.extension.number', NumberExtension::class)
+            ->tag('twig.extension')
+            ->alias(NumberExtension::class, 'twig.extension.number')
 
         ->set('translation.loader.content', TranslationLoader::class)
             ->args([

@@ -31,13 +31,13 @@ class NumberExtension extends AbstractExtension
         $unit = '';
         if ($number > self::GIGA) {
             $number /= self::GIGA;
-            $unit = ' B';
+            $unit = 'B';
         } elseif ($number > self::MEGA) {
             $number /= self::MEGA;
-            $unit = ' M';
+            $unit = 'M';
         } elseif ($number > self::KILO) {
             $number /= self::KILO;
-            $unit = ' k';
+            $unit = 'k';
         }
 
         if (null === $decimal && !(empty($unit))) {

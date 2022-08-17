@@ -15,6 +15,7 @@ class ContentTagNode extends Node
     public function __construct(
         string $name,
         Node $body,
+        ?AbstractExpression $postfix = null,
         AbstractExpression $vars = null,
         int $lineno = 0,
         string $tag = null
@@ -23,7 +24,7 @@ class ContentTagNode extends Node
         if (null !== $vars) {
             $nodes['vars'] = $vars;
         }
-        parent::__construct($nodes, ['name' => $name], $lineno, $tag);
+        parent::__construct($nodes, ['name' => $name, 'postfix' => $postfix], $lineno, $tag);
     }
 
     public function compile(Compiler $compiler): void
@@ -42,8 +43,15 @@ class ContentTagNode extends Node
             ->subcompile($msg)
             ->write("\$tmp = ob_get_clean();\n")
             ->write('echo $this->env->getExtension(\'Adshares\CmsBundle\Twig\CmsExtension\')->getContent(')
-            ->repr($this->getAttribute('name'))
-            ->raw(', $tmp, ');
+            ->repr($this->getAttribute('name'));
+
+        if (null !== $this->getAttribute('postfix')) {
+            $compiler
+                ->raw(' . "_" . ')
+                ->subcompile($this->getAttribute('postfix'));
+        }
+
+        $compiler->raw(', $tmp, ');
 
         if (null !== $vars) {
             $compiler

@@ -101,6 +101,10 @@ function initEditor () {
       selector: tinymceSelector,
       inline: true,
       plugins: 'code bootstrap link lists advlist',
+      menu: {
+        custom: { title: `#${contentName}`, items: 'copyContentName' }
+      },
+      menubar: 'file edit insert view format custom',
       toolbar: [
         'undo redo | cut copy paste | bootstrap link',
         'styles | alignleft aligncenter alignright alignjustify | bold italic strikethrough | bullist numlist '
@@ -174,6 +178,10 @@ function initEditor () {
       style_formats_merge: true,
       style_formats_autohide: true,
       setup: function (editor) {
+        editor.ui.registry.addMenuItem('copyContentName', {
+          text: 'Copy name',
+          onAction: () => navigator.clipboard.writeText(contentName)
+        })
         editor.on('change', function (_event) {
           if (originContent[contentName].value.replaceAll(/\n|\s{2,}/g, '').replaceAll(/(<\w+>)\s/g, '$1').replaceAll(/\s(<\/\w+>)/g, '$1') === editor.getContent().replaceAll(/\n|\s{2,}/g, '').replaceAll(/(<\w+>)\s/g, '$1').replaceAll(/\s(<\/\w+>)/g, '$1')) {
             delete changedContent[contentName]

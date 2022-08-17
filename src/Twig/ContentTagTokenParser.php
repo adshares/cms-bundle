@@ -16,15 +16,22 @@ class ContentTagTokenParser extends AbstractTokenParser
         $stream = $this->parser->getStream();
         $name = $stream->expect(Token::NAME_TYPE)->getValue();
 
+        $postfix = null;
         $vars = new ArrayExpression([], $lineno);
         if (!$stream->test(Token::BLOCK_END_TYPE)) {
+            if ($stream->test(Token::OPERATOR_TYPE, '~')) {
+                // {% content name ~ var %}
+                $stream->next();
+                $postfix = $this->parser->getExpressionParser()->parseExpression();
+            }
+
             if ($stream->test('with')) {
                 // {% content name with vars %}
                 $stream->next();
                 $vars = $this->parser->getExpressionParser()->parseExpression();
             } elseif (!$stream->test(Token::BLOCK_END_TYPE)) {
                 throw new SyntaxError(
-                    'Unexpected token. Twig was looking for the "with" keyword.',
+                    'Unexpected token. Twig was looking for the "~" or "with" keyword.',
                     $stream->getCurrent()->getLine(),
                     $stream->getSourceContext()
                 );
@@ -36,7 +43,7 @@ class ContentTagTokenParser extends AbstractTokenParser
         $body = $this->parser->subparse([$this, 'decideContentEnd'], true);
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new ContentTagNode($name, $body, $vars, $lineno, $this->getTag());
+        return new ContentTagNode($name, $body, $postfix, $vars, $lineno, $this->getTag());
     }
 
     public function decideContentEnd(Token $token): bool

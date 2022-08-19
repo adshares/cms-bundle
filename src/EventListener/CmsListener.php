@@ -28,8 +28,8 @@ class CmsListener implements EventSubscriberInterface
 
         if (null !== ($route = $request->get('_route'))) {
             $parameters = array_merge($request->query->all(), $request->attributes->get('_route_params'));
-            if (!str_starts_with($route, 'i18n_') && $this->defaultLocale !== $this->translator->getLocale()) {
-                $name = 'i18n_' . $route;
+            if (!str_starts_with($route, '_i18n_') && $this->defaultLocale !== $this->translator->getLocale()) {
+                $name = '_i18n_' . $route;
                 if (null !== $this->router->getRouteCollection()->get($name)) {
                     $event->setResponse(
                         new RedirectResponse(

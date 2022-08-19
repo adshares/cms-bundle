@@ -70,18 +70,23 @@ final class CmsExtension extends AbstractExtension implements GlobalsInterface
             'editMode' => false,
         ];
 
+        $params = $this->cms->getRouteParams();
+        $ref = $params['_ref'] ?? '';
+        unset($params['_ref']);
+
         if ($this->isHistoryPage()) {
-            $params = $this->cms->getRouteParams();
-            $route = $params['_ref'] ?? '';
-            unset($params['_ref'], $params['names']);
+            unset($params['names']);
             $globals = array_merge($globals, [
                 'historyMode' => true,
-                'appUrl' => $this->generateUrl($route, $params),
+                'appUrl' => $this->generateUrl($ref, $params),
+            ]);
+        } else if ($this->isArticlePage()) {
+            $globals = array_merge($globals, [
+                'articleMode' => true,
+                'appUrl' => $this->generateUrl($ref, $params) ?? $this->generateUrl('cms_articles'),
             ]);
         } else if ($this->isPreviewPage()) {
-            $params = $this->cms->getRouteParams();
-            $ref = $params['_ref'] ?? null;
-            unset($params['_ref'], $params['_preview']);
+            unset($params['_preview']);
             $globals = array_merge($globals, [
                 'previewMode' => true,
                 'appUrl' => $ref,
@@ -92,10 +97,11 @@ final class CmsExtension extends AbstractExtension implements GlobalsInterface
         } else if (null !== $this->cms->getRoute()) {
             $globals = array_merge($globals, [
                 'editMode' => $this->cms->isEditMode(),
-                'appUrl' => $this->getAppUrl($this->cms->getRoute(), $this->cms->getRouteParams()),
+                'appUrl' => $this->cms->isEditMode() ? $this->getAppUrl($this->cms->getRoute(), $this->cms->getRouteParams()) : null,
                 'cmsUrl' => $this->getCmsUrl($this->cms->getRoute(), $this->cms->getRouteParams()),
                 'saveUrl' => $this->generateUrl('cms_content_patch'),
-                'historyUrl' => $this->getHistoryUrl($this->cms->getRoute(), $this->cms->getRouteParams()),
+                'historyUrl' => $this->getUrlWithRef('cms_content_history', $this->cms->getRoute(), $this->cms->getRouteParams()),
+                'articlesUrl' => $this->getUrlWithRef('cms_articles', $this->cms->getRoute(), $this->cms->getRouteParams()),
             ]);
         }
 
@@ -105,10 +111,10 @@ final class CmsExtension extends AbstractExtension implements GlobalsInterface
     public function getAppUrl(string $route, array $routeParams = []): ?string
     {
         return $this->generateUrl(
-                preg_replace('/^cms_/', 'i18n_', $route),
+                preg_replace('/^_cms_/', '_i18n_', $route),
                 $routeParams
             ) ?? $this->generateUrl(
-                preg_replace('/^cms_/', '', $route),
+                preg_replace('/^_cms_/', '', $route),
                 $routeParams
             );
     }
@@ -116,14 +122,14 @@ final class CmsExtension extends AbstractExtension implements GlobalsInterface
     public function getCmsUrl(string $route, array $routeParams = []): ?string
     {
         return $this->generateUrl(
-            preg_replace('/^(i18n_|cms_|)/', 'cms_', $route),
+            preg_replace('/^(_i18n_|_cms_|)/', '_cms_', $route),
             $routeParams
         );
     }
 
-    public function getHistoryUrl(string $route, array $routeParams = []): ?string
+    public function getUrlWithRef(string $name, string $ref, array $routeParams = []): ?string
     {
-        return $this->generateUrl('cms_content_history', array_merge(['_ref' => $route], $routeParams));
+        return $this->generateUrl($name, array_merge(['_ref' => $ref], $routeParams));
     }
 
     private function generateUrl(string $name, array $parameters = []): ?string
@@ -137,6 +143,11 @@ final class CmsExtension extends AbstractExtension implements GlobalsInterface
     private function isHistoryPage(): bool
     {
         return 'cms_content_history' === $this->cms->getRoute();
+    }
+
+    private function isArticlePage(): bool
+    {
+        return str_starts_with($this->cms->getRoute(), 'cms_article');
     }
 
     private function isPreviewPage(): bool

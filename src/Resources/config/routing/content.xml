@@ -28,7 +28,19 @@
         <default key="_controller">cms.controller.article::index</default>
     </route>
 
-    <route id="cms_article" path="/_article/{id?}" methods="GET">
+    <route id="cms_article_new" path="/_articles/new" methods="GET">
+        <default key="_controller">cms.controller.article::form</default>
+    </route>
+
+    <route id="cms_article" path="/_articles/{id}" methods="GET">
+        <default key="_controller">cms.controller.article::show</default>
+    </route>
+
+    <route id="cms_article_delete" path="/_articles/{id}" methods="DELETE">
+        <default key="_controller">cms.controller.article::delete</default>
+    </route>
+
+    <route id="cms_article_edit" path="/_articles/{id}/edit" methods="GET">
         <default key="_controller">cms.controller.article::form</default>
     </route>
 

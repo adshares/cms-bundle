@@ -42,6 +42,9 @@ class Article
     #[Gedmo\Versioned]
     private string $content;
 
+    #[ORM\Column(type: "string", length: 64, nullable: true)]
+    private ?string $image;
+
     #[ORM\Column(type: "datetime")]
     #[Gedmo\Timestampable(on: "create")]
     private DateTimeInterface $createdAt;
@@ -143,6 +146,17 @@ class Article
     public function setContent(string $content): Article
     {
         $this->content = $content;
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): Article
+    {
+        $this->image = $image;
         return $this;
     }
 

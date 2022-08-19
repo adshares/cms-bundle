@@ -40,14 +40,16 @@
                     </div>
                     <div>
                         Start at: <u>{{ article.startAt | date }}</u>
-                        {% if null != article.endAt %}
+                        {% if article.endAt %}
                         | End at: <u>{{ article.endAt | date }}</u>
                         {% endif %}
                     </div>
                 </div>
             </div>
             <div class="col-4">
-                <img src="https://miro.medium.com/max/700/1*zqiMENeOSkQGDkGE-71r7g.png" alt="mix" />
+                {% if article.image %}
+                    <img src="{{ asset(article.image, 'articles') }}" />
+                {% endif %}
             </div>
         </div>
         <hr />

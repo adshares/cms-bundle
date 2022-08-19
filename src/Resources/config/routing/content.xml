@@ -4,16 +4,28 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/routing https://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="cms_content_history" path="/content/history" methods="GET">
+    <route id="cms_content_history" path="/_content/history" methods="GET">
         <default key="_controller">cms.controller.content::history</default>
     </route>
 
-    <route id="cms_content_patch" path="/content" methods="PATCH">
+    <route id="cms_content_patch" path="/_content" methods="PATCH">
         <default key="_controller">cms.controller.content::patch</default>
     </route>
 
-    <route id="cms_content_rollback" path="/content/rollback" methods="PATCH">
+    <route id="cms_content_rollback" path="/_content/rollback" methods="PATCH">
         <default key="_controller">cms.controller.content::rollback</default>
+    </route>
+
+    <route id="cms_asset_list" path="/_assets" methods="GET">
+        <default key="_controller">cms.controller.asset::list</default>
+    </route>
+
+    <route id="cms_asset_upload" path="/_assets" methods="POST">
+        <default key="_controller">cms.controller.asset::upload</default>
+    </route>
+
+    <route id="cms_articles" path="/_articles" methods="GET">
+        <default key="_controller">cms.controller.article::index</default>
     </route>
 
 </routes>

@@ -13,6 +13,7 @@ class ViewController
 
     protected function render(string $view, array $parameters = [], Response $response = null): Response
     {
+//        dump($view);exit;
         $content = $this->twig->render($view, $parameters);
         if (null === $response) {
             $response = new Response();

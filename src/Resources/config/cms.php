@@ -5,12 +5,13 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 use Adshares\CmsBundle\Cms\Cms;
 use Adshares\CmsBundle\Cms\FileUploader;
 use Adshares\CmsBundle\Command\CreateUserCommand;
+use Adshares\CmsBundle\Controller\ArticleController;
 use Adshares\CmsBundle\Controller\AssetController;
 use Adshares\CmsBundle\Controller\ContentController;
 use Adshares\CmsBundle\Controller\SecurityController;
 use Adshares\CmsBundle\EventListener\CmsListener;
+use Adshares\CmsBundle\Repository\ArticleRepository;
 use Adshares\CmsBundle\Repository\ContentRepository;
-use Adshares\CmsBundle\Repository\LogEntryRepository;
 use Adshares\CmsBundle\Repository\UserRepository;
 use Adshares\CmsBundle\Translation\TranslationLoader;
 use Adshares\CmsBundle\Twig\AssetExtension;
@@ -42,6 +43,13 @@ return static function (ContainerConfigurator $container) {
             ])
             ->tag('controller.service_arguments')
 
+        ->set('cms.controller.article', ArticleController::class)
+        ->public()
+        ->args([
+            service(Environment::class),
+        ])
+        ->tag('controller.service_arguments')
+
         ->set('cms.controller.asset', AssetController::class)
             ->public()
             ->args([service(FileUploader::class)])
@@ -62,7 +70,15 @@ return static function (ContainerConfigurator $container) {
             ->alias(FileUploader::class, 'cms.file_uploader')
 
         ->set(ContentRepository::class, ContentRepository::class)
-            ->args([service(ManagerRegistry::class)])
+            ->args([
+                service(ManagerRegistry::class)
+            ])
+            ->tag('doctrine.repository_service')
+
+        ->set(ArticleRepository::class, ArticleRepository::class)
+            ->args([
+                service(ManagerRegistry::class),
+            ])
             ->tag('doctrine.repository_service')
 
         ->set(UserRepository::class, UserRepository::class)

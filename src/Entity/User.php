@@ -21,6 +21,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: "string", length: 180, unique: true)]
     private string $email;
 
+    #[ORM\Column(type: "string", length: 255)]
+    private string $name;
+
     #[ORM\Column(type: "json")]
     private array $roles = [];
 
@@ -62,6 +65,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         return $this->email;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        return $this;
     }
 
     /**

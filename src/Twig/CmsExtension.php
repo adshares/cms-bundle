@@ -34,7 +34,7 @@ final class CmsExtension extends AbstractExtension implements GlobalsInterface
         $content = null;
         if (!$editMode && array_key_exists($name, $preview)) {
             if (0 === (int)$preview[$name]) {
-                $content = $this->translator->trans($default, $parameters);
+                $content = $this->translator->trans($default, $parameters, null, $this->translator->getLocale());
             } else {
                 $historicalContent = $this->contentRepository->findOneWithVersion(
                     $name,
@@ -42,15 +42,15 @@ final class CmsExtension extends AbstractExtension implements GlobalsInterface
                     (int)$preview[$name]
                 );
                 if (null !== $historicalContent) {
-                    $content = $this->translator->trans($historicalContent->getValue(), $parameters);
+                    $content = $this->translator->trans($historicalContent->getValue(), $parameters, null, $this->translator->getLocale());
                 }
             }
         }
 
         if (null === $content) {
-            $content = $this->translator->trans($name, $editMode ? [] : $parameters);
+            $content = $this->translator->trans($name, $editMode ? [] : $parameters, null, $this->translator->getLocale());
             if ($content === $name) {
-                $content = $this->translator->trans($default, $editMode ? [] : $parameters);
+                $content = $this->translator->trans($default, $editMode ? [] : $parameters, null, $this->translator->getLocale());
             }
         }
 

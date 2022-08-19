@@ -1,8 +1,16 @@
 {% if is_granted('ROLE_USER') %}
-    <div class="cms-toolbar fixed-bottom d-flex justify-content-evenly {{ styles.toolbar | default('p-1 bg-light bg-gradient bg-opacity-75') }}">
-        <div>
-            <span class="badge {{ styles.badge | default('bg-secondary') }}"> <i class="bi bi-person"></i> {{ app.user.email }}</span>
-            <a href="{{ path('cms_security_logout') }}" class="btn btn-secondary btn-sm"><i class="bi bi-box-arrow-right"></i> Log out</a>
+    <div class="cms-toolbar fixed-bottom d-flex align-items-center justify-content-evenly {{ styles.toolbar | default('p-1 bg-light bg-gradient bg-opacity-75') }}">
+        <div class="d-flex align-items-center badge {{ styles.badge | default('bg-secondary') }}">
+            <div>
+                <i class="bi bi-person"></i>
+            </div>
+            <div class="mx-2">
+                {{ app.user.email }}<br />
+                <small class="mt-2">{{ app.user.name }}</small>
+            </div>
+            <div>
+                <a href="{{ path('cms_security_logout') }}" class="btn btn-secondary btn-sm"><i class="bi bi-box-arrow-right"></i> Log out</a>
+            </div>
         </div>
         {% if is_granted('ROLE_EDITOR') %}
             {% if (cms.editMode | default(false)) and cms.historyUrl %}

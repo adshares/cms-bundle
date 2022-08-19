@@ -75,14 +75,16 @@ return static function (ContainerConfigurator $container) {
         ->set(CmsListener::class, CmsListener::class)
             ->args([
                 service(Cms::class),
-                service(RouterInterface::class)
+                service(RouterInterface::class),
+                service(TranslatorInterface::class),
+                param('app.default_locale'),
             ])
             ->tag('kernel.event_subscriber')
 
         ->set(CreateUserCommand::class, CreateUserCommand::class)
             ->args([
                 service(UserRepository::class),
-                service(UserPasswordHasherInterface::class)
+                service(UserPasswordHasherInterface::class),
             ])
             ->tag('console.command')
 

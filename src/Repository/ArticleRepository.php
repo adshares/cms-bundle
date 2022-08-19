@@ -4,6 +4,7 @@ namespace Adshares\CmsBundle\Repository;
 
 use Adshares\CmsBundle\Entity\Article;
 use Adshares\CmsBundle\Entity\ArticleType;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -51,5 +52,18 @@ class ArticleRepository extends ServiceEntityRepository
     public function findByCategory(string $category): array
     {
         return $this->findBy(['categories' => [$category]]);
+    }
+
+    public function findByQuery(string $query, ?int $limit = null, ?int $offset = null): Paginator
+    {
+        $query = $this->createQueryBuilder('a')
+            ->where('a.title LIKE :query')
+            ->orWhere('a.content LIKE :query')
+            ->setParameter('query', sprintf('%%%s%%', $query))
+            ->setMaxResults($limit)
+            ->setFirstResult($offset)
+            ->getQuery();
+
+        return new Paginator($query, false);
     }
 }

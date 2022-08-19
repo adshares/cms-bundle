@@ -2,10 +2,10 @@
 
 namespace Adshares\CmsBundle\Entity;
 
-enum ArticleType
+enum ArticleType: string
 {
-    case Article;
-    case Event;
-    case FAQ;
-    case Notice;
+    case Article = 'article';
+    case Event = 'event';
+    case FAQ = 'faq';
+    case Notice = 'notice';
 }

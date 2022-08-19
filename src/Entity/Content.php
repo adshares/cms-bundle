@@ -39,6 +39,11 @@ class Content
     #[ORM\Column(type: "datetime", nullable: true)]
     private ?DateTimeInterface $deletedAt;
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
     public function getName(): ?string
     {
         return $this->name;

@@ -17,25 +17,25 @@ class Article
     #[ORM\Column(type: "integer")]
     private int $id;
 
-    #[ORM\Column(type: "string", length: 16, enumType: ArticleType::class, options: ["default" => "Article"])]
+    #[ORM\Column(type: "string", length: 16, enumType: ArticleType::class, options: ["default" => ArticleType::Article])]
     private ArticleType $type = ArticleType::Article;
 
     #[ORM\Column(type: "json")]
-    private array $categories = [];
+    private array $tags = [];
 
     #[ORM\Column(type: "datetime")]
-    private DateTimeInterface $startDate;
+    private DateTimeInterface $startAt;
 
     #[ORM\Column(type: "datetime", nullable: true)]
-    private ?DateTimeInterface $endDate;
+    private ?DateTimeInterface $endAt;
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class, fetch: 'EAGER')]
     private User $author;
 
     #[ORM\Column(type: "string", length: 2, options: ["default" => "en"])]
     private string $locale = 'en';
 
-    #[ORM\Column(type: "string", length: 512)]
+    #[ORM\Column(type: "string", length: 1024)]
     private string $title;
 
     #[ORM\Column(type: "text")]
@@ -53,6 +53,11 @@ class Article
     #[ORM\Column(type: "datetime", nullable: true)]
     private ?DateTimeInterface $deletedAt;
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
     public function getType(): ArticleType
     {
         return $this->type;
@@ -64,36 +69,36 @@ class Article
         return $this;
     }
 
-    public function getCategories(): array
+    public function getTags(): array
     {
-        return $this->categories;
+        return $this->tags;
     }
 
-    public function setCategories(array $categories): Article
+    public function setTags(array $tags): Article
     {
-        $this->categories = $categories;
+        $this->tags = $tags;
         return $this;
     }
 
-    public function getStartDate(): DateTimeInterface
+    public function getStartAt(): DateTimeInterface
     {
-        return $this->startDate;
+        return $this->startAt;
     }
 
-    public function setStartDate(DateTimeInterface $startDate): Article
+    public function setStartAt(DateTimeInterface $startAt): Article
     {
-        $this->startDate = $startDate;
+        $this->startAt = $startAt;
         return $this;
     }
 
-    public function getEndDate(): ?DateTimeInterface
+    public function getEndAt(): ?DateTimeInterface
     {
-        return $this->endDate;
+        return $this->endAt;
     }
 
-    public function setEndDate(?DateTimeInterface $endDate): Article
+    public function setEndAt(?DateTimeInterface $endAt): Article
     {
-        $this->endDate = $endDate;
+        $this->endAt = $endAt;
         return $this;
     }
 

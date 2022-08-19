@@ -28,4 +28,8 @@
         <default key="_controller">cms.controller.article::index</default>
     </route>
 
+    <route id="cms_article" path="/_article/{id?}" methods="GET">
+        <default key="_controller">cms.controller.article::form</default>
+    </route>
+
 </routes>

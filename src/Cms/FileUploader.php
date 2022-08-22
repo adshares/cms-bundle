@@ -53,7 +53,7 @@ class FileUploader
     public function uploadArticle(UploadedFile $file): string
     {
         $now = new DateTimeImmutable();
-        $path = 'articles' . DIRECTORY_SEPARATOR . $now->format('Y-m');
+        $path = 'articles' . DIRECTORY_SEPARATOR . '_' .$now->format('Y-m');
         return $this->upload($file, $path);
     }
 

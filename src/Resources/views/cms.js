@@ -98,6 +98,7 @@ const editorOptions = {
   ],
   style_formats_merge: true,
   style_formats_autohide: true,
+  convert_urls: false,
 }
 
 $(document).ready(function () {

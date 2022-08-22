@@ -6127,7 +6127,7 @@
             }
           }
         });
-        this.editor.options.set('style_formats', outputStyleFormats);
+        // this.editor.options.set('style_formats', outputStyleFormats);
         var toolbarElements = [];
         for (var _f = 0, _g = Object.entries(this.elements); _f < _g.length; _f++) {
           var _h = _g[_f], key = _h[0], value = _h[1];
@@ -6311,10 +6311,6 @@
         this.enableUiButtonsToggle();
         this.loadHtmlTemplates();
         this.enableContextToolbarsEvents();
-        var u = new URLSearchParams({ data: this.key }).toString();
-        var request = new XMLHttpRequest();
-        request.open('GET', 'https://www.registration.miglisoft.com/verify.json?' + u, true);
-        request.send();
       };
       BootstrapPlugin.prototype.activate = function (element, elementSelector) {
         var $target;

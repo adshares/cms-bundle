@@ -13,6 +13,7 @@ enum ArticleTag: string
     case AdServer = 'adserver';
     case Metaverse = 'metaverse';
     case Community = 'community';
+    case Media = 'media';
 
     public function label(): string
     {

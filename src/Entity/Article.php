@@ -158,6 +158,15 @@ class Article
         return $this;
     }
 
+    public function getShortform(): string
+    {
+        $matches = [];
+        if (preg_match('/<p>(.*)<\/p>/i', $this->content, $matches)) {
+            return $matches[1];
+        }
+        return htmlspecialchars(substr($this->content, 0, 256)) . '…';
+    }
+
     public function getImage(): ?string
     {
         return $this->image;

@@ -3,6 +3,7 @@
 namespace Adshares\CmsBundle\Repository;
 
 use Adshares\CmsBundle\Entity\Article;
+use Adshares\CmsBundle\Entity\ArticleTag;
 use Adshares\CmsBundle\Entity\ArticleType;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
@@ -41,17 +42,20 @@ class ArticleRepository extends ServiceEntityRepository
     /**
      * @return Article[]
      */
-    public function findByType(ArticleType $type): array
+    public function findByType(ArticleType $type, ?ArticleTag $tag = null): array
     {
-        return $this->findBy(['type' => $type]);
-    }
+        $query = $this->createQueryBuilder('a')
+            ->where('a.type = :type')
+            ->setParameter('type', $type);
 
-    /**
-     * @return Article[]
-     */
-    public function findByCategory(string $category): array
-    {
-        return $this->findBy(['categories' => [$category]]);
+        if (null !== $tag) {
+            $query->andWhere('JSON_CONTAINS(a.tags, :tag, \'$\') = 1')
+                ->setParameter('tag', sprintf('"%s"', $tag->value));
+        }
+        return $query
+            ->orderBy('a.priority', 'DESC')
+            ->getQuery()
+            ->getResult();
     }
 
     public function findByQuery(string $query, ?int $limit = null, ?int $offset = null): Paginator

@@ -23,17 +23,17 @@ class Article
     #[ORM\Column(type: "json")]
     private array $tags = [];
 
-    #[ORM\Column(type: "datetime")]
-    private DateTimeInterface $startAt;
+    #[ORM\Column(type: "datetime", nullable: true)]
+    private ?DateTimeInterface $startAt = null;
 
     #[ORM\Column(type: "datetime", nullable: true)]
-    private ?DateTimeInterface $endAt;
+    private ?DateTimeInterface $endAt = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, fetch: 'EAGER')]
     private User $author;
 
-    #[ORM\Column(type: "string", length: 2, options: ["default" => "en"])]
-    private string $locale = 'en';
+    #[ORM\Column(type: "string", length: 128)]
+    private string $name;
 
     #[ORM\Column(type: "string", length: 1024)]
     private string $title;
@@ -43,7 +43,10 @@ class Article
     private string $content;
 
     #[ORM\Column(type: "string", length: 64, nullable: true)]
-    private ?string $image;
+    private ?string $image = null;
+
+    #[ORM\Column(type: "integer", nullable: true)]
+    private ?int $priority = null;
 
     #[ORM\Column(type: "datetime")]
     #[Gedmo\Timestampable(on: "create")]
@@ -54,7 +57,7 @@ class Article
     private DateTimeInterface $updatedAt;
 
     #[ORM\Column(type: "datetime", nullable: true)]
-    private ?DateTimeInterface $deletedAt;
+    private ?DateTimeInterface $deletedAt = null;
 
     public function getId(): int
     {
@@ -72,23 +75,29 @@ class Article
         return $this;
     }
 
+    /**
+     * @return ArticleTag[]
+     */
     public function getTags(): array
     {
-        return $this->tags;
+        return array_map(fn(string $tag) => ArticleTag::from($tag), $this->tags);
     }
 
+    /**
+     * @param ArticleTag[] $tags
+     */
     public function setTags(array $tags): Article
     {
-        $this->tags = $tags;
+        $this->tags = array_map(fn(ArticleTag $tag) => $tag->value, $tags);
         return $this;
     }
 
-    public function getStartAt(): DateTimeInterface
+    public function getStartAt(): ?DateTimeInterface
     {
         return $this->startAt;
     }
 
-    public function setStartAt(DateTimeInterface $startAt): Article
+    public function setStartAt(?DateTimeInterface $startAt): Article
     {
         $this->startAt = $startAt;
         return $this;
@@ -116,14 +125,14 @@ class Article
         return $this;
     }
 
-    public function getLocale(): string
+    public function getName(): string
     {
-        return $this->locale;
+        return $this->name;
     }
 
-    public function setLocale(string $locale): Article
+    public function setName(string $name): Article
     {
-        $this->locale = $locale;
+        $this->name = $name;
         return $this;
     }
 
@@ -157,6 +166,17 @@ class Article
     public function setImage(?string $image): Article
     {
         $this->image = $image;
+        return $this;
+    }
+
+    public function getPriority(): ?int
+    {
+        return $this->priority;
+    }
+
+    public function setPriority(?int $priority): Article
+    {
+        $this->priority = $priority;
         return $this;
     }
 

@@ -28,20 +28,23 @@
         <default key="_controller">cms.controller.article::index</default>
     </route>
 
-    <route id="cms_article_new" path="/_articles/new" methods="GET">
+    <route id="cms_article_new" path="/_articles/new" methods="GET|POST">
         <default key="_controller">cms.controller.article::form</default>
     </route>
 
-    <route id="cms_article" path="/_articles/{id}" methods="GET">
+    <route id="cms_article" path="/_articles/{name},{id}" methods="GET">
         <default key="_controller">cms.controller.article::show</default>
+        <requirement key="id">\d+</requirement>
     </route>
 
     <route id="cms_article_delete" path="/_articles/{id}" methods="DELETE">
         <default key="_controller">cms.controller.article::delete</default>
+        <requirement key="id">\d+</requirement>
     </route>
 
-    <route id="cms_article_edit" path="/_articles/{id}/edit" methods="GET">
+    <route id="cms_article_edit" path="/_articles/{id}/edit" methods="GET|POST">
         <default key="_controller">cms.controller.article::form</default>
+        <requirement key="id">\d+</requirement>
     </route>
 
 </routes>

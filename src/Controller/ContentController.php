@@ -6,10 +6,12 @@ use Adshares\CmsBundle\Entity\Content;
 use Adshares\CmsBundle\Repository\ContentRepository;
 use Adshares\CmsBundle\Twig\CmsExtension;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\PositiveOrZero;
@@ -24,9 +26,11 @@ class ContentController extends ViewController
     public function __construct(
         private readonly TranslatorInterface $translator,
         private readonly string $cacheDir,
+        RouterInterface $router,
         Environment $twig,
+        FormFactoryInterface $formFactory
     ) {
-        parent::__construct($twig);
+        parent::__construct($router, $twig, $formFactory);
     }
 
     public function history(

@@ -350,7 +350,7 @@
             getFiles () {
                 return new Promise((resolve, reject) => {
                     let xhr = new XMLHttpRequest();
-                    xhr.open('GET', '/cms/assets', true);
+                    xhr.open('GET', '/cms/_assets', true);
                     xhr.onload = function () {
                         // console.log(xhr.response);
                         if (this.status >= 200 && this.status < 300) {
@@ -529,7 +529,7 @@
                                     if(img){
                                         const xhr = new XMLHttpRequest()
                                         xhr.withCredentials = false
-                                        xhr.open('POST', '/cms/assets')
+                                        xhr.open('POST', '/cms/_assets')
                                         xhr.onreadystatechange = async e => {
                                             if(e.currentTarget.status === 201) {
                                                 await this.loadAndRenderContent()

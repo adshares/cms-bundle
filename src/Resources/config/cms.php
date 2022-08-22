@@ -21,6 +21,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -39,25 +40,35 @@ return static function (ContainerConfigurator $container) {
             ->args([
                 service(TranslatorInterface::class),
                 param('kernel.cache_dir'),
+                service(RouterInterface::class),
                 service(Environment::class),
+                service(FormFactoryInterface::class),
             ])
             ->tag('controller.service_arguments')
 
         ->set('cms.controller.article', ArticleController::class)
-        ->public()
-        ->args([
-            service(Environment::class),
-        ])
-        ->tag('controller.service_arguments')
-
-        ->set('cms.controller.asset', AssetController::class)
             ->public()
-            ->args([service(FileUploader::class)])
+            ->args([
+                service(RouterInterface::class),
+                service(Environment::class),
+                service(FormFactoryInterface::class),
+            ])
             ->tag('controller.service_arguments')
 
         ->set('cms.controller.security', SecurityController::class)
             ->public()
-            ->args([service(Environment::class)])
+            ->args([
+                service(RouterInterface::class),
+                service(Environment::class),
+                service(FormFactoryInterface::class),
+            ])
+            ->tag('controller.service_arguments')
+
+        ->set('cms.controller.asset', AssetController::class)
+            ->public()
+            ->args([
+                service(FileUploader::class),
+            ])
             ->tag('controller.service_arguments')
 
         ->set('cms.file_uploader', FileUploader::class)

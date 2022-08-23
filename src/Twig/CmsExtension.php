@@ -83,7 +83,7 @@ final class CmsExtension extends AbstractExtension implements GlobalsInterface
         } else if ($this->isArticlePage()) {
             $globals = array_merge($globals, [
                 'articleMode' => true,
-                'appUrl' => $this->generateUrl($ref, $params) ?? $this->generateUrl('cms_articles'),
+                'appUrl' => $this->generateUrl($ref, $params) ?? $params['ref'] ?? '/',
             ]);
         } else if ($this->isPreviewPage()) {
             unset($params['_preview']);

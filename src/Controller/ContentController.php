@@ -78,7 +78,7 @@ class ContentController extends ViewController
             $history[$name] = $changes;
         }
 
-        return $this->render('cms/history.html.twig', [
+        return $this->render('@AdsharesCms/cms/history.html.twig', [
             'locale' => $locale,
             'history' => $history,
         ]);

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bootstrap image</title>
+    <link href="../assets/css/dialogs.css" type="text/css" rel="stylesheet" />
+    <script src="../lib/loadjs/loadjs.min.js"></script>
+</head>
+
+<body>
+
+    <!--=====================================
+    =            columns / rows             =
+    ======================================-->
+
+    <section id="col-rows" class="{{=it.sectionClass}}">
+        <div class="{{=it.choiceTitleClass}}">
+            <span>{{=it.cells}}</span>
+        </div>
+        <!-- Button trigger popover -->
+        <div class="text-center my-5">
+            <button type="button" id="cellpicker" class="btn btn-primary">{{=it.rowsCols}} <i class="bootstrap-icon-circle-down ms-2"></i></button>
+        </div>
+        <div class="popper px-4 pt-3 pb-2 bg-light border rounded shadow" id="my-popper">
+        </div>
+
+        <hr class="w-100 invisible my-0">
+        <div id="table-edit-disabled-info" class="my-2 d-none">
+            <p class="alert alert-info text-center small mb-0"><i class="bootstrap-icon-info me-2"></i> {{=it.tableEditDisabledInfo}}</p>
+        </div>
+    </section>
+
+    <!--=====================================
+    =            columns / rows             =
+    ======================================-->
+
+    <section class="{{=it.sectionClass}}">
+        <div class="{{=it.choiceTitleClass}}">
+            <span>{{=it.structure}}</span>
+        </div>
+        <div class="choice d-flex align-items-center">
+            <label for="horizontalHeader" class="me-3">{{=it.horizontalHeader}}</label>
+            <select class="form-select" data-prop="horizontalHeader" id="horizontalHeader">
+                <option value="">{{=it.no}}</option>
+                <option value="default">{{=it.default}}</option>
+                <option value="table-primary">primary</option>
+                <option value="table-secondary">secondary</option>
+                <option value="table-success">success</option>
+                <option value="table-danger">danger</option>
+                <option value="table-warning">warning</option>
+                <option value="table-info">info</option>
+                <option value="table-light">light</option>
+                <option value="table-dark">dark</option>
+            </select>
+        </div>
+        <div class="choice d-flex align-items-center">
+            <label class="me-3">{{=it.verticalHeader}}</label>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-sm" data-prop="verticalHeader" data-value="false">{{=it.no}}</button>
+                <button type="button" class="btn btn-sm" data-prop="verticalHeader" data-value="true">{{=it.yes}}</button>
+            </div>
+        </div>
+    </section>
+
+    <!--=====================================
+    =                style                  =
+    ======================================-->
+
+    <section class="{{=it.sectionClass}}">
+        <div class="{{=it.choiceTitleClass}}">
+            <span>{{=it.style}}</span>
+        </div>
+        <div class="choice d-flex align-items-center">
+            <label class="me-3">{{=it.style}}</label>
+            <select class="form-select" data-prop="tableStyle" id="tableStyle">
+                <option value="">{{=it.default}}</option>
+                <option value="table-primary">table-primary</option>
+                <option value="table-secondary">table-secondary</option>
+                <option value="table-success">table-success</option>
+                <option value="table-danger">table-danger</option>
+                <option value="table-warning">table-warning</option>
+                <option value="table-info">table-info</option>
+                <option value="table-light">table-light</option>
+                <option value="table-dark">table-dark</option>
+            </select>
+        </div>
+        <div class="choice d-flex align-items-center">
+            <label class="me-3">{{=it.tableHover}}</label>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-sm" data-prop="tableHover" data-value="false">{{=it.no}}</button>
+                <button type="button" class="btn btn-sm" data-prop="tableHover" data-value="true">{{=it.yes}}</button>
+            </div>
+        </div>
+        <div class="choice d-flex align-items-center">
+            <label class="me-3">{{=it.tableSmall}}</label>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-sm" data-prop="tableSmall" data-value="false">{{=it.no}}</button>
+                <button type="button" class="btn btn-sm" data-prop="tableSmall" data-value="true">{{=it.yes}}</button>
+            </div>
+        </div>
+        <div class="choice d-flex align-items-center">
+            <label class="me-3">{{=it.tableStriped}}</label>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-sm" data-prop="tableStriped" data-value="false">{{=it.no}}</button>
+                <button type="button" class="btn btn-sm" data-prop="tableStriped" data-value="true">{{=it.yes}}</button>
+            </div>
+        </div>
+    </section>
+
+    <!--=====================================
+    =               selector                =
+    ======================================-->
+
+    <section id="other" class="{{=it.sectionClass}}">
+        <div class="{{=it.choiceTitleClass}}">
+            <span>{{=it.others}}</span>
+        </div>
+        <div class="choice d-flex align-items-center">
+            <label for="caption" class="me-3" id="text-label">{{=it.caption}}</label>
+            <input type="text" value="" class="form-control form-control-sm" data-prop="caption" name="caption" id="caption">
+        </div>
+        <div class="choice d-flex align-items-center">
+            <label for="tableResponsive" class="me-3">{{=it.responsive}}</label>
+            <select class="form-select" data-prop="tableResponsive" id="tableResponsive">
+                <option value="">{{=it.no}}</option>
+                <option value="table-responsive">{{=it.alwaysResponsive}}</option>
+                <option value="table-responsive-sm">{{=it.responsiveSm}}</option>
+                <option value="table-responsive-md">{{=it.responsiveMd}}</option>
+                <option value="table-responsive-lg">{{=it.responsiveLg}}</option>
+                <option value="table-responsive-xl">{{=it.responsiveXl}}</option>
+            </select>
+        </div>
+        <div class="choice d-flex align-items-center">
+            <label for="tableBorder" class="me-3">{{=it.border}}</label>
+            <select class="form-select" data-prop="border" id="tableBorder">
+                <option value="">{{=it.default}}</option>
+                <option value="table-bordered">{{=it.bordered}}</option>
+                <option value="table-borderless">{{=it.borderless}}</option>
+            </select>
+        </div>
+    </section>
+
+    <!--=====================================
+    =                PREVIEW                =
+    ======================================-->
+
+    <section class="{{=it.previewSectionClass}}">
+        <div id="preview-title" class="{{=it.choiceTitleClass}}">
+            <span>{{=it.preview}}</span>
+        </div>
+        <div id="preview" class="{{=it.previewClass}}">
+            <div id="preview-content" class="text-center"></div>
+        </div>
+    </section>
+
+    <!--=====================================
+    =                 CODE                  =
+    ======================================-->
+
+    <section id="code" class="{{=it.codeSectionClass}}">
+        <div id="code-title" class="{{=it.choiceTitleClass}}">
+            <span>{{=it.code}}</span>
+        </div>
+        <div class="{{=it.codeClass}}" id="code-content">
+            <pre class="language-html text-start"></pre>
+        </div>
+    </section>
+
+    <div id="table-builder-wrapper" class="d-none">
+        <table id="table-builder">
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        <p id="cellNumbers" class="text-center"></p>
+    </div>
+
+    <script src="table.js"></script>
+</body>
+
+</html>

@@ -23,7 +23,7 @@ class ArticleController extends ViewController
 
         $articles = $repository->findByQuery($query, self::ITEMS_PER_PAGE, ($page - 1) * self::ITEMS_PER_PAGE);
 
-        return $this->render('cms/articles.html.twig', [
+        return $this->render('@AdsharesCms/article/articles.html.twig', [
             'query' => $query,
             'articles' => $articles,
             'currentPage' => $page,
@@ -37,7 +37,7 @@ class ArticleController extends ViewController
             throw new NotFoundHttpException(sprintf('Cannot find article "%s"', $id));
         }
 
-        return $this->render('cms/article.html.twig', [
+        return $this->render('@AdsharesCms/article/article.html.twig', [
             'article' => $article,
         ]);
     }
@@ -78,7 +78,7 @@ class ArticleController extends ViewController
             return $this->redirectToRoute('cms_article', ['id' => $article->getId(), 'name' => $article->getName()]);
         }
 
-        return $this->renderForm('cms/article-editor.html.twig', [
+        return $this->renderForm('@AdsharesCms/article/article-editor.html.twig', [
             'form' => $form,
         ]);
     }

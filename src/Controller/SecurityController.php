@@ -14,7 +14,7 @@ class SecurityController extends ViewController
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-        return $this->render('cms/login.html.twig', [
+        return $this->render('@AdsharesCms/security/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
         ]);

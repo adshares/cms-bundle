@@ -46,7 +46,7 @@ class Article
     private ?string $image = null;
 
     #[ORM\Column(type: "integer", nullable: true)]
-    private ?int $priority = null;
+    private ?int $no = null;
 
     #[ORM\Column(type: "datetime")]
     #[Gedmo\Timestampable(on: "create")]
@@ -178,14 +178,14 @@ class Article
         return $this;
     }
 
-    public function getPriority(): ?int
+    public function getNo(): ?int
     {
-        return $this->priority;
+        return $this->no;
     }
 
-    public function setPriority(?int $priority): Article
+    public function setNo(?int $no): Article
     {
-        $this->priority = $priority;
+        $this->no = $no;
         return $this;
     }
 

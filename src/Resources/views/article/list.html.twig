@@ -6,8 +6,16 @@
                 <a class="btn btn-sm btn-primary" href="{{ path('cms_article_new', { ref: app.request.requesturi }) }}"><i class="bi bi-plus-square"></i> Create new article</a>
             </div>
             <div class="row g-3 align-items-center justify-content-end w-75">
-                <div class="col-auto w-50">
-                    <input type="text" id="cmsArticlesSearch" class="form-control form-control-sm" name="query" value="{{ query }}">
+                <div class="col-auto">
+                    <select name="type" class="form-select form-select-sm">
+                        <option value="" {% if not selectedType %}selected{% endif %}>All types</option>
+                        {% for type in types %}
+                            <option value="{{ type.value }}" {% if selectedType == type %}selected{% endif %}>{{ type.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <input type="text" id="cmsArticlesSearch" class="form-control form-control-sm" name="query" value="{{ searchQuery }}">
                 </div>
                 <div class="col-auto">
                     <button class="btn btn-secondary btn-sm" type="submit"><i class="bi bi-search"></i></button>
@@ -42,7 +50,7 @@
                             <strong>{{ article.type.name }}</strong>
                             {% if article.tags is not empty %}|{% endif %}
                             {% for tag in article.tags %}
-                                <em>{{ tag.label }}</em>{% if not loop.last %},{% endif %}
+                                <a href="{{ path('cms_articles', { tag: tag.value, _ref: app.request.query.get('_ref') }) }}"><em>{{ tag.label }}</em></a>{% if not loop.last %},{% endif %}
                             {% endfor %}
                         </div>
                         <div>

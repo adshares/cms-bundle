@@ -3,7 +3,7 @@
 namespace Adshares\CmsBundle\Form\Type;
 
 use Adshares\CmsBundle\Entity\ArticleTag;
-use Adshares\CmsBundle\Entity\ArticleType as EntityArticleType;
+use Adshares\CmsBundle\Entity\ArticleType as ArticleTypeEnum;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
@@ -20,12 +20,12 @@ class ArticleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $isArticle = EntityArticleType::Article === $options['data']->getType();
-        $isFAQ = EntityArticleType::FAQ === $options['data']->getType();
+        $isArticle = ArticleTypeEnum::Article === $options['data']->getType();
+        $isFAQ = ArticleTypeEnum::FAQ === $options['data']->getType();
 
         $builder
             ->add('type', EnumType::class, [
-                'class' => EntityArticleType::class,
+                'class' => ArticleTypeEnum::class,
             ])
             ->add('tags', EnumType::class, [
                 'multiple' => true,
@@ -48,8 +48,9 @@ class ArticleType extends AbstractType
             ->add('name', TextType::class, [
                 'attr' => ['readonly' => true],
             ])
-            ->add('priority', IntegerType::class, [
+            ->add('no', IntegerType::class, [
                 'disabled' => $isArticle,
+                'label' => 'No.'
             ])
             ->add('image', FileType::class, [
                 'mapped' => false,

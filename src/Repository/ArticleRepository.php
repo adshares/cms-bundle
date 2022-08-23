@@ -41,16 +41,20 @@ class ArticleRepository extends ServiceEntityRepository
         }
     }
 
-    public function createTypeQueryBuilder(ArticleType $type, ?ArticleTag $tag = null): QueryBuilder
+    public function createTypeQueryBuilder(?ArticleType $type = null, ?ArticleTag $tag = null): QueryBuilder
     {
-        $query = $this->createQueryBuilder('a')
-            ->where('a.type = :type')
-            ->setParameter('type', $type);
+        $query = $this->createQueryBuilder('a');
+
+        if (null !== $type) {
+            $query->where('a.type = :type')
+                ->setParameter('type', $type);
+        }
 
         if (null !== $tag) {
             $query->andWhere('JSON_CONTAINS(a.tags, :tag, \'$\') = 1')
                 ->setParameter('tag', sprintf('"%s"', $tag->value));
         }
+
         return $query;
     }
 
@@ -61,7 +65,7 @@ class ArticleRepository extends ServiceEntityRepository
     {
         return $this->createTypeQueryBuilder($type, $tag)
             ->setMaxResults($limit)
-            ->orderBy('a.priority', 'DESC')
+            ->orderBy('a.no', 'ASC')
             ->getQuery()
             ->getResult();
     }
@@ -76,16 +80,20 @@ class ArticleRepository extends ServiceEntityRepository
             ->setParameter('date', new DateTimeImmutable('-3 days'))
             ->setMaxResults($limit)
             ->addOrderBy('a.startAt', 'ASC')
-            ->addOrderBy('a.priority', 'DESC')
+            ->addOrderBy('a.no', 'ASC')
             ->getQuery()
             ->getResult();
     }
 
-    public function findByQuery(string $query, ?int $limit = null, ?int $offset = null): Paginator
-    {
-        $query = $this->createQueryBuilder('a')
-            ->where('a.title LIKE :query')
-            ->orWhere('a.content LIKE :query')
+    public function findByQuery(
+        string $query,
+        ?ArticleType $type = null,
+        ?ArticleTag $tag = null,
+        ?int $limit = null,
+        ?int $offset = null
+    ): Paginator {
+        $query = $this->createTypeQueryBuilder($type, $tag)
+            ->andWhere('a.title LIKE :query OR a.content LIKE :query')
             ->setParameter('query', sprintf('%%%s%%', $query))
             ->setMaxResults($limit)
             ->setFirstResult($offset)

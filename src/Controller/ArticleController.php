@@ -4,6 +4,8 @@ namespace Adshares\CmsBundle\Controller;
 
 use Adshares\CmsBundle\Cms\FileUploader;
 use Adshares\CmsBundle\Entity\Article;
+use Adshares\CmsBundle\Entity\ArticleTag;
+use Adshares\CmsBundle\Entity\ArticleType as ArticleTypeEnum;
 use Adshares\CmsBundle\Form\Type\ArticleType;
 use Adshares\CmsBundle\Repository\ArticleRepository;
 use DateTimeImmutable;
@@ -19,15 +21,25 @@ class ArticleController extends ViewController
     public function index(Request $request, ArticleRepository $repository): Response
     {
         $query = $request->get('query', '');
+        $type = ArticleTypeEnum::tryFrom($request->get('type', null));
+        $tag = ArticleTag::tryFrom($request->get('tag', null));
         $page = max(1, (int)$request->get('page', 1));
 
-        $articles = $repository->findByQuery($query, self::ITEMS_PER_PAGE, ($page - 1) * self::ITEMS_PER_PAGE);
+        $articles = $repository->findByQuery(
+            $query,
+            $type,
+            $tag,
+            self::ITEMS_PER_PAGE,
+            ($page - 1) * self::ITEMS_PER_PAGE
+        );
 
         return $this->render('@AdsharesCms/article/articles.html.twig', [
-            'query' => $query,
+            'searchQuery' => $query,
             'articles' => $articles,
             'currentPage' => $page,
             'pages' => ceil($articles->count() / self::ITEMS_PER_PAGE),
+            'types' => ArticleTypeEnum::cases(),
+            'selectedType' => $type,
         ]);
     }
 

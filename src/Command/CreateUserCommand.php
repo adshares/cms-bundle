@@ -31,6 +31,7 @@ class CreateUserCommand extends Command
     {
         $this
             ->addArgument('email', InputArgument::OPTIONAL, 'User email address')
+            ->addArgument('name', InputArgument::OPTIONAL, 'User name')
             ->addArgument('password', InputArgument::OPTIONAL, 'User password')
             ->addOption('admin', null, InputOption::VALUE_NONE, 'Add ADMIN role')
             ->addOption('editor', null, InputOption::VALUE_NONE, 'Add EDITOR role');
@@ -45,6 +46,7 @@ class CreateUserCommand extends Command
             throw new RuntimeException('Invalid email address.');
         }
         $user = $this->userRepository->findByEmail($email);
+        $name = $input->getArgument('name');
         $password = $input->getArgument('password');
         $role = 'USER';
         if ($input->getOption('admin')) {
@@ -54,14 +56,21 @@ class CreateUserCommand extends Command
         }
 
         if (null === $user) {
+            $name = $name ?? $io->ask('Name', substr($email, 0, strpos($email, '@')));
+            if (empty($name)) {
+                throw new RuntimeException('Name cannot be empty.');
+            }
             $random = str_replace(['+', '/', '='], ['x', 'y', ''], base64_encode(random_bytes(8)));
             $password = $password ?? $io->ask('Password', $random);
             if (empty($password)) {
                 throw new RuntimeException('Password cannot be empty.');
             }
-            $user = $this->userRepository->createUser($email, $password, ['ROLE_' . $role]);
+            $user = $this->userRepository->createUser($email, $name, $password, ['ROLE_' . $role]);
             $action = 'created';
         } else {
+            if (!empty($name)) {
+                $user->setName($name);
+            }
             if (!empty($password)) {
                 $user->setPassword($this->passwordHasher->hashPassword($user, $password));
             }
@@ -71,7 +80,7 @@ class CreateUserCommand extends Command
         }
 
         $io->success([
-            sprintf('%s %s has been %s', $role, $user->getEmail(), $action),
+            sprintf('%s %s (%s) has been %s', $role, $user->getEmail(), $user->getName(), $action),
             sprintf('Password: %s', !empty($password) ? $password : '[Not changed]'),
         ]);
 

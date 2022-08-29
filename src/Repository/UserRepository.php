@@ -62,10 +62,11 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
 
-    public function createUser(string $email, string $password, array $roles = []): User
+    public function createUser(string $email, string $name, string $password, array $roles = []): User
     {
         $user = new User();
         $user->setEmail($email);
+        $user->setName($name);
         $user->setPassword($this->passwordHasher->hashPassword($user, $password));
         $user->setRoles($roles);
 

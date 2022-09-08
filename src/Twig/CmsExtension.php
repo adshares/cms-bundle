@@ -147,7 +147,7 @@ final class CmsExtension extends AbstractExtension implements GlobalsInterface
 
     private function isArticlePage(): bool
     {
-        return str_starts_with($this->cms->getRoute(), 'cms_article');
+        return str_starts_with((string)$this->cms->getRoute(), 'cms_article');
     }
 
     private function isPreviewPage(): bool

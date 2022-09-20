@@ -1,4 +1,5 @@
 import $ from 'jquery'
+window.jQuery = $
 
 /* Import TinyMCE */
 import tinymce from 'tinymce'

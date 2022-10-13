@@ -79,7 +79,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->andWhere('a.startAt >= :date')
             ->setParameter('date', new DateTimeImmutable('-3 days'))
             ->setMaxResults($limit)
-            ->addOrderBy('a.startAt', 'ASC')
+            ->addOrderBy('a.startAt', 'DESC')
             ->addOrderBy('a.no', 'ASC')
             ->getQuery()
             ->getResult();
@@ -97,6 +97,8 @@ class ArticleRepository extends ServiceEntityRepository
             ->setParameter('query', sprintf('%%%s%%', $query))
             ->setMaxResults($limit)
             ->setFirstResult($offset)
+            ->addOrderBy('a.startAt', 'DESC')
+            ->addOrderBy('a.no', 'ASC')
             ->getQuery();
 
         return new Paginator($query, false);

@@ -1,4 +1,5 @@
 import $ from 'jquery'
+
 window.jQuery = $
 
 /* Import TinyMCE */
@@ -139,7 +140,7 @@ function initRollbackButton (button) {
   })
 }
 
-function initDeleteButton(button) {
+function initDeleteButton (button) {
   button.click(function () {
 
     if (!confirm('Are you sure you want to delete the entity?')) {
@@ -290,30 +291,41 @@ function initArticleEditor (content) {
   })
 
   $('select#article_type').change(function () {
-    const articlePriority = $('input#article_priority')
+    const articleNo = $('input#article_no')
     const articleStartAt = $('input#article_startAt')
     const articleEndAt = $('input#article_endAt')
+    const articleImage = $('input#article_image')
+    const articleVideo = $('input#article_video')
 
-    const isArticle = 'article' === $(this).val()
+    const isArticle = 'article' === $(this).val() || 'general' === $(this).val() || 'tutorial' === $(this).val() || 'short' === $(this).val()
     const isFAQ = 'faq' === $(this).val()
-    if (isArticle) {
-      articlePriority.attr('disabled', true).data('val', articlePriority.val()).val(null)
+    const isTerm = 'term' === $(this).val()
+
+    if (isArticle || isTerm) {
+      articleNo.attr('disabled', true).data('val', articleNo.val()).val(null)
     } else {
-      articlePriority.attr('disabled', false).val(articlePriority.val() || articlePriority.data('val'))
+      articleNo.attr('disabled', false).val(articleNo.val() || articleNo.data('val'))
     }
-    if (isFAQ) {
+    if (isFAQ || isTerm) {
       articleStartAt.attr('disabled', true).data('val', articleStartAt.val()).val(null)
     } else {
       articleStartAt.attr('disabled', false).val(articleStartAt.val() || articleStartAt.data('val'))
     }
-    if (isArticle || isFAQ) {
+    if (isArticle || isFAQ || isTerm) {
       articleEndAt.attr('disabled', true).data('val', articleEndAt.val()).val(null)
     } else {
       articleEndAt.attr('disabled', false).val(articleEndAt.val() || articleEndAt.data('val'))
     }
+    if (isFAQ || isTerm) {
+      articleImage.attr('disabled', true)
+      articleVideo.attr('disabled', true).data('val', articleVideo.val()).val(null)
+    } else {
+      articleImage.attr('disabled', false)
+      articleVideo.attr('disabled', false).val(articleVideo.val() || articleVideo.data('val'))
+    }
   })
 
-  const maxNameLength = 128
+  const maxNameLength = 64
   $('input#article_title').keyup(function () {
     let name = $(this).val()
     name = name.trim().toLowerCase().replace(/[^0-9a-z]/g, '-')
@@ -329,6 +341,15 @@ function initArticleEditor (content) {
       name = shortName.substring(0, shortName.length - 1)
     }
     $('input#article_name').val(name)
+  })
+
+  const ytRegExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/
+  $('input#article_video').keyup(function () {
+    let url = $(this).val()
+    const match = url.match(ytRegExp)
+    if (match && 11 === match[7].length) {
+      $(this).val(match[7])
+    }
   })
 
 }

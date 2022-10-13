@@ -4,16 +4,19 @@ namespace Adshares\CmsBundle\Entity;
 
 enum ArticleTag: string
 {
-    case Ecosystem = 'ecosystem';
-    case ADS = 'ads';
-    case Blockchain = 'blockchain';
-    case Wallet = 'wallet';
-    case Protocol = 'protocol';
-    case Applications = 'applications';
+    case AdTech = 'AdTech';
+    case Announcement = 'Announcement';
     case AdServer = 'adserver';
-    case Metaverse = 'metaverse';
+    case Application = 'application';
+    case Blockchain = 'blockchain';
+    case Coin = 'coin';
     case Community = 'community';
+    case Ecosystem = 'ecosystem';
     case Media = 'media';
+    case Metaverse = 'metaverse';
+    case Protocol = 'protocol';
+    case Technical = 'Technical';
+    case Wallet = 'wallet';
 
     public function label(): string
     {

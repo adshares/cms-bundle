@@ -65,7 +65,9 @@
                 </div>
                 <div class="col-4">
                     {% if article.image %}
-                        <img class="w-100" src="{{ article.image }}" />
+                        <div class="ratio ratio-21x9">
+                            {{ img(article.image, 350, 150, article.title) }}
+                        </div>
                     {% endif %}
                 </div>
             </div>

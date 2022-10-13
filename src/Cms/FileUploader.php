@@ -8,7 +8,6 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 class FileUploader
 {
@@ -17,7 +16,6 @@ class FileUploader
 
     public function __construct(
         private readonly string $publicDirectory,
-        private readonly SluggerInterface $slugger,
         private readonly Packages $packages,
         private readonly LoggerInterface $logger,
     ) {

@@ -4,6 +4,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use Adshares\CmsBundle\Cms\Cms;
 use Adshares\CmsBundle\Cms\FileUploader;
+use Adshares\CmsBundle\Cms\ImageProcessor;
 use Adshares\CmsBundle\Command\CreateUserCommand;
 use Adshares\CmsBundle\Controller\ArticleController;
 use Adshares\CmsBundle\Controller\AssetController;
@@ -74,11 +75,14 @@ return static function (ContainerConfigurator $container) {
         ->set('cms.file_uploader', FileUploader::class)
             ->args([
                 param('kernel.project_dir') . DIRECTORY_SEPARATOR . 'public',
-                service(SluggerInterface::class),
                 service(Packages::class),
                 service(LoggerInterface::class),
             ])
             ->alias(FileUploader::class, 'cms.file_uploader')
+
+        ->set('cms.image_processor', ImageProcessor::class)
+        ->args([])
+        ->alias(ImageProcessor::class, 'cms.image_processor')
 
         ->set(ContentRepository::class, ContentRepository::class)
             ->args([
@@ -119,6 +123,7 @@ return static function (ContainerConfigurator $container) {
             ->args([
                 service(Packages::class),
                 service(ParameterBagInterface::class),
+                service(ImageProcessor::class),
             ])
             ->tag('twig.extension')
             ->alias(AssetExtension::class, 'twig.extension.asset')

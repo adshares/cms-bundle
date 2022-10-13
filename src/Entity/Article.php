@@ -6,6 +6,7 @@ use Adshares\CmsBundle\Repository\ArticleRepository;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(ArticleRepository::class)]
 #[Gedmo\SoftDeleteable(fieldName: "deletedAt", timeAware: false, hardDelete: true)]
@@ -44,6 +45,10 @@ class Article
 
     #[ORM\Column(type: "string", length: 64, nullable: true)]
     private ?string $image = null;
+
+    #[ORM\Column(type: "string", length: 16, nullable: true)]
+    #[Assert\Regex('/^[^#&?]{11}$/')]
+    private ?string $video = null;
 
     #[ORM\Column(type: "integer", nullable: true)]
     private ?int $no = null;
@@ -158,13 +163,18 @@ class Article
         return $this;
     }
 
-    public function getShortform(): string
+    public function getShortForm(): string
     {
         $matches = [];
         if (preg_match('/<p>(.*)<\/p>/i', $this->content, $matches)) {
             return $matches[1];
         }
         return htmlspecialchars(substr($this->content, 0, 256)) . '…';
+    }
+
+    public function getReadingLength(): int
+    {
+        return ceil(str_word_count(strip_tags($this->title . $this->content)) / 250);
     }
 
     public function getImage(): ?string
@@ -175,6 +185,17 @@ class Article
     public function setImage(?string $image): Article
     {
         $this->image = $image;
+        return $this;
+    }
+
+    public function getVideo(): ?string
+    {
+        return $this->video;
+    }
+
+    public function setVideo(?string $video): Article
+    {
+        $this->video = $video;
         return $this;
     }
 

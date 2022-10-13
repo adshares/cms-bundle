@@ -16,6 +16,7 @@
                 {% for tag in article.tags %}
                     <em>{{ tag.label }}</em>{% if not loop.last %},{% endif %}
                 {% endfor %}
+                | {{ article.readingLength }} min read
             </div>
             <div>
                 {% if article.startAt %}
@@ -37,7 +38,12 @@
         <h2 class="mt-3">{{ article.title | raw }}</h2>
         {% if article.image %}
             <div class="my-5">
-                <img class="w-100" src="{{ article.image }}" />
+                <img class="w-100" src="{{ article.image }}" alt="{{ article.title }}" />
+            </div>
+        {% endif %}
+        {% if article.video %}
+            <div class="my-5 ratio ratio-16x9">
+                <iframe src="https://www.youtube.com/embed/{{ article.video }}" title="YouTube video player" allow=" encrypted-media" allowfullscreen></iframe>
             </div>
         {% endif %}
         <div>

@@ -46,7 +46,7 @@ class ArticleType extends AbstractType
             ])
             ->add('title', TextType::class)
             ->add('name', TextType::class, [
-                'attr' => ['readonly' => true],
+                'label' => 'Name (URL)',
             ])
             ->add('no', IntegerType::class, [
                 'disabled' => $isArticle,
@@ -67,8 +67,11 @@ class ArticleType extends AbstractType
                     ])
                 ],
             ])
+            ->add('video', TextType::class, [
+                'required' => false,
+            ])
             ->add('content', TextareaType::class, [
-                'attr' => ['rows' => 20],
+                'attr' => ['rows' => 40],
             ])
             ->add('save', SubmitType::class, ['label' => $options['edit_mode'] ? 'Save article' : 'Create article']);
     }

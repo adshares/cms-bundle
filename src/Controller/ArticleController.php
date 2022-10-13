@@ -6,6 +6,7 @@ use Adshares\CmsBundle\Cms\FileUploader;
 use Adshares\CmsBundle\Entity\Article;
 use Adshares\CmsBundle\Entity\ArticleTag;
 use Adshares\CmsBundle\Entity\ArticleType as ArticleTypeEnum;
+use Adshares\CmsBundle\Entity\User;
 use Adshares\CmsBundle\Form\Type\ArticleType;
 use Adshares\CmsBundle\Repository\ArticleRepository;
 use DateTimeImmutable;
@@ -70,7 +71,9 @@ class ArticleController extends ViewController
         } else {
             $article = new Article();
             $article->setStartAt(new DateTimeImmutable());
-            $article->setAuthor($user);
+            if ($user instanceof User) {
+                $article->setAuthor($user);
+            }
         }
 
         $form = $this->createForm(ArticleType::class, $article, [

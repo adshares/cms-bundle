@@ -17,21 +17,4 @@ enum ArticleTag: string
     case Protocol = 'protocol';
     case Technical = 'Technical';
     case Wallet = 'wallet';
-
-    public function label(): string
-    {
-        return match ($this) {
-            self::Ecosystem => 'Ecosystem/Fundamentals',
-            default => $this->name,
-        };
-    }
-
-    public static function options(): array
-    {
-        $options = [];
-        foreach (self::cases() as $case) {
-            $options[$case->label()] = $case->value;
-        }
-        return $options;
-    }
 }

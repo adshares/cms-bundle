@@ -28,8 +28,9 @@ class ArticleController extends ViewController
 
         $articles = $repository->findByQuery(
             $query,
-            $type,
-            $tag,
+            [$type],
+            [$tag],
+            [],
             self::ITEMS_PER_PAGE,
             ($page - 1) * self::ITEMS_PER_PAGE
         );

@@ -41,18 +41,31 @@ class ArticleRepository extends ServiceEntityRepository
         }
     }
 
-    public function createTypeQueryBuilder(?ArticleType $type = null, ?ArticleTag $tag = null): QueryBuilder
+    public function createTypeQueryBuilder(array $types = [], array $tags = [], array $authors = []): QueryBuilder
     {
         $query = $this->createQueryBuilder('a');
 
-        if (null !== $type) {
-            $query->where('a.type = :type')
-                ->setParameter('type', $type);
+        $types = array_filter($types);
+        if (!empty($types)) {
+            $query->andWhere('a.type IN (:types)')
+                ->setParameter('types', $types);
         }
 
-        if (null !== $tag) {
-            $query->andWhere('JSON_CONTAINS(a.tags, :tag, \'$\') = 1')
-                ->setParameter('tag', sprintf('"%s"', $tag->value));
+        $tags = array_filter($tags);
+        if (!empty($tags)) {
+            $list = [];
+            /** @var ArticleTag $tag */
+            foreach ($tags as $key => $tag) {
+                $list[] = 'JSON_CONTAINS(a.tags, :tag' . $key . ', \'$\') = 1';
+                $query->setParameter('tag' . $key, sprintf('"%s"', $tag->value));
+            }
+            $query->andWhere(implode(' OR ', $list));
+        }
+
+        $authors = array_filter($authors);
+        if (!empty($authors)) {
+            $query->andWhere('a.author IN (:authors)')
+                ->setParameter('authors', $authors);
         }
 
         return $query;
@@ -63,7 +76,7 @@ class ArticleRepository extends ServiceEntityRepository
      */
     public function findByType(ArticleType $type, ?ArticleTag $tag = null, ?int $limit = null): array
     {
-        return $this->createTypeQueryBuilder($type, $tag)
+        return $this->createTypeQueryBuilder([$type], [$tag])
             ->setMaxResults($limit)
             ->orderBy('a.no', 'ASC')
             ->getQuery()
@@ -75,7 +88,7 @@ class ArticleRepository extends ServiceEntityRepository
      */
     public function findRecentByType(ArticleType $type, ?ArticleTag $tag = null, ?int $limit = null): array
     {
-        return $this->createTypeQueryBuilder($type, $tag)
+        return $this->createTypeQueryBuilder([$type], [$tag])
             ->andWhere('a.startAt >= :date')
             ->setParameter('date', new DateTimeImmutable('-3 days'))
             ->setMaxResults($limit)
@@ -87,14 +100,32 @@ class ArticleRepository extends ServiceEntityRepository
 
     public function findByQuery(
         string $query,
-        ?ArticleType $type = null,
-        ?ArticleTag $tag = null,
+        array $types = [],
+        array $tags = [],
+        array $authors = [],
         ?int $limit = null,
         ?int $offset = null
     ): Paginator {
-        $query = $this->createTypeQueryBuilder($type, $tag)
+        $query = $this->createTypeQueryBuilder($types, $tags, $authors)
             ->andWhere('a.title LIKE :query OR a.content LIKE :query')
             ->setParameter('query', sprintf('%%%s%%', $query))
+            ->setMaxResults($limit)
+            ->setFirstResult($offset)
+            ->addOrderBy('a.startAt', 'DESC')
+            ->addOrderBy('a.no', 'ASC')
+            ->getQuery();
+
+        return new Paginator($query, false);
+    }
+
+    public function findRelated(
+        Article $article,
+        ?int $limit = null,
+        ?int $offset = null
+    ): Paginator {
+        $query = $this->createTypeQueryBuilder([$article->getType()], $article->getTags())
+            ->andWhere('a.id != :id')
+            ->setParameter('id', $article->getId())
             ->setMaxResults($limit)
             ->setFirstResult($offset)
             ->addOrderBy('a.startAt', 'DESC')

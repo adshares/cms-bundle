@@ -39,7 +39,7 @@ class ArticleController extends ViewController
             'searchQuery' => $query,
             'articles' => $articles,
             'currentPage' => $page,
-            'pages' => ceil($articles->count() / self::ITEMS_PER_PAGE),
+            'pages' => max(1, ceil($articles->count() / self::ITEMS_PER_PAGE)),
             'types' => ArticleTypeEnum::cases(),
             'selectedType' => $type,
         ]);

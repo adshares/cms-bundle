@@ -41,13 +41,16 @@ class ArticleRepository extends ServiceEntityRepository
         }
     }
 
-    public function createTypeQueryBuilder(array $types = [], array $tags = [], array $authors = []): QueryBuilder
-    {
-        $query = $this->createQueryBuilder('a');
-
+    private function addFiltersToQueryBuilder(
+        QueryBuilder $builder,
+        array $types = [],
+        array $tags = [],
+        array $authors = [],
+        ?string $query = null
+    ): QueryBuilder {
         $types = array_filter($types);
         if (!empty($types)) {
-            $query->andWhere('a.type IN (:types)')
+            $builder->andWhere('a.type IN (:types)')
                 ->setParameter('types', $types);
         }
 
@@ -57,18 +60,32 @@ class ArticleRepository extends ServiceEntityRepository
             /** @var ArticleTag $tag */
             foreach ($tags as $key => $tag) {
                 $list[] = 'JSON_CONTAINS(a.tags, :tag' . $key . ', \'$\') = 1';
-                $query->setParameter('tag' . $key, sprintf('"%s"', $tag->value));
+                $builder->setParameter('tag' . $key, sprintf('"%s"', $tag->value));
             }
-            $query->andWhere(implode(' OR ', $list));
+            $builder->andWhere(implode(' OR ', $list));
         }
 
         $authors = array_filter($authors);
         if (!empty($authors)) {
-            $query->andWhere('a.author IN (:authors)')
+            $builder->andWhere('a.author IN (:authors)')
                 ->setParameter('authors', $authors);
         }
 
-        return $query;
+        if (!empty($query)) {
+            $builder->andWhere('a.title LIKE :query OR a.content LIKE :query')
+                ->setParameter('query', sprintf('%%%s%%', $query));
+        }
+
+        return $builder;
+    }
+
+    private function createFilteredQueryBuilder(
+        array $types = [],
+        array $tags = [],
+        array $authors = [],
+        ?string $query = null
+    ): QueryBuilder {
+        return $this->addFiltersToQueryBuilder($this->createQueryBuilder('a'), $types, $tags, $authors, $query);
     }
 
     /**
@@ -76,7 +93,7 @@ class ArticleRepository extends ServiceEntityRepository
      */
     public function findByType(ArticleType $type, ?ArticleTag $tag = null, ?int $limit = null): array
     {
-        return $this->createTypeQueryBuilder([$type], [$tag])
+        return $this->createFilteredQueryBuilder([$type], [$tag])
             ->setMaxResults($limit)
             ->orderBy('a.no', 'ASC')
             ->getQuery()
@@ -88,7 +105,7 @@ class ArticleRepository extends ServiceEntityRepository
      */
     public function findRecentByType(ArticleType $type, ?ArticleTag $tag = null, ?int $limit = null): array
     {
-        return $this->createTypeQueryBuilder([$type], [$tag])
+        return $this->createFilteredQueryBuilder([$type], [$tag])
             ->andWhere('a.startAt >= :date')
             ->setParameter('date', new DateTimeImmutable('-3 days'))
             ->setMaxResults($limit)
@@ -106,16 +123,14 @@ class ArticleRepository extends ServiceEntityRepository
         ?int $limit = null,
         ?int $offset = null
     ): Paginator {
-        $query = $this->createTypeQueryBuilder($types, $tags, $authors)
-            ->andWhere('a.title LIKE :query OR a.content LIKE :query')
-            ->setParameter('query', sprintf('%%%s%%', $query))
+        $sql = $this->createFilteredQueryBuilder($types, $tags, $authors, $query)
             ->setMaxResults($limit)
             ->setFirstResult($offset)
             ->addOrderBy('a.startAt', 'DESC')
             ->addOrderBy('a.no', 'ASC')
             ->getQuery();
 
-        return new Paginator($query, false);
+        return new Paginator($sql, false);
     }
 
     public function findRelated(
@@ -123,7 +138,7 @@ class ArticleRepository extends ServiceEntityRepository
         ?int $limit = null,
         ?int $offset = null
     ): Paginator {
-        $query = $this->createTypeQueryBuilder([$article->getType()], $article->getTags())
+        $sql = $this->createFilteredQueryBuilder([$article->getType()], $article->getTags())
             ->andWhere('a.id != :id')
             ->setParameter('id', $article->getId())
             ->setMaxResults($limit)
@@ -132,6 +147,41 @@ class ArticleRepository extends ServiceEntityRepository
             ->addOrderBy('a.no', 'ASC')
             ->getQuery();
 
-        return new Paginator($query, false);
+        return new Paginator($sql, false);
+    }
+
+    public function findPopular(
+        array $types = [],
+        array $tags = [],
+        ?int $limit = null,
+        ?int $offset = null
+    ): Paginator {
+        $sql = $this->createFilteredQueryBuilder($types, $tags)
+            ->setMaxResults($limit)
+            ->setFirstResult($offset)
+            ->addOrderBy('RAND()')
+            ->getQuery();
+
+        return new Paginator($sql, false);
+    }
+
+    public function findTags(
+        array $types = [],
+        array $authors = []
+    ): array {
+        $sql = $this->createFilteredQueryBuilder($types, [], $authors)
+            ->select('a.tags')->distinct()
+            ->getQuery();
+
+        $tags = [];
+        foreach ($sql->getResult() as $row) {
+            foreach ($row['tags'] ?? [] as $tag) {
+                if (!array_key_exists($tag, $tags)) {
+                    $tags[$tag] = ArticleTag::tryFrom($tag);
+                }
+            }
+        }
+
+        return $tags;
     }
 }

@@ -172,7 +172,7 @@ class Article
         }
         $content = strip_tags($content);
         $suffix = strlen($content) > $length ? '…' : '';
-        return htmlspecialchars(substr($content, 0, $length)) . $suffix;
+        return substr($content, 0, $length) . $suffix;
     }
 
     public function getReadingLength(): int

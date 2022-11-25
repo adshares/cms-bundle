@@ -163,13 +163,16 @@ class Article
         return $this;
     }
 
-    public function getShortForm(): string
+    public function getShortForm($length = 256): string
     {
+        $content = $this->content;
         $matches = [];
-        if (preg_match('/<p>(.*)<\/p>/i', $this->content, $matches)) {
-            return strip_tags($matches[1]);
+        if (preg_match('/<p[^>]*>(.*)<\/p>/i', $this->content, $matches)) {
+            $content = $matches[1];
         }
-        return htmlspecialchars(substr(strip_tags($this->content), 0, 256)) . '…';
+        $content = strip_tags($content);
+        $suffix = strlen($content) > $length ? '…' : '';
+        return htmlspecialchars(substr($content, 0, $length)) . $suffix;
     }
 
     public function getReadingLength(): int

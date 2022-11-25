@@ -167,9 +167,9 @@ class Article
     {
         $matches = [];
         if (preg_match('/<p>(.*)<\/p>/i', $this->content, $matches)) {
-            return $matches[1];
+            return strip_tags($matches[1]);
         }
-        return htmlspecialchars(substr($this->content, 0, 256)) . '…';
+        return htmlspecialchars(substr(strip_tags($this->content), 0, 256)) . '…';
     }
 
     public function getReadingLength(): int

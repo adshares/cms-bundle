@@ -88,6 +88,12 @@ class Article
         return array_map(fn(string $tag) => ArticleTag::from($tag), $this->tags);
     }
 
+    public function getTag(): ?ArticleTag
+    {
+        $tags = $this->getTags();
+        return reset($tags);
+    }
+
     /**
      * @param ArticleTag[] $tags
      */

@@ -135,10 +135,14 @@ class ArticleRepository extends ServiceEntityRepository
 
     public function findRelated(
         Article $article,
+        ?array $types = null,
         ?int $limit = null,
         ?int $offset = null
     ): Paginator {
-        $sql = $this->createFilteredQueryBuilder([$article->getType()], $article->getTags())
+        if (null === $types) {
+            $types = [$article->getType()];
+        }
+        $sql = $this->createFilteredQueryBuilder($types, $article->getTags())
             ->andWhere('a.id != :id')
             ->setParameter('id', $article->getId())
             ->setMaxResults($limit)

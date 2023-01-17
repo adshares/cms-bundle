@@ -35,4 +35,14 @@ enum ArticleTag: string
         }
         return $options;
     }
+
+    public function slug(): string
+    {
+        return $this->value;
+    }
+
+    public static function tryFromSlug(string $slug): ?ArticleTag
+    {
+        return self::tryFrom($slug);
+    }
 }

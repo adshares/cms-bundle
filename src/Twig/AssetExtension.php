@@ -35,15 +35,16 @@ final class AssetExtension extends AbstractExtension
         return file_get_contents($path);
     }
 
-    public function getAssetBase64(string $name, ?string $packageName = null): ?string
+    public function getAssetBase64(string $name, ?string $packageName = null, ?string $alt = null): ?string
     {
         if (null === ($path = $this->getAssetPath($name, $packageName))) {
             return null;
         }
         return sprintf(
-            '<img src="data:%s;base64,%s"/ >',
+            '<img src="data:%s;base64,%s" alt="%s">',
             mime_content_type($path),
-            base64_encode(file_get_contents($path))
+            base64_encode(file_get_contents($path)),
+            $alt ?? $name
         );
     }
 
@@ -58,7 +59,7 @@ final class AssetExtension extends AbstractExtension
         }
 
         return sprintf(
-            '<img src="%s" alt="%s"/ >',
+            '<img src="%s" alt="%s">',
             $destinationFilename,
             $alt
         );

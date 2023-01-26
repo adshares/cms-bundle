@@ -101,6 +101,7 @@ const editorOptions = {
   style_formats_merge: true,
   style_formats_autohide: true,
   convert_urls: false,
+  extended_valid_elements : "svg[*],defs[*],pattern[*],desc[*],metadata[*],g[*],mask[*],path[*],line[*],marker[*],rect[*],circle[*],ellipse[*],polygon[*],polyline[*],linearGradient[*],radialGradient[*],stop[*],image[*],view[*],text[*],textPath[*],title[*],tspan[*],glyph[*],symbol[*],switch[*],use[*]",
 }
 
 $(document).ready(function () {

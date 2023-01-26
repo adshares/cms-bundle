@@ -1,7 +1,5 @@
 import $ from 'jquery'
 
-window.jQuery = $
-
 /* Import TinyMCE */
 import tinymce from 'tinymce'
 
@@ -19,7 +17,9 @@ import 'tinymce/plugins/link'
 import 'tinymce/plugins/lists'
 import '../plugins/bootstrap/plugin'
 
-import '@tinymce/tinymce-jquery/dist/tinymce-jquery'
+window.jQuery = $
+
+import('@tinymce/tinymce-jquery/dist/tinymce-jquery')
 
 const CMS_NAME = 'cms-name'
 const CMS_LOCALE = 'cms-locale'

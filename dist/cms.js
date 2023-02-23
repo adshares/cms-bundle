@@ -291,16 +291,16 @@ function initArticleEditor (content) {
     }
   })
 
-  $('select#article_type').change(function () {
+  const articleTypeChanged = (input) => {
     const articleNo = $('input#article_no')
     const articleStartAt = $('input#article_startAt')
     const articleEndAt = $('input#article_endAt')
     const articleImage = $('input#article_image')
     const articleVideo = $('input#article_video')
 
-    const isArticle = 'article' === $(this).val() || 'general' === $(this).val() || 'tutorial' === $(this).val() || 'short' === $(this).val()
-    const isFAQ = 'faq' === $(this).val()
-    const isTerm = 'term' === $(this).val()
+    const isArticle = 'article' === input.val() || 'general' === input.val() || 'tutorial' === input.val() || 'short' === input.val()
+    const isFAQ = 'faq' === input.val()
+    const isTerm = 'term' === input.val()
 
     if (isArticle || isTerm) {
       articleNo.attr('disabled', true).data('val', articleNo.val()).val(null)
@@ -324,7 +324,9 @@ function initArticleEditor (content) {
       articleImage.attr('disabled', false)
       articleVideo.attr('disabled', false).val(articleVideo.val() || articleVideo.data('val'))
     }
-  })
+  }
+  $('select#article_type').change(function() { articleTypeChanged($(this)) })
+  articleTypeChanged($('select#article_type'))
 
   const maxNameLength = 64
   $('input#article_title').keyup(function () {

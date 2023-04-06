@@ -166,9 +166,10 @@ class ArticleRepository extends ServiceEntityRepository
         array $tags = [],
         array $authors = [],
         ?int $limit = null,
-        ?int $offset = null
+        ?int $offset = null,
+        bool $onlyPublished = true,
     ): Paginator {
-        $sql = $this->createFilteredQueryBuilder($types, $tags, $authors, $query)
+        $sql = $this->createFilteredQueryBuilder($types, $tags, $authors, $query, $onlyPublished)
             ->setMaxResults($limit)
             ->setFirstResult($offset)
             ->addOrderBy('a.startAt', 'DESC')

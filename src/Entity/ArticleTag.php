@@ -7,6 +7,7 @@ enum ArticleTag: string
     case AdTech = 'adtech';
     case Announcement = 'announcement';
     case AdServer = 'adserver';
+    case Agency = 'agency';
     case Application = 'application';
     case Blockchain = 'blockchain';
     case Coin = 'coin';

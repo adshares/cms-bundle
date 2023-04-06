@@ -6,6 +6,7 @@ use Adshares\CmsBundle\Entity\Article;
 use Adshares\CmsBundle\Entity\ArticleTag;
 use Adshares\CmsBundle\Entity\ArticleType;
 use DateTimeImmutable;
+use DateTimeInterface;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
@@ -46,7 +47,8 @@ class ArticleRepository extends ServiceEntityRepository
         array $types = [],
         array $tags = [],
         array $authors = [],
-        ?string $query = null
+        ?string $query = null,
+        bool $onlyPublished = true,
     ): QueryBuilder {
         $types = array_filter($types);
         if (!empty($types)) {
@@ -63,6 +65,12 @@ class ArticleRepository extends ServiceEntityRepository
                 $builder->setParameter('tag' . $key, sprintf('"%s"', $tag->value));
             }
             $builder->andWhere(implode(' OR ', $list));
+        }
+
+        if ($onlyPublished) {
+            $builder->andWhere('(JSON_CONTAINS(a.tags, :announcement, \'$\') = 0 OR a.startAt <= :now)');
+            $builder->setParameter('announcement', sprintf('"%s"', ArticleTag::Announcement->value));
+            $builder->setParameter('now', new DateTimeImmutable());
         }
 
         $authors = array_filter($authors);
@@ -83,9 +91,17 @@ class ArticleRepository extends ServiceEntityRepository
         array $types = [],
         array $tags = [],
         array $authors = [],
-        ?string $query = null
+        ?string $query = null,
+        bool $onlyPublished = true,
     ): QueryBuilder {
-        return $this->addFiltersToQueryBuilder($this->createQueryBuilder('a'), $types, $tags, $authors, $query);
+        return $this->addFiltersToQueryBuilder(
+            $this->createQueryBuilder('a'),
+            $types,
+            $tags,
+            $authors,
+            $query,
+            $onlyPublished
+        );
     }
 
     /**
@@ -101,13 +117,42 @@ class ArticleRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param ArticleType[] $types
+     * @param ArticleTag[] $tags
      * @return Article[]
      */
-    public function findRecentByType(ArticleType $type, ?ArticleTag $tag = null, ?int $limit = null): array
-    {
-        return $this->createFilteredQueryBuilder([$type], [$tag])
+    public function findRecent(
+        DateTimeInterface $date,
+        array $types = [],
+        array $tags = [],
+        array $authors = [],
+        ?int $limit = null
+    ): array {
+        return $this->createFilteredQueryBuilder($types, $tags, $authors)
             ->andWhere('a.startAt >= :date')
-            ->setParameter('date', new DateTimeImmutable('-3 days'))
+            ->setParameter('date', $date)
+            ->setMaxResults($limit)
+            ->addOrderBy('a.startAt', 'DESC')
+            ->addOrderBy('a.no', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * /**
+     * @param ArticleType[] $types
+     * @param ArticleTag[] $tags
+     * @return Article[]
+     */
+    public function findUnpublished(
+        array $types = [],
+        array $tags = [],
+        array $authors = [],
+        ?int $limit = null
+    ): array {
+        return $this->createFilteredQueryBuilder($types, $tags, $authors, null, false)
+            ->andWhere('a.startAt > :date')
+            ->setParameter('date', new DateTimeImmutable())
             ->setMaxResults($limit)
             ->addOrderBy('a.startAt', 'DESC')
             ->addOrderBy('a.no', 'ASC')

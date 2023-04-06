@@ -154,7 +154,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->andWhere('a.startAt > :date')
             ->setParameter('date', new DateTimeImmutable())
             ->setMaxResults($limit)
-            ->addOrderBy('a.startAt', 'DESC')
+            ->addOrderBy('a.startAt', 'ASC')
             ->addOrderBy('a.no', 'ASC')
             ->getQuery()
             ->getResult();

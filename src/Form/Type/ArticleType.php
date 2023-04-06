@@ -35,7 +35,7 @@ class ArticleType extends AbstractType
             ])
             ->add('startAt', DateTimeType::class, [
                 'widget' => 'single_text',
-                'with_seconds' => false,
+                'with_seconds' => true,
                 'disabled' => $isFAQ,
             ])
             ->add('endAt', DateTimeType::class, [

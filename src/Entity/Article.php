@@ -173,7 +173,7 @@ class Article
     {
         $content = $this->content;
         $matches = [];
-        if (preg_match('/<p[^>]*>(.*)<\/p>/i', $this->content, $matches)) {
+        if (preg_match('/<p[^>]*>(.+)<\/p>/i', $this->content, $matches)) {
             $content = $matches[1];
         }
         $content = strip_tags($content);

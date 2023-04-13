@@ -107,10 +107,15 @@ class ArticleRepository extends ServiceEntityRepository
     /**
      * @return Article[]
      */
-    public function findByType(ArticleType $type, ?ArticleTag $tag = null, ?int $limit = null): array
-    {
+    public function findByType(
+        ArticleType $type,
+        ?ArticleTag $tag = null,
+        ?int $limit = null,
+        ?int $offset = null
+    ): array {
         return $this->createFilteredQueryBuilder([$type], [$tag])
             ->setMaxResults($limit)
+            ->setFirstResult($offset)
             ->orderBy('a.no', 'ASC')
             ->getQuery()
             ->getResult();
@@ -126,12 +131,14 @@ class ArticleRepository extends ServiceEntityRepository
         array $types = [],
         array $tags = [],
         array $authors = [],
-        ?int $limit = null
+        ?int $limit = null,
+        ?int $offset = null
     ): array {
         return $this->createFilteredQueryBuilder($types, $tags, $authors)
             ->andWhere('a.startAt >= :date')
             ->setParameter('date', $date)
             ->setMaxResults($limit)
+            ->setFirstResult($offset)
             ->addOrderBy('a.startAt', 'DESC')
             ->addOrderBy('a.no', 'ASC')
             ->getQuery()
@@ -148,16 +155,37 @@ class ArticleRepository extends ServiceEntityRepository
         array $types = [],
         array $tags = [],
         array $authors = [],
-        ?int $limit = null
+        ?int $limit = null,
+        ?int $offset = null
     ): array {
         return $this->createFilteredQueryBuilder($types, $tags, $authors, null, false)
             ->andWhere('a.startAt > :date')
             ->setParameter('date', new DateTimeImmutable())
             ->setMaxResults($limit)
+            ->setFirstResult($offset)
             ->addOrderBy('a.startAt', 'ASC')
             ->addOrderBy('a.no', 'ASC')
             ->getQuery()
             ->getResult();
+    }
+
+    public function findArticles(
+        array $types = [],
+        array $tags = [],
+        array $authors = [],
+        bool $onlyPublished = true,
+        ?int $limit = null,
+        ?int $offset = null,
+    ): Paginator {
+        return $this->findByQuery(
+            '',
+            $types,
+            $tags,
+            $authors,
+            $onlyPublished,
+            $limit,
+            $offset
+        );
     }
 
     public function findByQuery(
@@ -165,9 +193,9 @@ class ArticleRepository extends ServiceEntityRepository
         array $types = [],
         array $tags = [],
         array $authors = [],
+        bool $onlyPublished = true,
         ?int $limit = null,
         ?int $offset = null,
-        bool $onlyPublished = true,
     ): Paginator {
         $sql = $this->createFilteredQueryBuilder($types, $tags, $authors, $query, $onlyPublished)
             ->setMaxResults($limit)

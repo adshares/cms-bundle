@@ -31,9 +31,9 @@ class ArticleController extends ViewController
             [$type],
             [$tag],
             [],
+            false,
             self::ITEMS_PER_PAGE,
-            ($page - 1) * self::ITEMS_PER_PAGE,
-            false
+            ($page - 1) * self::ITEMS_PER_PAGE
         );
 
         return $this->render('@AdsharesCms/article/articles.html.twig', [

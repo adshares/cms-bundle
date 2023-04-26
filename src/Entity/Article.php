@@ -239,4 +239,29 @@ class Article
         $this->deletedAt = null;
         return $this;
     }
+
+    public function getSchemaOrgType(): string
+    {
+        if (in_array(ArticleTag::Announcement, $this->getTags())) {
+            return 'NewsArticle';
+        }
+        if (in_array($this->type, [
+                ArticleType::Article,
+                ArticleType::Event,
+            ]
+        )) {
+            return 'SocialMediaPosting';
+        }
+        if (in_array($this->type, [
+                ArticleType::Tutorial,
+                ArticleType::General,
+                ArticleType::Short,
+                ArticleType::Term,
+                ArticleType::FAQ
+            ]
+        )) {
+            return 'TechArticle';
+        }
+        return 'Article';
+    }
 }

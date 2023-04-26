@@ -48,7 +48,7 @@ final class AssetExtension extends AbstractExtension
         );
     }
 
-    public function getImage(string $filename, int $width, int $height, ?string $alt = null): ?string
+    public function getImage(string $filename, int $width, int $height, ?string $alt = null, bool $itemprop = false): ?string
     {
         $sourcePath = $this->getAssetPath($filename);
         $destinationFilename = preg_replace('/^(.*)\.([^.]+)$/', sprintf('$1_%d_%d.$2', $width, $height), $filename);
@@ -59,9 +59,10 @@ final class AssetExtension extends AbstractExtension
         }
 
         return sprintf(
-            '<img src="%s" alt="%s">',
+            '<img src="%s" alt="%s" %s>',
             $destinationFilename,
-            $alt
+            $alt,
+            $itemprop ? 'itemprop="image"' : '',
         );
     }
 

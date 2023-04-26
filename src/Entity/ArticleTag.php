@@ -24,6 +24,7 @@ enum ArticleTag: string
     {
         return match ($this) {
             self::AdTech => 'Ad Tech',
+            self::AdServer => 'Ad Server',
             default => $this->name,
         };
     }

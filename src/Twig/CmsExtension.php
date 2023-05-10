@@ -8,6 +8,7 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
+use Twig\TwigFunction;
 
 final class CmsExtension extends AbstractExtension implements GlobalsInterface
 {
@@ -21,7 +22,16 @@ final class CmsExtension extends AbstractExtension implements GlobalsInterface
 
     public function getTokenParsers(): array
     {
-        return [new ContentTagTokenParser()];
+        return [
+            new ContentTagTokenParser(),
+        ];
+    }
+
+    public function getFunctions(): array
+    {
+        return [
+            new TwigFunction('content', [$this, 'getContent'], ['is_safe' => ['all']]),
+        ];
     }
 
     public function getContent(string $name, string $default, array $parameters = []): string
@@ -42,15 +52,30 @@ final class CmsExtension extends AbstractExtension implements GlobalsInterface
                     (int)$preview[$name]
                 );
                 if (null !== $historicalContent) {
-                    $content = $this->translator->trans($historicalContent->getValue(), $parameters, null, $this->translator->getLocale());
+                    $content = $this->translator->trans(
+                        $historicalContent->getValue(),
+                        $parameters,
+                        null,
+                        $this->translator->getLocale()
+                    );
                 }
             }
         }
 
         if (null === $content) {
-            $content = $this->translator->trans($name, $editMode ? [] : $parameters, null, $this->translator->getLocale());
+            $content = $this->translator->trans(
+                $name,
+                $editMode ? [] : $parameters,
+                null,
+                $this->translator->getLocale()
+            );
             if ($content === $name) {
-                $content = $this->translator->trans($default, $editMode ? [] : $parameters, null, $this->translator->getLocale());
+                $content = $this->translator->trans(
+                    $default,
+                    $editMode ? [] : $parameters,
+                    null,
+                    $this->translator->getLocale()
+                );
             }
         }
 
@@ -80,29 +105,46 @@ final class CmsExtension extends AbstractExtension implements GlobalsInterface
                 'historyMode' => true,
                 'appUrl' => $this->generateUrl($ref, $params),
             ]);
-        } else if ($this->isArticlePage()) {
-            $globals = array_merge($globals, [
-                'articleMode' => true,
-                'appUrl' => $this->generateUrl($ref, $params) ?? $params['ref'] ?? '/',
-            ]);
-        } else if ($this->isPreviewPage()) {
-            unset($params['_preview']);
-            $globals = array_merge($globals, [
-                'previewMode' => true,
-                'appUrl' => $ref,
-                'saveUrl' => $this->generateUrl('cms_content_rollback'),
-                'refUrl' => $this->getCmsUrl($this->cms->getRoute(), $params),
-                'state' => $this->cms->getPreviewParams(),
-            ]);
-        } else if (null !== $this->cms->getRoute()) {
-            $globals = array_merge($globals, [
-                'editMode' => $this->cms->isEditMode(),
-                'appUrl' => $this->cms->isEditMode() ? $this->getAppUrl($this->cms->getRoute(), $this->cms->getRouteParams()) : null,
-                'cmsUrl' => $this->getCmsUrl($this->cms->getRoute(), $this->cms->getRouteParams()),
-                'saveUrl' => $this->generateUrl('cms_content_patch'),
-                'historyUrl' => $this->getUrlWithRef('cms_content_history', $this->cms->getRoute(), $this->cms->getRouteParams()),
-                'articlesUrl' => $this->getUrlWithRef('cms_articles', $this->cms->getRoute(), $this->cms->getRouteParams()),
-            ]);
+        } else {
+            if ($this->isArticlePage()) {
+                $globals = array_merge($globals, [
+                    'articleMode' => true,
+                    'appUrl' => $this->generateUrl($ref, $params) ?? $params['ref'] ?? '/',
+                ]);
+            } else {
+                if ($this->isPreviewPage()) {
+                    unset($params['_preview']);
+                    $globals = array_merge($globals, [
+                        'previewMode' => true,
+                        'appUrl' => $ref,
+                        'saveUrl' => $this->generateUrl('cms_content_rollback'),
+                        'refUrl' => $this->getCmsUrl($this->cms->getRoute(), $params),
+                        'state' => $this->cms->getPreviewParams(),
+                    ]);
+                } else {
+                    if (null !== $this->cms->getRoute()) {
+                        $globals = array_merge($globals, [
+                            'editMode' => $this->cms->isEditMode(),
+                            'appUrl' => $this->cms->isEditMode() ? $this->getAppUrl(
+                                $this->cms->getRoute(),
+                                $this->cms->getRouteParams()
+                            ) : null,
+                            'cmsUrl' => $this->getCmsUrl($this->cms->getRoute(), $this->cms->getRouteParams()),
+                            'saveUrl' => $this->generateUrl('cms_content_patch'),
+                            'historyUrl' => $this->getUrlWithRef(
+                                'cms_content_history',
+                                $this->cms->getRoute(),
+                                $this->cms->getRouteParams()
+                            ),
+                            'articlesUrl' => $this->getUrlWithRef(
+                                'cms_articles',
+                                $this->cms->getRoute(),
+                                $this->cms->getRouteParams()
+                            ),
+                        ]);
+                    }
+                }
+            }
         }
 
         return ['cms' => $globals];
@@ -111,12 +153,12 @@ final class CmsExtension extends AbstractExtension implements GlobalsInterface
     public function getAppUrl(string $route, array $routeParams = []): ?string
     {
         return $this->generateUrl(
-                preg_replace('/^_cms_/', '_i18n_', $route),
-                $routeParams
-            ) ?? $this->generateUrl(
-                preg_replace('/^_cms_/', '', $route),
-                $routeParams
-            );
+            preg_replace('/^_cms_/', '_i18n_', $route),
+            $routeParams
+        ) ?? $this->generateUrl(
+            preg_replace('/^_cms_/', '', $route),
+            $routeParams
+        );
     }
 
     public function getCmsUrl(string $route, array $routeParams = []): ?string

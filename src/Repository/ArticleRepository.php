@@ -68,8 +68,8 @@ class ArticleRepository extends ServiceEntityRepository
         }
 
         if ($onlyPublished) {
-            $builder->andWhere('(JSON_CONTAINS(a.tags, :announcement, \'$\') = 0 OR a.startAt <= :now)');
-            $builder->setParameter('announcement', sprintf('"%s"', ArticleTag::Announcement->value));
+            $builder->andWhere('(a.type = :event OR a.startAt <= :now)');
+            $builder->setParameter('event', ArticleType::Event);
             $builder->setParameter('now', new DateTimeImmutable());
         }
 

@@ -68,7 +68,7 @@ class ArticleRepository extends ServiceEntityRepository
         }
 
         if ($onlyPublished) {
-            $builder->andWhere('(a.type = :event OR a.startAt <= :now)');
+            $builder->andWhere('(a.type = :event OR a.startAt IS NULL OR a.startAt <= :now)');
             $builder->setParameter('event', ArticleType::Event);
             $builder->setParameter('now', new DateTimeImmutable());
         }
